@@ -5,6 +5,10 @@ começa a próxima. As fases 1 a 3 bastam para receber a Bela Bartók.
 
 **Fase atual: Fase 1 · Base segura (iniciada em 13/10/2026).**
 
+> **Onde paramos (13/10/2026):** fase 1 pronta no computador, com o visual novo da área da equipe
+> (barra lateral, painel, ficha em duas colunas, histórico recolhido). Falta: a Rose testar e aprovar,
+> salvar a versão (commit) e publicar na Hostinger, que depende da Preparação (GitHub, Hostinger, Resend, backup).
+
 ---
 
 ## Antes da fase 1 · Preparação (sem código)
@@ -24,23 +28,23 @@ começa a próxima. As fases 1 a 3 bastam para receber a Bela Bartók.
 entrar como esse cliente e ver uma tela Início vazia.
 
 Tarefas:
-- [ ] Criar o projeto Laravel nesta pasta; Pest, Pint, Larastan; Tailwind + Alpine CSP via Vite
-- [ ] Idioma `pt_BR`, fuso `America/Sao_Paulo`, `Model::shouldBeStrict()` fora de produção
-- [ ] Layout base com a identidade ([`10-identidade-visual.md`](10-identidade-visual.md)) e componentes Blade (botão, cartão, campo, aviso, contador de revisões)
-- [ ] Middleware `CabecalhosSeguranca` (SEG-31, SEG-32) e `robots.txt`
-- [ ] Tabelas `users`, `convites`, `clientes`, `atividades` ([`04-modelo-de-dados.md`](04-modelo-de-dados.md))
-- [ ] Fortify: login do cliente (C1), "lembrar de mim", esqueci/redefinir senha
-- [ ] Área da equipe no caminho secreto com 404 (SEG-01), login E1 e 2FA obrigatório E2 (SEG-02)
-- [ ] Comando `ponte:criar-equipe`
-- [ ] Clientes: lista E5, ficha E6, formulário com campos criptografados (RN-06, SEG-51) e contrato criptografado (RN-07, SEG-26)
-- [ ] "Enviar acesso": convite com token em hash, 72 h, uso único (RN-02, RN-03, SEG-08) + e-mail
-- [ ] Criar senha C2, boas-vindas C3, Início C4 vazio, Minha conta C9, Privacidade
-- [ ] Limites de tentativas (SEG-05) e alerta de falhas
-- [ ] Registro de atividades (RN-41) com bloqueio de update/delete (SEG-14)
+- [x] Criar o projeto Laravel nesta pasta; Pest, Pint, Larastan; Tailwind + Alpine CSP via Vite
+- [x] Idioma `pt_BR`, fuso `America/Sao_Paulo`, `Model::shouldBeStrict()` fora de produção
+- [x] Layout base com a identidade ([`10-identidade-visual.md`](10-identidade-visual.md)) e componentes Blade (botão, cartão, campo, aviso, contador de revisões)
+- [x] Middleware `CabecalhosSeguranca` (SEG-31, SEG-32) e `robots.txt`
+- [x] Tabelas `users`, `convites`, `clientes`, `atividades` ([`04-modelo-de-dados.md`](04-modelo-de-dados.md))
+- [x] Fortify: login do cliente (C1), "lembrar de mim", esqueci/redefinir senha
+- [x] Área da equipe no caminho secreto com 404 (SEG-01), login E1 e 2FA obrigatório E2 (SEG-02)
+- [x] Comando `ponte:criar-equipe`
+- [x] Clientes: lista E5, ficha E6, formulário com campos criptografados (RN-06, SEG-51) e contrato criptografado (RN-07, SEG-26)
+- [x] "Enviar acesso": convite com token em hash, 72 h, uso único (RN-02, RN-03, SEG-08) + e-mail
+- [x] Criar senha C2, boas-vindas C3, Início C4 vazio, Minha conta C9, Privacidade
+- [x] Limites de tentativas (SEG-05) e alerta de falhas
+- [x] Registro de atividades (RN-41) com bloqueio de update/delete (SEG-14)
 - [ ] Publicação automática e primeira publicação em `ponte.dobra9.com.br`
 
 Pronto quando:
-- [ ] Todos os testes de [`11-testes.md`](11-testes.md) da fase 1 passam
+- [x] Todos os testes de [`11-testes.md`](11-testes.md) da fase 1 passam (82, em 13/10/2026)
 - [ ] securityheaders.com dá A+ no portal publicado
 - [ ] A Rose testou no celular e aprovou
 

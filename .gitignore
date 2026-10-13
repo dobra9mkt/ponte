@@ -48,3 +48,20 @@ backups/
 .DS_Store
 Thumbs.db
 ~$*
+
+# Laravel e ferramentas
+*.log
+.env.backup
+.env.production
+.phpactor.json
+/storage/*.key
+/storage/pail
+/public/fonts-manifest.dev.json
+_ide_helper.php
+/.codex
+/.cursor/
+/.zed
+/.nova
+
+# Plano em PDF (fica só no computador; o conteúdo está em docs/)
+/Plano do Portal Ponte.pdf

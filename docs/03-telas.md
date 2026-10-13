@@ -148,21 +148,31 @@ Trocar senha, ver e-mail de acesso, sair de todos os aparelhos, link para a pág
 Tela própria, sem logo grande nem nada que identifique "admin". Depois da senha, pede o código de 6
 dígitos do aplicativo (ou um código de recuperação). Primeira vez: QR code para configurar.
 
+### Estrutura da área da equipe
+
+Barra lateral fixa à esquerda (no celular, menu que desliza): Painel, Calendário, Clientes, Modelos
+(cada item aparece quando a fase dele estiver pronta) e, no rodapé, a conta da pessoa e Sair. Cada
+tela tem um cabeçalho com título, link de voltar e as ações principais à direita. Telas de detalhe
+usam duas colunas: conteúdo no centro e um painel lateral com situação, ações e histórico.
+
 ### E3 · Painel
 ```
-┌───────────────────────────────────────────────────────────────┐
-│ Ponte · Equipe       Painel  Calendário  Clientes  Modelos  ⚙ │
-├───────────────────┬───────────────────────┬───────────────────┤
-│ ESPERA POR NÓS (3)│ ESPERA PELO CLIENTE(2)│ ESTA SEMANA (4)   │
-│ Ajustes: Layout   │ Direção visual        │ Seg 09 Propostas  │
-│ Bela Bartók · rev2│ Bela Bartók · 2 d.ú.  │ Qua 11 Layout     │
-│ Fotos recebidas   │ Fotos e horários      │ …                 │
-│ Bela Bartók       │ Bela Bartók · vence   │                   │
-│ Orçar ajuste extra│                       │                   │
-├───────────────────┴───────────────────────┴───────────────────┤
-│ AVISOS: Rebranding Bela Bartók concluído há 30 dias → Arquivar │
-└───────────────────────────────────────────────────────────────┘
+┌──────────┬────────────────────────────────────────────────────┐
+│ Ponte    │ Bom dia, Rose · terça, 13 de outubro  [+ Cliente]  │
+│          ├───────────────┬───────────────┬────────────────────┤
+│ ▣ Painel │ ESPERA POR NÓS│ ESPERA CLIENTE│ ESTA SEMANA        │
+│ ◷ Agenda │ Ajustes: Layou│ Direção visual│ Seg 09 Propostas   │
+│ ☺ Client.│ Bela · rev 2  │ Bela · 2 d.ú. │ Qua 11 Layout      │
+│ ☰ Modelos├───────────────┴───────────────┼────────────────────┤
+│          │ CLIENTES (situação do acesso) │ AGUARDANDO SENHA   │
+│          │ ● Bela Bartók   Senha criada  │ ● Outro            │
+│ ──────── │ ● Outro         Sem acesso    │   Convite enviado  │
+│ Rose  ⚙  │                               │                    │
+│ Sair     │ AVISOS: … concluído há 30 dias → Arquivar          │
+└──────────┴────────────────────────────────────────────────────┘
 ```
+Na fase 1 o painel mostra os números, os clientes e quem ainda não criou a senha; as três listas chegam na fase 3.
+O histórico de atividades (RN-41) não fica no painel: aparece recolhido na ficha do cliente ("Histórico (N) ▸") e só a equipe vê.
 
 ### E4 · Calendário
 Mês e semana; cada item = etapa com data prevista ou prazo do cliente; uma cor por cliente; clicar abre
@@ -172,6 +182,7 @@ a etapa. Filtro por cliente. (Sem arrastar no calendário na v1: datas mudam na 
 - Lista: empresa, contato, serviços ativos, situação do acesso (não enviado / enviado em DD/MM / ativo).
 - Ficha: dados do cadastro (RN-06), contrato anexado (RN-07, só equipe), botão **"Enviar acesso"** /
   "Reenviar acesso", serviços do cliente, botão **"Adicionar serviço"**, desativar, arquivar cliente.
+  A ficha não mostra quando o cliente entrou pela última vez (evita cara de vigilância).
 - Formulário novo/editar cliente: empresa*, contato*, e-mail*, telefone, endereço, observações, contrato (PDF).
 
 ### E7 · Adicionar serviço

@@ -1,0 +1,80 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/montserrat';
+@import '@fontsource-variable/inter';
+
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --color-navy: #071e3d;
+    --color-navy-2: #0b2a52;
+    --color-tec: #0f4c81;
+    --color-azul: #2563eb;
+    --color-azul-hover: #1d4ed8;
+    --color-azul-claro: #e6f0ff;
+    --color-azul-vivo: #60a5fa;
+    --color-off: #f1f5f9;
+    --color-texto: #26384d;
+    --color-mudo: #4f5f74;
+    --color-linha: #d5e1ee;
+    --color-teal: #0e9488;
+    --color-teal-vivo: #3cc6b7;
+    --color-ouro: #b68a16;
+    --color-ouro-claro: #e2b53f;
+    --color-alerta: #b42318;
+    --font-titulo: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+    --font-texto: 'Inter Variable', 'Inter', system-ui, sans-serif;
+    --radius-campo: 10px;
+    --radius-cartao: 16px;
+    --shadow-cartao: 0 1px 2px rgb(7 30 61 / 0.06), 0 8px 24px rgb(7 30 61 / 0.06);
+}
+
+@utility barra-aberta {
+    translate: 0 0 !important;
+}
+
+@layer base {
+    html {
+        font-size: 100%;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        @apply bg-off font-texto text-texto antialiased;
+        font-size: 1.0625rem;
+        line-height: 1.65;
+    }
+
+    h1, h2, h3 {
+        @apply font-titulo text-navy;
+        line-height: 1.25;
+    }
+
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-azul;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+@layer components {
+    .campo {
+        @apply block w-full min-h-11 rounded-campo border border-linha bg-white px-3.5 py-2.5 text-texto placeholder:text-mudo/70 transition focus:border-azul focus:ring-2 focus:ring-azul/25 focus:outline-none;
+    }
+
+    .campo-erro {
+        @apply border-alerta focus:border-alerta focus:ring-alerta/20;
+    }
+
+    .link {
+        @apply font-medium text-tec underline-offset-4 hover:underline;
+    }
+}

@@ -4,6 +4,9 @@ Mais recente primeiro. Cada mudança de regra ganha uma linha aqui antes de ir p
 
 | Data | Decisão | Quem |
 |---|---|---|
+| 13/10/2026 | Privacidade avisa que registramos entradas e ações no portal com IP e navegador; ficha do cliente deixa de mostrar o "último acesso" | Rose |
+| 13/10/2026 | Histórico de atividades discreto: recolhido na ficha do cliente e fora do painel | Rose |
+| 13/10/2026 | Área da equipe com barra lateral e telas de detalhe em duas colunas (conteúdo + painel lateral) | Rose |
 | 13/10/2026 | Pedido de ajuste com rascunho salvo sozinho e "Onde?" por item; não gasta revisão até enviar (RN-21, RN-21a) | Rose |
 | 13/10/2026 | Confirmação de revisão avisa que ela vale para o serviço inteiro e quantas restam (RN-22). Continuam 3 por frente | Rose |
 | 13/10/2026 | Prazo de resposta por etapa, padrão 3 dias úteis; 5 em "Mapa do site e textos" e "Site no link de teste" (RN-30) | Rose |
@@ -39,3 +42,6 @@ Mais recente primeiro. Cada mudança de regra ganha uma linha aqui antes de ir p
 |---|---|
 | Versão | Laravel 13 (estável em 13/10/2026), PHP 8.3 |
 | Ambiente local | Laragon (PHP 8.3, MySQL 8.4, Mailpit para ver os e-mails sem enviar). Desenvolvimento com SQLite em arquivo; testes com SQLite em memória; produção com MySQL |
+| Login e 2FA | Do Fortify usamos só o 2FA (código do aplicativo, QR, códigos de recuperação). Telas e rotas de entrar são nossas, separadas para cliente e equipe |
+| Convite e redefinição de senha | E-mails vão cifrados para a fila, para o link nunca ficar legível no banco |
+| PHPStan | Configuração em `phpstan.neon.dist` (o antivírus do computador bloqueia o nome `phpstan.neon`) |

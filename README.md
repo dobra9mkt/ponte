@@ -3,8 +3,7 @@
 Portal em **ponte.dobra9.com.br** onde o cliente acompanha o projeto, envia o que falta e aprova
 cada entrega, com **3 revisões por frente**. A equipe (Rose e Elias) administra por um caminho separado.
 
-> **Status:** planejamento aprovado. Nenhuma linha de código ainda.
-> O código só começa quando a Rose autorizar, pela fase 1 de [`docs/09-fases.md`](docs/09-fases.md).
+> **Status:** fase 1 (base segura) em construção. Ver [`docs/09-fases.md`](docs/09-fases.md).
 
 Plano original (documento vivo, com o diagrama): https://claude.ai/code/artifact/4a9964e9-061d-47bc-aafa-cec1eaea092a
 

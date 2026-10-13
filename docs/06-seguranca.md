@@ -86,7 +86,7 @@ Também: `robots.txt` com `Disallow: /`, sem sitemap, sem o caminho da equipe em
 |---|---|---|
 | SEG-50 | Guardar só o necessário | Campos de RN-06; nada de CPF/CNPJ (vai pela pendência e é apagado no arquivamento) |
 | SEG-51 | Campos pessoais criptografados | Cast `encrypted` em telefone, endereço, observações |
-| SEG-52 | Página de privacidade | `/privacidade`: o que é guardado, para quê, por quanto tempo, como pedir remoção |
+| SEG-52 | Página de privacidade | `/privacidade`: o que é guardado (inclusive o registro de entradas e ações com IP e navegador), para quê, por quanto tempo, como pedir remoção |
 | SEG-53 | Remoção de verdade | Arquivamento (RN-62..RN-66) apaga arquivos e linhas; backups expiram em até 30 dias |
 | SEG-54 | Cópias de segurança | Diárias, banco + arquivos, cifradas com senha, guardadas fora do servidor, retenção de 30 dias; restauração testada antes do 1º cliente e a cada 3 meses |
 | SEG-55 | Registro de atividades | RN-41, com IP e navegador |
