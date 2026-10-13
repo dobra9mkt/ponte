@@ -1,0 +1,92 @@
+# Formulário do briefing de marca (etapa "Briefing da marca", formulario: briefing-rebranding)
+# tipo: texto_curto | texto_longo | escolha_unica | escolha_multipla | escala (1 a 5) | arquivos
+# obrigatoria: false permite enviar sem responder
+# Revisar as perguntas com a Rose antes da fase 4.
+
+titulo: Briefing da marca
+introducao: >
+  Estas perguntas ajudam a gente a entender a sua empresa antes de desenhar qualquer coisa.
+  Não existe resposta certa: escreva como você falaria numa conversa. Dá para salvar e continuar depois.
+
+secoes:
+  - titulo: A empresa
+    perguntas:
+      - id: historia
+        tipo: texto_longo
+        obrigatoria: true
+        pergunta: Como a empresa começou e qual é a história dela até hoje?
+      - id: o_que_faz
+        tipo: texto_longo
+        obrigatoria: true
+        pergunta: Em poucas frases, o que vocês fazem e o que fazem melhor que os outros?
+      - id: valores
+        tipo: texto_longo
+        obrigatoria: false
+        pergunta: Quais três palavras você gostaria que as pessoas associassem à sua marca?
+      - id: por_que_mudar
+        tipo: texto_longo
+        obrigatoria: true
+        pergunta: Por que mudar a marca agora? O que incomoda na marca atual?
+      - id: manter
+        tipo: texto_longo
+        obrigatoria: false
+        pergunta: Existe algo na marca atual que precisa continuar (uma cor, um símbolo, o nome escrito de certo jeito)?
+
+  - titulo: Quem são seus clientes
+    perguntas:
+      - id: publico
+        tipo: texto_longo
+        obrigatoria: true
+        pergunta: Quem é o seu cliente típico? Idade, região, o que procura, como chega até vocês.
+      - id: publico_desejado
+        tipo: texto_longo
+        obrigatoria: false
+        pergunta: Existe um público que vocês ainda não atendem e gostariam de alcançar?
+      - id: concorrentes
+        tipo: texto_longo
+        obrigatoria: false
+        pergunta: Quem são os concorrentes ou empresas parecidas? Do que você gosta ou não gosta nelas?
+
+  - titulo: Gosto e estilo
+    perguntas:
+      - id: estilo
+        tipo: escolha_multipla
+        obrigatoria: true
+        pergunta: Como a nova marca deve parecer? Escolha até três.
+        opcoes: [Clássica, Moderna, Acolhedora, Divertida, Sofisticada, Jovem, Artística, Séria, Minimalista, Vibrante]
+      - id: tradicional_moderna
+        tipo: escala
+        obrigatoria: false
+        pergunta: "De 1 a 5: mais tradicional (1) ou mais moderna (5)?"
+      - id: sobria_colorida
+        tipo: escala
+        obrigatoria: false
+        pergunta: "De 1 a 5: mais sóbria (1) ou mais colorida (5)?"
+      - id: cores_gosta
+        tipo: texto_curto
+        obrigatoria: false
+        pergunta: Alguma cor que você adoraria ver na marca?
+      - id: cores_evitar
+        tipo: texto_curto
+        obrigatoria: false
+        pergunta: Alguma cor que não pode aparecer de jeito nenhum?
+      - id: marcas_admira
+        tipo: texto_longo
+        obrigatoria: false
+        pergunta: Cite marcas (de qualquer área) que você admira e diga o porquê.
+      - id: referencias
+        tipo: arquivos
+        obrigatoria: false
+        pergunta: Quer mandar imagens de referência? Logos, fotos, prints de que você gosta.
+
+  - titulo: Onde a marca vai aparecer
+    perguntas:
+      - id: aplicacoes
+        tipo: escolha_multipla
+        obrigatoria: true
+        pergunta: Onde a marca vai ser usada?
+        opcoes: [Site, Instagram, Facebook, WhatsApp, Fachada, Uniformes, Cartão de visita, Papelaria, Materiais impressos, Vídeos, Outro]
+      - id: observacoes
+        tipo: texto_longo
+        obrigatoria: false
+        pergunta: Mais alguma coisa que a gente precisa saber?

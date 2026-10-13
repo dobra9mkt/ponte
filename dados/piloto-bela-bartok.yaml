@@ -1,0 +1,45 @@
+# Cliente piloto: Escola de Música Bela Bartók
+# Para montar o projeto dela no portal (fase 2, teste; fechamento, real).
+# Fonte: proposta 10/2026 (BelaBartok_Proposta.pdf, na pasta NOVA DOBRA — não copiar para cá).
+# Dados de contato NÃO ficam neste arquivo: são cadastrados direto no portal (campos criptografados).
+
+cliente:
+  empresa: Escola de Música Bela Bartók
+
+meta: Site no ar até 18/12/2026, antes do recesso e das matrículas de janeiro/fevereiro de 2027.
+caminho_critico: >
+  A marca. Cada semana de atraso na escolha ou nas revisões empurra o layout e a publicação.
+  Se atrasar, publicar no início de janeiro, ainda antes do pico de matrículas.
+
+frentes:
+  - modelo: rebranding
+    inicio: 2026-11-03
+    prazo_final: 2026-12-04
+    etapas:                       # datas previstas (ajustar no portal, RN-12)
+      Briefing da marca: 2026-11-06
+      Direção visual: 2026-11-13
+      Duas propostas de marca: 2026-11-19
+      Ajustes na proposta escolhida: 2026-11-27
+      Manual da marca e arquivos: 2026-12-04
+
+  - modelo: site
+    inicio: 2026-11-03
+    prazo_final: 2026-12-18
+    depende_de: rebranding        # Layout só depois do manual da marca (RN-15)
+    ajustes_no_modelo:
+      - "Mapa do site e textos: 16 páginas — início, a escola e o Amur, 8 instrumentos, 4 bairros (Castelo, Alípio de Melo, Ouro Preto, Pampulha), cursos online e contato"
+      - "Acessos: Google e Wix (site antigo, para tirar do ar)"
+    etapas:
+      Acessos e dados do domínio: 2026-11-06
+      Medição inicial das buscas: 2026-11-06
+      Perfil do Google e cadastros corrigidos: 2026-11-13
+      Fotos, equipe, serviços e horários: 2026-11-13
+      Mapa do site e textos: 2026-11-27
+      Layout: 2026-12-11
+      Site no link de teste: 2026-12-18
+      Publicação: 2026-12-18
+      Relatório mensal: mensal a partir de janeiro de 2027
+
+para_depois:                       # entram no mesmo cadastro quando ela fechar
+  - Página de vendas dos cursos online (violão e teclado, Kiwify) e gestão de tráfego
+  - Sistema de gestão (substituir o Emusys)

@@ -1,0 +1,50 @@
+# Modelo de etapas: Rebranding
+# Lido pelo ModelosSeeder (fase 2). Editar aqui muda só serviços criados depois (RN-11).
+# tipo: pendencia_cliente | aprovacao | escolha | trabalho_equipe | entrega_final | recorrente
+# duracao_dias_uteis: usado para calcular as datas previstas (RN-13)
+# gasta_revisao: se um pedido de ajuste nesta etapa conta como revisão (RN-23)
+
+nome: Rebranding
+slug: rebranding
+revisoes_incluidas: 3
+descricao: Nova identidade visual — logo, cores, tipografia e manual da marca.
+
+etapas:
+  - titulo: Briefing da marca
+    tipo: pendencia_cliente
+    duracao_dias_uteis: 3
+    gasta_revisao: false
+    formulario: briefing-rebranding
+    descricao_cliente: >
+      Conte para nós a história da sua empresa, quem são seus clientes e o que você gosta ou não
+      gosta em marcas. Quanto mais detalhes, mais certeiras serão as propostas.
+
+  - titulo: Direção visual
+    tipo: aprovacao
+    duracao_dias_uteis: 5
+    gasta_revisao: false
+    descricao_cliente: >
+      Uma prancha com o "clima" da nova marca: referências de cores, formas e estilo. Aprovar a
+      direção não gasta revisão — é ela que garante que as propostas nasçam no caminho certo.
+
+  - titulo: Duas propostas de marca
+    tipo: escolha
+    duracao_dias_uteis: 5
+    gasta_revisao: false
+    descricao_cliente: >
+      Duas propostas completas (logo, cores e tipografia), com a nossa recomendação. Escolha uma
+      como base: os ajustes vêm na próxima etapa.
+
+  - titulo: Ajustes na proposta escolhida
+    tipo: aprovacao
+    duracao_dias_uteis: 5
+    gasta_revisao: true
+    descricao_cliente: >
+      Aqui você usa as suas revisões. Junte todos os ajustes em cada pedido.
+
+  - titulo: Manual da marca e arquivos
+    tipo: entrega_final
+    duracao_dias_uteis: 5
+    gasta_revisao: false
+    descricao_cliente: >
+      O manual com as regras de uso da marca e todos os arquivos finais, prontos para baixar.
