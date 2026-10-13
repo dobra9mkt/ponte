@@ -41,7 +41,12 @@ primeiro e registra em [`decisoes.md`](decisoes.md).
 - **RN-20** · Cada frente tem **3 revisões incluídas** (valor padrão do modelo, editável por frente
   pela equipe). A contagem vale para a frente inteira, não por etapa.
 - **RN-21** · Uma revisão = **um pacote** de ajustes enviado de uma vez (lista de itens + anexos opcionais).
-- **RN-22** · Antes de enviar, o cliente vê e confirma: "Você vai usar a revisão N de 3 do <frente>".
+  Cada item pode dizer **em que página ou parte** está.
+- **RN-21a** · O pacote é montado aos poucos: a lista fica salva como **rascunho** (um por etapa) e pode
+  ser completada em dias diferentes. Rascunho não gasta revisão nem avisa a equipe; só o envio
+  confirmado conta. Ao aprovar ou receber nova versão, o rascunho da etapa é descartado.
+- **RN-22** · Antes de enviar, o cliente vê e confirma: "Você vai usar a revisão N de 3 do <frente>",
+  com o aviso de que a revisão vale para o **serviço inteiro** e quantas restam depois dela.
 - **RN-23** · Só gasta revisão o pedido de ajuste em etapa com `gasta_revisao = true`. **Não gastam:**
   aprovar qualquer coisa, aprovar a direção visual, escolher uma proposta.
 - **RN-24** · A equipe pode marcar um pedido como **"correção nossa"** (erro da Dobra 9: link quebrado,
@@ -60,12 +65,16 @@ primeiro e registra em [`decisoes.md`](decisoes.md).
 
 ## Prazos e lembretes
 
-- **RN-30** · O cliente tem **3 dias úteis** para responder uma entrega ou pendência, contados a partir
-  do envio.
+- **RN-30** · O cliente tem um prazo em dias úteis para responder uma entrega ou pendência, contado a
+  partir do envio. O prazo é **de cada etapa** (`prazo_resposta_dias_uteis`, padrão **3**), vem do
+  modelo e pode ser mudado na frente. Ex.: 5 dias para "Mapa do site e textos" e "Site no link de teste".
 - **RN-31** · Lembrete por e-mail ao cliente no **2º dia útil** sem resposta, e outro quando o prazo
   vence. No máximo esses dois por entrega.
 - **RN-32** · O portal mostra quantos dias úteis a etapa está esperando pelo cliente, para ele e para a equipe.
 - **RN-33** · Toda segunda às 8h a equipe recebe o resumo da semana (o que vence, o que espera o cliente).
+- **RN-34** · Ao publicar uma entrega, liberar uma pendência ou mandar lembrete, a equipe tem o botão
+  **"Avisar no WhatsApp"**: abre o WhatsApp dela com o número do cliente e a mensagem pronta com o
+  link da etapa. Nada é enviado pelo portal; a equipe confere e envia.
 
 ## Aprovações e registro
 
@@ -74,6 +83,9 @@ primeiro e registra em [`decisoes.md`](decisoes.md).
 - **RN-41** · Toda ação relevante grava uma `Atividade` (entrada, envio de acesso, entrega publicada,
   aprovação, pedido de ajuste, correção nossa, download, arquivamento). Somente inserção.
 - **RN-42** · Depois de aprovada, a etapa não volta. Uma mudança depois disso é uma nova etapa ou ajuste extra.
+- **RN-43** · Uma etapa pode ter uma **confirmação antes de aprovar** (`confirmar_antes_de_aprovar`),
+  um texto que o cliente precisa marcar para o botão Aprovar funcionar. Ex.: no "Site no link de
+  teste": "Naveguei pelo site no celular e no computador."
 
 ## Arquivos
 

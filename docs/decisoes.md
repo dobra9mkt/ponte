@@ -4,6 +4,12 @@ Mais recente primeiro. Cada mudança de regra ganha uma linha aqui antes de ir p
 
 | Data | Decisão | Quem |
 |---|---|---|
+| 13/10/2026 | Pedido de ajuste com rascunho salvo sozinho e "Onde?" por item; não gasta revisão até enviar (RN-21, RN-21a) | Rose |
+| 13/10/2026 | Confirmação de revisão avisa que ela vale para o serviço inteiro e quantas restam (RN-22). Continuam 3 por frente | Rose |
+| 13/10/2026 | Prazo de resposta por etapa, padrão 3 dias úteis; 5 em "Mapa do site e textos" e "Site no link de teste" (RN-30) | Rose |
+| 13/10/2026 | Botão "Avisar no WhatsApp" para a equipe, com mensagem pronta; o portal não envia nada (RN-34) | Rose |
+| 13/10/2026 | Escolha de propostas no celular com abas e tela cheia | Rose |
+| 13/10/2026 | Confirmação antes de aprovar em etapas que pedem (ex.: site de teste) (RN-43) | Rose |
 | 13/10/2026 | Arquivamento 30 dias após concluir; quem baixa o pacote é a equipe, não o cliente | Rose |
 | 13/10/2026 | Contrato anexado visível só para a equipe (Rose e Elias) | Rose |
 | 13/10/2026 | Ao concluir, "Arquivar e remover": pacote baixado e dados apagados do servidor, para evitar vazamento | Rose |
@@ -26,3 +32,10 @@ Mais recente primeiro. Cada mudança de regra ganha uma linha aqui antes de ir p
 | Login e 2FA | Laravel Fortify com telas próprias |
 | Limite de arquivo | 50 MB; vídeos maiores por link |
 | Validade do convite | 72 horas |
+
+## Decisões técnicas da fase 1
+
+| Assunto | Decisão |
+|---|---|
+| Versão | Laravel 13 (estável em 13/10/2026), PHP 8.3 |
+| Ambiente local | Laragon (PHP 8.3, MySQL 8.4, Mailpit para ver os e-mails sem enviar). Desenvolvimento com SQLite em arquivo; testes com SQLite em memória; produção com MySQL |

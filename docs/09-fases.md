@@ -3,7 +3,7 @@
 Cinco fases e um fechamento. Cada fase termina com a Rose testando no navegador e aprovando; só então
 começa a próxima. As fases 1 a 3 bastam para receber a Bela Bartók.
 
-**Fase atual: nenhuma (aguardando autorização da Rose).**
+**Fase atual: Fase 1 · Base segura (iniciada em 13/10/2026).**
 
 ---
 
@@ -53,7 +53,7 @@ linha do tempo de cada serviço.
 
 Tarefas:
 - [ ] Tabelas `modelos`, `modelo_etapas`, `frentes`, `etapas`; enums `TipoEtapa`, `EstadoEtapa`
-- [ ] Seeder lendo `dados/modelos/*.yaml`
+- [ ] Seeder lendo `dados/modelos/*.yaml`, incluindo prazo de resposta e confirmação antes de aprovar (RN-30, RN-43)
 - [ ] Serviço `DiasUteis` com `config/feriados.php` (nacionais 2026–2027 + Belo Horizonte)
 - [ ] "Adicionar serviço" E7 com prévia das datas (RN-10, RN-11, RN-13)
 - [ ] Tela do serviço da equipe E8: reordenar, editar, adicionar, ocultar etapas (RN-12)
@@ -77,6 +77,10 @@ Tarefas:
 - [ ] Uploads da equipe no disco privado (SEG-20 a SEG-25) e download com policy
 - [ ] Ações `PublicarEntrega`, `AprovarEntrega`, `EscolherOpcao`, `PedirAjuste`, `SolicitarAjusteExtra`, `IniciarAjusteExtra`, `CancelarAjusteExtra`, `MarcarCorrecaoNossa` ([`02-fluxos.md`](02-fluxos.md))
 - [ ] Contagem de revisões em transação com trava (RN-29)
+- [ ] Rascunho do pedido de ajuste salvo sozinho, com "Onde?" por item (RN-21, RN-21a)
+- [ ] Confirmação antes de aprovar (RN-43)
+- [ ] Escolha no celular com abas e imagem em tela cheia
+- [ ] Botão "Avisar no WhatsApp" (RN-34)
 - [ ] Hash da aprovação (RN-40)
 - [ ] Telas: C6 aprovação e escolha, C7 pedir ajuste em 2 passos, E9 etapa da equipe
 - [ ] Todos os textos de [`07-textos-e-emails.md`](07-textos-e-emails.md) desta fase

@@ -2,6 +2,8 @@
 # Lido pelo ModelosSeeder (fase 2). Editar aqui muda só serviços criados depois (RN-11).
 # tipo: pendencia_cliente | aprovacao | escolha | trabalho_equipe | entrega_final | recorrente
 # duracao_dias_uteis: usado para calcular as datas previstas (RN-13)
+# prazo_resposta_dias_uteis: prazo do cliente para responder, padrão 3 (RN-30)
+# confirmar_antes_de_aprovar: texto que o cliente marca antes de aprovar (RN-43)
 # gasta_revisao: se um pedido de ajuste nesta etapa conta como revisão (RN-23)
 
 nome: Rebranding

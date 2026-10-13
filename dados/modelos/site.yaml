@@ -1,5 +1,6 @@
 # Modelo de etapas: Site
 # Lido pelo ModelosSeeder (fase 2). Editar aqui muda só serviços criados depois (RN-11).
+# prazo_resposta_dias_uteis: padrão 3 quando não informado (RN-30)
 # O Layout depende da entrega final do Rebranding quando o cliente tem as duas frentes (RN-15).
 
 nome: Site
@@ -44,6 +45,7 @@ etapas:
   - titulo: Mapa do site e textos
     tipo: aprovacao
     duracao_dias_uteis: 10
+    prazo_resposta_dias_uteis: 5
     gasta_revisao: true
     descricao_cliente: >
       A lista de páginas e os textos de cada uma, escritos para as buscas que seus clientes fazem.
@@ -58,7 +60,9 @@ etapas:
   - titulo: Site no link de teste
     tipo: aprovacao
     duracao_dias_uteis: 8
+    prazo_resposta_dias_uteis: 5
     gasta_revisao: true
+    confirmar_antes_de_aprovar: Naveguei pelo site no celular e no computador.
     descricao_cliente: >
       O site funcionando num endereço de teste. Navegue pelo celular e pelo computador antes de aprovar.
 

@@ -30,7 +30,7 @@ Rotas em [`05-rotas-e-permissoes.md`](05-rotas-e-permissoes.md).
 
 - C2: mostra o nome da empresa, campo senha + confirmar, regras da senha visíveis (mín. 10 caracteres).
 - Convite vencido/usado: "Este link não vale mais. Peça um novo à Dobra 9." + WhatsApp.
-- C3 (só no 1º acesso): três cartões curtos — **3 dias úteis** para responder, **3 revisões por serviço**,
+- C3 (só no 1º acesso): três cartões curtos — **prazo para responder** (em geral 3 dias úteis), **3 revisões por serviço**,
   **o que conta como revisão** — e o botão "Entendi, vamos lá".
 
 ### C4 · Início
@@ -99,9 +99,13 @@ Menu: Início · Arquivos · Minha conta · Sair
 │ Histórico de versões ▾       │
 ```
 - **Aprovar** abre confirmação: "Aprovar o Layout (versão 2)? Depois de aprovado, a etapa não volta."
+- Se a etapa tiver confirmação (RN-43), ela aparece como caixa de marcar acima do botão, que só fica
+  ativo depois de marcada.
+- Com rascunho de ajuste salvo (RN-21a), o botão vira **"Continuar ajustes (N itens)"**.
 
-**Escolha** (`escolha`): as opções lado a lado (no celular, uma embaixo da outra), cada uma com
-imagens/PDF; a recomendada tem o selo **"Recomendada pela Dobra 9"** e o porquê. Botão "Escolher esta"
+**Escolha** (`escolha`): as opções lado a lado no computador; no celular, abas **"Proposta 1 ·
+Proposta 2"** que se alternam com um toque, e cada imagem abre em **tela cheia**. A recomendada tem o
+selo **"Recomendada pela Dobra 9"** e o porquê. Botão "Escolher esta"
 → confirmação com a regra de não misturar (RN-28). Também há "Pedir ajuste" se a etapa gastar revisão.
 
 **Pendência** (`pendencia_cliente`): o que enviar (texto da equipe), prazo, área de envio de arquivos
@@ -115,16 +119,19 @@ imagens/PDF; a recomendada tem o selo **"Recomendada pela Dobra 9"** e o porquê
 ```
 Passo 1                         Passo 2 (confirmação)
 │ O que você quer ajustar?   │  │ Você vai usar a revisão  │
-│ 1 [____________________]   │  │ 2 de 3 do Rebranding.    │
-│ 2 [____________________]   │  │                          │
-│ + adicionar item           │  │ Confira se incluiu todos │
-│ 📎 Anexar referência       │  │ os ajustes: o que chegar │
-│                            │  │ depois conta como nova   │
-│ [Revisar e enviar →]       │  │ revisão.                 │
-                                │ • item 1 …  • item 2 …   │
-                                │ [Voltar] [Usar revisão e │
+│ 1 Onde? [Início ________]  │  │ 2 de 3 do Site.          │
+│   [____________________]   │  │ Ela vale para o Site     │
+│ 2 Onde? [Contato _______]  │  │ inteiro; depois desta,   │
+│   [____________________]   │  │ resta 1.                 │
+│ + adicionar item           │  │                          │
+│ 📎 Anexar referência       │  │ Confira se incluiu todos │
+│ Rascunho salvo às 14:32    │  │ os ajustes.              │
+│                            │  │ • Início: …  • Contato: …│
+│ [Revisar e enviar →]       │  │ [Voltar] [Usar revisão e │
                                 │           enviar]        │
 ```
+- O passo 1 salva sozinho (RN-21a). A cliente pode sair e voltar outro dia; o rascunho continua lá.
+- "Onde?" é opcional.
 Sem revisões → tela de ajuste extra com o texto de RN-27 e botão "Solicitar ajuste extra".
 
 ### C8 · Arquivos
@@ -180,6 +187,7 @@ botão "Marcar como correção nossa" em cada um. Botão "Concluir serviço" qua
 Conforme o estado: "Iniciar", **"Publicar entrega"** (arquivos + link + nota curta → "Enviar para
 aprovação"), opções da escolha (marcar recomendada + por quê), pedidos de ajuste recebidos com os itens,
 materiais recebidos ("Confirmar recebimento" / "Pedir complemento"), histórico completo da etapa.
+Depois de publicar ou liberar: botão **"Avisar no WhatsApp"** com a mensagem pronta (RN-34).
 
 ### E10 · Modelos
 Lista de modelos; editar etapas padrão (título, tipo, duração em dias úteis, gasta revisão, descrição

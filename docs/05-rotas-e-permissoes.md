@@ -21,6 +21,7 @@ Middleware: `web`, `auth`, `papel:cliente`, `ativo`. Modelos ligados à rota **s
 | POST | `/etapas/{etapa}/aprovar` | `etapas.aprovar` | — | `EtapaPolicy@aprovar` |
 | POST | `/etapas/{etapa}/escolher/{opcao}` | `etapas.escolher` | — | `EtapaPolicy@escolher` |
 | GET/POST | `/etapas/{etapa}/ajuste` | `etapas.ajuste` | C7 | `EtapaPolicy@pedirAjuste` |
+| PUT | `/etapas/{etapa}/ajuste/rascunho` | `etapas.ajuste.rascunho` | C7 (RN-21a) | `EtapaPolicy@pedirAjuste` |
 | POST | `/etapas/{etapa}/ajuste-extra` | `etapas.ajuste-extra` | — | `EtapaPolicy@pedirAjusteExtra` |
 | POST | `/etapas/{etapa}/enviar` | `etapas.enviar` | — | `EtapaPolicy@enviarMaterial` |
 | POST | `/etapas/{etapa}/formulario` | `etapas.formulario` | — | `EtapaPolicy@responderFormulario` |

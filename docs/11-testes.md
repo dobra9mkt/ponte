@@ -42,6 +42,9 @@ que protege. Nenhuma fase é aprovada com teste falhando.
 - [ ] RN-24: correção nossa devolve a revisão e grava quem/quando/por quê
 - [ ] RN-27: sem revisões, `PedirAjuste` é recusado e só `SolicitarAjusteExtra` é aceito; a etapa só vai para ajustes após `IniciarAjusteExtra`
 - [ ] RN-29: dois pedidos simultâneos com 1 revisão restante → só um gasta
+- [ ] RN-21a: salvar rascunho não gasta revisão nem envia e-mail; enviar apaga o rascunho; cliente A não lê rascunho de B
+- [ ] RN-43: aprovar sem marcar a confirmação é recusado
+- [ ] RN-34: o link do WhatsApp só aparece na área da equipe e leva o número e a mensagem certos
 - [ ] RN-40 / SEG-14: aprovação grava hash, IP e navegador e não pode ser alterada
 - [ ] RN-42: etapa aprovada não aceita novo pedido de ajuste
 - [ ] SEG-22 / SEG-25: `.php` disfarçado de `.jpg` e SVG do cliente são recusados
@@ -57,6 +60,7 @@ que protege. Nenhuma fase é aprovada com teste falhando.
 ## Fase 5
 
 - [ ] RN-31: lembrete no 2º dia útil e no vencimento, nunca mais de dois (`travel` no tempo)
+- [ ] RN-30: etapa com prazo de 5 dias úteis só vence no 5º dia útil
 - [ ] RN-61: aviso de arquivamento 30 dias após concluir
 - [ ] RN-62 / RN-63: pacote contém arquivos e PDF; remoção só depois da confirmação com o nome; depois dela não resta arquivo nem linha da frente além de `arquivamentos`
 - [ ] RN-64: cliente não acessa o pacote

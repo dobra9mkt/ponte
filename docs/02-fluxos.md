@@ -35,7 +35,7 @@ stateDiagram-v2
 | De | Para | Quem | Ação (`app/Acoes`) | Efeitos |
 |---|---|---|---|---|
 | `a_fazer` | `em_producao` | Equipe | `IniciarEtapa` | — |
-| `em_producao` | `aguardando_cliente` | Equipe | `PublicarEntrega` | Cria `Entrega` v1; e-mail ao cliente; começa prazo de 3 dias úteis |
+| `em_producao` | `aguardando_cliente` | Equipe | `PublicarEntrega` | Cria `Entrega` v1; e-mail ao cliente; começa o prazo de resposta da etapa (RN-30) |
 | `aguardando_cliente` | `aprovada` | Cliente | `AprovarEntrega` / `EscolherOpcao` | Cria `Aprovacao` (hash); e-mail à equipe |
 | `aguardando_cliente` | `ajustes_em_andamento` | Cliente | `PedirAjuste` | Cria `PedidoAjuste`; gasta revisão se `gasta_revisao`; e-mail à equipe |
 | `aguardando_cliente` | `ajuste_extra_solicitado` | Cliente | `SolicitarAjusteExtra` | Cria `PedidoAjuste` tipo `extra`; e-mail à equipe para orçar |
@@ -74,7 +74,7 @@ O briefing do Rebranding é uma pendência com formulário (perguntas em `dados/
 2. Equipe clica em "Adicionar serviço", escolhe o modelo, data de início e prazo → etapas criadas com datas (RN-11, RN-13).
 3. Equipe revisa e ajusta as etapas.
 4. Equipe clica em **"Enviar acesso"** → e-mail com link de 72 h (RN-02, RN-03).
-5. Cliente cria a senha → vê a tela de boas-vindas com as regras (3 dias úteis, 3 revisões, o que conta) → Início.
+5. Cliente cria a senha → vê a tela de boas-vindas com as regras (prazo de resposta, 3 revisões, o que conta) → Início.
 
 ## Fluxo: pedir ajuste
 

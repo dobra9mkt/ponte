@@ -64,7 +64,8 @@ Reenviar acesso invalida convites anteriores do mesmo usuário.
 `modelos`: `nome`, `slug` único, `revisoes_incluidas` (default 3), `descricao`, `ativo`.
 
 `modelo_etapas`: `modelo_id`, `ordem`, `titulo`, `tipo` (`TipoEtapa`), `descricao_cliente` (text),
-`duracao_dias_uteis` (int), `gasta_revisao` (bool), `formulario` (string nullable, ex.: `briefing-rebranding`).
+`duracao_dias_uteis` (int), `prazo_resposta_dias_uteis` (int, default 3, RN-30), `gasta_revisao` (bool),
+`formulario` (string nullable, ex.: `briefing-rebranding`), `confirmar_antes_de_aprovar` (string nullable, RN-43).
 
 Dados iniciais vêm de `dados/modelos/*.yaml` (seeder `ModelosSeeder`).
 
@@ -95,6 +96,8 @@ Revisões usadas = `pedidos_ajuste` da frente com `conta_como_revisao = true` (c
 | descricao_cliente | text nullable | o que o cliente lê |
 | gasta_revisao | bool | RN-23 |
 | formulario | string nullable | ex.: `briefing-rebranding` |
+| prazo_resposta_dias_uteis | tinyint, default 3 | RN-30 |
+| confirmar_antes_de_aprovar | string nullable | RN-43 |
 | data_prevista | date nullable | |
 | aguardando_desde | datetime nullable | quando foi para `aguardando_cliente` (prazo RN-30) |
 | lembrete_1_em, lembrete_2_em | datetime nullable | RN-31 |
@@ -118,12 +121,16 @@ Revisões usadas = `pedidos_ajuste` da frente com `conta_como_revisao = true` (c
 | etapa_id, entrega_id | FK | entrega que o cliente viu |
 | tipo | enum `revisao`/`extra` | |
 | numero_revisao | tinyint nullable | 1..N no momento do pedido; null para extra |
-| itens | json | lista de textos |
+| itens | json | lista de `{texto, onde}` (`onde` opcional, RN-21) |
 | conta_como_revisao | bool | false quando `extra`, quando a etapa não gasta revisão ou após "correção nossa" |
 | correcao_nossa_por, correcao_nossa_em, correcao_nossa_motivo | nullable | RN-24 |
 | situacao_extra | enum nullable `aguardando_orcamento`/`iniciado`/`cancelado` | RN-27 |
 | enviado_por | FK users | |
 | ip, navegador | string | |
+
+## rascunhos_ajuste
+`etapa_id` (único), `user_id`, `itens` (json, mesmo formato do pedido). Não conta revisão (RN-21a);
+apagado ao enviar, aprovar ou publicar nova versão. Anexos do rascunho ficam em `arquivos`.
 
 ## aprovacoes (só inserção)
 `etapa_id`, `entrega_id`, `opcao_id` (nullable), `user_id`, `aprovado_em`, `ip`, `navegador`,

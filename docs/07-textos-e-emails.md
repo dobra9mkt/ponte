@@ -8,7 +8,9 @@ etc. são substituídos pelo sistema.
 
 | Chave | Texto |
 |---|---|
-| `[ajuste.confirmar]` | Você vai usar a revisão :n de :total do :frente. Confira se incluiu todos os ajustes: o que chegar depois conta como uma nova revisão. |
+| `[ajuste.confirmar]` | Você vai usar a revisão :n de :total do :frente. Ela vale para o :frente inteiro; depois desta, restam :restantes. Confira se incluiu todos os ajustes: o que chegar depois conta como uma nova revisão. |
+| `[ajuste.rascunho_salvo]` | Rascunho salvo às :hora. Você pode sair e continuar depois: nada é enviado até você confirmar. |
+| `[ajuste.continuar]` | Continuar ajustes (:qtd itens) |
 | `[ajuste.ultima]` | Esta é a sua última revisão incluída no :frente. Ajustes depois dela serão orçados à parte. |
 | `[ajuste.esgotadas]` | As :total revisões do :frente já foram usadas. Você pode solicitar um ajuste extra: a Dobra 9 envia o orçamento antes de começar. |
 | `[ajuste.extra_enviado]` | Pedido de ajuste extra enviado. A Dobra 9 vai te mandar o orçamento; o trabalho começa depois do acerto. |
@@ -31,9 +33,19 @@ etc. são substituídos pelo sistema.
 | `[senha.regra]` | Use pelo menos 10 caracteres. Evite senhas que você já usa em outros sites. |
 | `[senha.email_enviado]` | Se este e-mail estiver cadastrado, você vai receber o link em alguns minutos. |
 
+## WhatsApp (RN-34)
+
+Mensagem pronta do botão "Avisar no WhatsApp" (a equipe pode editar antes de enviar):
+
+| Situação | Texto |
+|---|---|
+| Entrega publicada | Oi, :contato! :etapa do :frente está pronto para você ver e aprovar: :link |
+| Pendência liberada | Oi, :contato! Para seguir com o :frente, precisamos que você envie :etapa pelo portal: :link |
+| Lembrete | Oi, :contato! Só lembrando: :etapa está esperando a sua resposta no portal: :link |
+
 ## Boas-vindas (C3)
 
-1. **Responda em até 3 dias úteis.** Cada entrega espera a sua aprovação. O cronograma anda junto com a sua resposta.
+1. **Responda dentro do prazo.** Em geral são 3 dias úteis; o prazo de cada entrega aparece na tela. O cronograma anda junto com a sua resposta.
 2. **Você tem 3 revisões por serviço.** O contador fica sempre visível. Depois da 3ª, ajustes são orçados à parte.
 3. **Uma revisão é um pacote.** Junte todos os ajustes e envie de uma vez. Erros nossos não contam como revisão.
 
@@ -52,7 +64,7 @@ itens de ajuste (SEG-46).
 | Cliente | Escolha publicada | Suas propostas de :frente chegaram | Preparamos :n propostas para você escolher, com a nossa recomendação. | Ver propostas |
 | Cliente | Pendência liberada | Precisamos de :etapa | Para seguir com o :frente, precisamos que você envie: :etapa, até :prazo. | Enviar agora |
 | Cliente | 2º dia útil sem resposta | Lembrete: :etapa espera por você | A etapa :etapa aguarda sua resposta desde :data. | Abrir |
-| Cliente | Prazo vencido | :etapa: prazo de resposta vencido | O prazo de 3 dias úteis venceu hoje. O cronograma do :frente anda junto com a sua resposta. | Abrir |
+| Cliente | Prazo vencido | :etapa: prazo de resposta vencido | O prazo de resposta venceu hoje. O cronograma do :frente anda junto com a sua resposta. | Abrir |
 | Cliente | Revisão devolvida | Seu ajuste não contou como revisão | Corrigimos um erro nosso em :etapa e devolvemos a revisão. | Ver |
 | Cliente | Redefinir senha | Redefinir sua senha · Dobra 9 | Recebemos um pedido para redefinir sua senha. Se não foi você, ignore este e-mail. | Redefinir senha |
 | Equipe | Cliente aprovou / escolheu | ✔ :empresa aprovou :etapa | :nome aprovou :etapa (v:versao) às :hora. | Abrir etapa |
