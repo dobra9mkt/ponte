@@ -35,6 +35,9 @@ leia `docs/00-visao-geral.md`, `docs/01-regras-de-negocio.md` e a fase atual em 
 - **Trabalhar só dentro desta pasta (`ponte/`).** A pasta `../site` (site publicado do dobra9.com.br)
   nunca é alterada: nada de editar, rodar build, publicar ou salvar versão lá. Se precisar de algo
   dela (logo, cor, estilo), copiar para `recursos/` aqui e usar a cópia.
+- **Não entrar no servidor (SSH na Hostinger) sem a Rose autorizar na hora**, nem só para olhar.
+  A autorização vale para aquela tarefa, não para as seguintes. Publicação é passo a passo, pelo
+  GitHub (`docs/08-infra-e-deploy.md`).
 
 ## Stack
 
