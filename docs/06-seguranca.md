@@ -13,7 +13,7 @@ Cada item tem um código (SEG-xx) para citar em testes e commits.
 | SEG-02 | 2FA obrigatório para a equipe | Fortify `twoFactorAuthentication` com confirmação; middleware `2fa.obrigatorio` só libera E12 até configurar |
 | SEG-03 | Senhas fortes | `Password::min(10)->uncompromised()` (consulta anônima a vazamentos); mesma regra no convite, troca e redefinição |
 | SEG-04 | Senhas guardadas só como hash | `Hash` padrão (bcrypt custo 12 ou argon2id) |
-| SEG-05 | Limite de tentativas | `RateLimiter` `login` 5/min por e-mail+IP; 20/min por IP; e-mail à equipe ao passar de 20 falhas/hora |
+| SEG-05 | Limite de tentativas | `RateLimiter` `login` 5/min por e-mail+IP; 20/min por IP; e-mail à equipe ao passar de 20 falhas/hora. Código do 2FA: além de 5/min por pessoa+IP, **10 erros por hora por pessoa, de qualquer IP** (trocar de IP não renova as tentativas) |
 | SEG-06 | Mensagens que não revelam contas | Login, "esqueci a senha" e convite sempre com a mesma resposta, exista ou não o e-mail |
 | SEG-07 | Sessão segura | `SESSION_SECURE_COOKIE=true`, `SESSION_ENCRYPT=true`, `http_only`, `same_site=lax`; `session()->regenerate()` no login; "sair de todos os aparelhos" com `Auth::logoutOtherDevices` |
 | SEG-08 | Convite seguro | Token aleatório de 64 caracteres; só o **hash** no banco; 72 h; uso único; reenviar invalida os anteriores |
@@ -37,7 +37,7 @@ Cada item tem um código (SEG-xx) para citar em testes e commits.
 | SEG-21 | Nome seguro | Salvo com UUID; o nome original só é exibido (escapado) |
 | SEG-22 | Tipo verificado pelo conteúdo | Cliente: regra `mimetypes:` (finfo) + lista de RN-50; extensão derivada do tipo detectado. Equipe: qualquer tipo (RN-50), guardado sem extensão executável e sempre servido conforme SEG-24 |
 | SEG-23 | Tamanho limitado | 50 MB por arquivo (`max:51200`) e `upload_max_filesize`/`post_max_size` no PHP |
-| SEG-24 | Download seguro | Controller com policy; cabeçalhos `Content-Disposition: attachment` (exceto prévia de PNG/JPG/WEBP/PDF), `X-Content-Type-Options: nosniff` e `Content-Security-Policy: sandbox` em toda resposta de arquivo |
+| SEG-24 | Download seguro | Controller com policy; cabeçalhos `Content-Disposition: attachment` (exceto prévia de PNG/JPG/WEBP/PDF), `X-Content-Type-Options: nosniff` e `Content-Security-Policy: sandbox` em toda resposta de arquivo. **Risco aceito:** a prévia de PDF vai sem `sandbox` (com ele o leitor de PDF do navegador não abre); fica com `default-src 'none'` e `nosniff`, e só a equipe envia PDF |
 | SEG-25 | SVG e HTML nunca exibidos | Cliente não envia SVG; SVG, HTML e qualquer tipo fora de PDF/PNG/JPG/WEBP enviados pela equipe são sempre baixados, nunca exibidos inline |
 | SEG-26 | Contrato criptografado | Conteúdo do PDF cifrado com `Crypt::encryptString` antes de gravar |
 | SEG-27 | ZIPs nunca são abertos no servidor | Só guardados e devolvidos |
@@ -94,6 +94,11 @@ Também: `robots.txt` com `Disallow: /`, sem sitemap, sem o caminho da equipe em
 ## Roteiro do teste de invasão (antes do 1º cliente)
 
 Feito pela Dobra 9 contra o ambiente de produção já configurado, com dois clientes fictícios (A e B).
+
+Ensaio local em 14/10/2026: os ataques automáticos estão em `tests/Feature/InvasaoTest.php` e passaram
+também contra uma cópia do portal rodando no computador. Corrigidos: tentativas do código do 2FA trocando
+de IP (SEG-05) e erro do servidor ao abrir card de serviço ou fase na lixeira (agora 404). Os itens abaixo
+continuam valendo para a produção.
 
 - [ ] Cliente A tenta abrir frente, etapa, arquivo, aprovar, pedir ajuste e baixar arquivo de B trocando IDs na URL → 404 em todos
 - [ ] Cliente tenta abrir o caminho da equipe e rotas `/equipe`, `/admin`, `/painel` → 404

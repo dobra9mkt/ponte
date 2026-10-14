@@ -4,6 +4,7 @@ Mais recente primeiro. Cada mudança de regra ganha uma linha aqui antes de ir p
 
 | Data | Decisão | Quem |
 |---|---|---|
+| 14/10/2026 | Teste de invasão local: código do 2FA passa a ter limite de 10 erros por hora por pessoa, de qualquer IP; card de serviço ou fase na lixeira devolve 404 ao cliente; prévia de PDF sem `sandbox` registrada como risco aceito (SEG-05, SEG-24) | Rose |
 | 14/10/2026 | Para o cliente, a rodada aparece como "Revisão 1 de 3"; na última, aviso "Esta é a última revisão antes da entrega." (RN-17) | Rose |
 | 14/10/2026 | Datas separadas: serviço com início e término próprios; fases com as suas; uma não altera a outra (RN-13) | Rose |
 | 14/10/2026 | O cliente vê o serviço quando a equipe clica em Mostrar ao cliente e, dentro dele, só as fases em andamento ou finalizadas (RN-16a) | Rose |

@@ -7,7 +7,7 @@ use App\Http\Requests\CodigoDoisFatoresRequest;
 use App\Models\Atividade;
 use App\Models\User;
 use App\Support\Autenticador;
-use App\Support\LimiteLogin;
+use App\Support\LimiteDoisFatores;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -26,7 +26,7 @@ class DoisFatoresController extends Controller
         return view('equipe.dois-fatores');
     }
 
-    public function store(CodigoDoisFatoresRequest $request, LimiteLogin $limite, Autenticador $autenticador, TwoFactorAuthenticationProvider $provedor): RedirectResponse
+    public function store(CodigoDoisFatoresRequest $request, LimiteDoisFatores $limite, Autenticador $autenticador, TwoFactorAuthenticationProvider $provedor): RedirectResponse
     {
         $usuario = $this->usuarioPendente($request);
 
@@ -34,20 +34,18 @@ class DoisFatoresController extends Controller
             return redirect()->route('equipe.entrar');
         }
 
-        $chave = '2fa:'.$usuario->id;
-
-        if ($segundos = $limite->segundosBloqueado($chave)) {
-            throw ValidationException::withMessages(['codigo' => __('ponte.login.bloqueado', ['segundos' => $segundos])]);
+        if ($segundos = $limite->segundosBloqueado($usuario)) {
+            throw ValidationException::withMessages(['codigo' => __('ponte.equipe.codigo_bloqueado', ['minutos' => (int) ceil($segundos / 60)])]);
         }
 
         if (! $this->codigoConfere($usuario, $request, $provedor)) {
-            $limite->falhou($chave);
+            $limite->falhou($usuario);
             Atividade::registrar('login.falhou', dados: ['area' => '2fa'], usuario: $usuario);
 
             throw ValidationException::withMessages(['codigo' => __('ponte.equipe.codigo_erro')]);
         }
 
-        $limite->limpar($chave);
+        $limite->limpar($usuario);
         $request->session()->forget('equipe_2fa');
         $autenticador->entrar($usuario);
 

@@ -17,8 +17,10 @@ class EtapaPolicy
             return Response::allow();
         }
 
+        $frente = $etapa->frente;
+
         return ! $etapa->interna && ! $etapa->oculta && $etapa->estado !== EstadoEtapa::AFazer
-            && $this->frentes->view($usuario, $etapa->frente)->allowed()
+            && $frente !== null && $this->frentes->view($usuario, $frente)->allowed()
             ? Response::allow()
             : Response::denyAsNotFound();
     }

@@ -39,6 +39,7 @@ etc. são substituídos pelo sistema.
 | `[material.complemento]` | A Dobra 9 pediu um complemento: :mensagem |
 | `[login.erro]` | E-mail ou senha incorretos. |
 | `[login.bloqueado]` | Muitas tentativas. Tente de novo em :segundos segundos. |
+| `[equipe.codigo_bloqueado]` | Muitas tentativas com o código. Tente de novo em :minutos min. |
 | `[convite.invalido]` | Este link não vale mais. Peça um novo à Dobra 9. |
 | `[senha.regra]` | Use pelo menos 10 caracteres. Evite senhas que você já usa em outros sites. |
 | `[senha.email_enviado]` | Se este e-mail estiver cadastrado, você vai receber o link em alguns minutos. |

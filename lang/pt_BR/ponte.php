@@ -16,6 +16,7 @@ return [
         'codigo_titulo' => 'Código de verificação',
         'codigo_texto' => 'Digite o código de 6 dígitos do aplicativo autenticador.',
         'codigo_erro' => 'Código inválido.',
+        'codigo_bloqueado' => 'Muitas tentativas com o código. Tente de novo em :minutos min.',
         'usar_recuperacao' => 'Usar um código de recuperação',
         'configurar_titulo' => 'Proteja sua conta',
         'configurar_texto' => 'Abra o aplicativo autenticador (Google Authenticator, Microsoft Authenticator ou 1Password), leia o QR code e digite o código que aparecer.',

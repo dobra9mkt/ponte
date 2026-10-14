@@ -13,11 +13,13 @@ class EntregaPolicy
 
     public function view(User $usuario, Entrega $entrega): Response
     {
-        if (! $usuario->ehEquipe() && $entrega->publicada_em === null) {
+        $etapa = $entrega->etapa;
+
+        if ($etapa === null || (! $usuario->ehEquipe() && $entrega->publicada_em === null)) {
             return Response::denyAsNotFound();
         }
 
-        return $this->etapas->view($usuario, $entrega->etapa);
+        return $this->etapas->view($usuario, $etapa);
     }
 
     public function responder(User $usuario, Entrega $entrega): Response
