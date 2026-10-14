@@ -94,7 +94,6 @@ No CSS de entrada (`resources/css/app.css`, Tailwind v4):
 | `<x-cartao>` | caixa branca com raio 16 e sombra |
 | `<x-campo>` | rótulo + campo + erro, acessível |
 | `<x-aviso>` | mensagens de sucesso/erro/informação |
-| `<x-contador-revisoes :usadas :total>` | bolinhas ● ○ + "N de 3 revisões usadas" (RN-25) |
 | `<x-estado-etapa :estado>` | etiqueta com cor e ícone da tabela de estados |
 | `<x-linha-do-tempo>` | lista vertical de etapas (C5) |
 

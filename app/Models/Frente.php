@@ -85,11 +85,6 @@ class Frente extends Model
         return $this->situacao === SituacaoFrente::Ativa;
     }
 
-    public function revisoesUsadas(): int
-    {
-        return PedidoAjuste::query()->where('frente_id', $this->id)->where('conta_como_revisao', true)->count();
-    }
-
     /**
      * @param  Collection<int, Etapa>  $etapas
      */

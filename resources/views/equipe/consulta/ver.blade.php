@@ -38,7 +38,7 @@
                                 'mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold',
                                 'bg-teal text-white' => $feita,
                                 'bg-ouro-claro/25 text-ouro ring-1 ring-ouro/40' => $fase->estado === EstadoEtapa::AguardandoCliente,
-                                'bg-azul text-white' => in_array($fase->estado, [EstadoEtapa::EmProducao, EstadoEtapa::AjustesEmAndamento, EstadoEtapa::AjusteExtraSolicitado], true),
+                                'bg-azul text-white' => in_array($fase->estado, [EstadoEtapa::EmProducao, EstadoEtapa::AjustesEmAndamento], true),
                                 'bg-off text-mudo' => $aFazer,
                             ])>
                                 @if ($feita)<x-icone nome="feito" class="h-3.5 w-3.5" />@else{{ $loop->iteration }}@endif

@@ -78,32 +78,6 @@ return [
         'baixar_contrato' => 'Baixar contrato (PDF)',
     ],
 
-    'revisoes' => [
-        'contador' => ':usadas de :total revisões usadas',
-        'nenhuma' => 'Nenhuma revisão usada',
-    ],
-
-    'ajuste' => [
-        'confirmar' => 'Você vai usar a revisão :n de :total do :frente. Ela vale para o :frente inteiro; depois desta, restam :restantes. Confira se incluiu todos os ajustes: o que chegar depois conta como uma nova revisão.',
-        'ultima' => 'Esta é a sua última revisão incluída no :frente. Ajustes depois dela serão orçados à parte.',
-        'esgotadas' => 'As :total revisões do :frente já foram usadas. Você pode solicitar um ajuste extra: a Dobra 9 envia o orçamento antes de começar.',
-        'extra_enviado' => 'Pedido de ajuste extra enviado. A Dobra 9 vai te mandar o orçamento; o trabalho começa depois do acerto.',
-        'enviado' => 'Ajustes enviados. Avisaremos quando a nova versão estiver pronta.',
-        'devolvida' => 'Este ajuste era uma correção nossa e não contou como revisão. Você continua com :restantes de :total disponíveis.',
-        'rascunho_salvo' => 'Rascunho salvo às :hora. Você pode sair e continuar depois: nada é enviado até você confirmar.',
-        'continuar' => 'Continuar ajustes (:qtd itens)',
-    ],
-
-    'escolha' => [
-        'regra' => 'Escolha uma proposta como base. Elementos das outras podem ser pedidos na revisão, mas não misturamos propostas inteiras.',
-        'recomendada' => 'Recomendada pela Dobra 9',
-    ],
-
-    'aprovar' => [
-        'confirmar' => 'Aprovar :etapa (versão :versao)? Depois de aprovado, a etapa não volta.',
-        'feito' => 'Aprovado em :data às :hora por :nome. Seguimos para a próxima etapa.',
-    ],
-
     'esperando' => 'Aguardando a sua resposta há :dias dias úteis. O cronograma anda junto com a sua resposta.',
 
     'material' => [
@@ -126,21 +100,6 @@ return [
         'agora' => 'Agora: :etapa',
         'concluido' => 'Etapas concluídas',
         'sem_etapas' => 'As etapas deste trabalho ainda estão sendo preparadas.',
-    ],
-
-    'etapas' => [
-        'adicionada' => 'Etapa adicionada.',
-        'salva' => 'Etapa salva.',
-        'removida' => 'Etapa removida.',
-        'ocultada' => 'Etapa ocultada. O cliente não vê mais esta etapa.',
-        'mostrada' => 'Etapa visível para o cliente.',
-        'iniciada' => 'Etapa em produção.',
-        'concluida' => 'Etapa concluída.',
-        'prevista' => 'Previsão: :data',
-        'aviso_da_equipe' => 'Recado da Dobra 9',
-        'em_producao' => 'A Dobra 9 está trabalhando nesta etapa. Avisaremos quando houver algo para você ver.',
-        'proxima' => 'Esta etapa ainda não começou.',
-        'mensal' => 'Todo mês',
     ],
 
     'modelos' => [

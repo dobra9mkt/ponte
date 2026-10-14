@@ -82,7 +82,7 @@ Serviços (RN-10a). `modelos` ganha `deleted_at` (desativar). `clientes`, `frent
 | modelo_id | FK nullable | null = em branco |
 | nome | string | ex.: "Rebranding" |
 | nome_cliente | string(100) nullable | nome que o cliente vê (RN-16c); vazio = `nome` |
-| revisoes_incluidas | tinyint | padrão 3, editável (RN-20) |
+| revisoes_incluidas | tinyint | padrão 3: revisões por fase (RN-71) |
 | inicio_em | date nullable | opcional |
 | prazo_final | date nullable | maior previsão das etapas; sem data = A combinar |
 | publicada_em | datetime nullable | null = preparação privada; preenchido = acompanhamento liberado (RN-11a) |
@@ -106,7 +106,7 @@ Revisões usadas = `pedidos_ajuste` da frente com `conta_como_revisao = true` (c
 | entrada_em | date nullable | data de entrada (RN-12, RN-13) |
 | termino_previsto_em | date nullable | previsão de término; substitui `data_prevista` |
 | descricao_cliente | text nullable | o que o cliente lê |
-| gasta_revisao | bool | RN-23 |
+| gasta_revisao | bool | não usado desde 14/10/2026 (modelo antigo de revisões) |
 | formulario | string nullable | ex.: `briefing-rebranding` |
 | confirmar_antes_de_aprovar | string nullable | RN-43 |
 | oculta | bool | RN-12 |
@@ -140,14 +140,11 @@ Arquivos via `arquivos`. Índice `(situacao, prazo_em)` para o agendador.
 ## pedidos_ajuste
 | Coluna | Tipo | Notas |
 |---|---|---|
-| frente_id | FK | para contar e travar (RN-29) |
+| frente_id | FK | serviço do pedido |
 | etapa_id, entrega_id | FK | entrega que o cliente viu |
-| tipo | enum `revisao`/`extra` | |
-| numero_revisao | tinyint nullable | 1..N no momento do pedido; null para extra |
+| tipo | string | sempre `revisao` desde 14/10/2026 |
 | itens | json | lista de `{texto, onde}` (`onde` opcional, RN-21) |
-| conta_como_revisao | bool | false quando `extra`, quando a etapa não gasta revisão ou após "correção nossa" |
-| correcao_nossa_por, correcao_nossa_em, correcao_nossa_motivo | nullable | RN-24 |
-| situacao_extra | enum nullable `aguardando_orcamento`/`iniciado`/`cancelado` | RN-27 |
+| numero_revisao, conta_como_revisao, correcao_nossa_*, situacao_extra | | não usados desde 14/10/2026 (modelo antigo de revisões); ficam no banco |
 | enviado_por | FK users | |
 | ip, navegador | string | |
 

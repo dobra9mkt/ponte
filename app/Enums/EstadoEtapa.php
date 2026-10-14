@@ -9,7 +9,6 @@ enum EstadoEtapa: string
     case AguardandoCliente = 'aguardando_cliente';
     case Recebida = 'recebida';
     case AjustesEmAndamento = 'ajustes_em_andamento';
-    case AjusteExtraSolicitado = 'ajuste_extra_solicitado';
     case Aprovada = 'aprovada';
     case Concluida = 'concluida';
 
@@ -21,7 +20,6 @@ enum EstadoEtapa: string
             self::AguardandoCliente => 'Aguardando sua aprovação',
             self::Recebida => 'Recebido',
             self::AjustesEmAndamento => 'Ajustes em andamento',
-            self::AjusteExtraSolicitado => 'Ajuste extra solicitado: aguardando orçamento',
             self::Aprovada => 'Aprovada',
             self::Concluida => 'Concluída',
         };
@@ -35,7 +33,6 @@ enum EstadoEtapa: string
             self::AguardandoCliente => 'Aguardando cliente',
             self::Recebida => 'Material recebido',
             self::AjustesEmAndamento => 'Ajustes',
-            self::AjusteExtraSolicitado => 'Ajuste extra',
             self::Aprovada => 'Aprovada',
             self::Concluida => 'Concluída',
         };
@@ -45,7 +42,7 @@ enum EstadoEtapa: string
     {
         return match ($this) {
             self::AFazer => 'neutro',
-            self::AguardandoCliente, self::AjusteExtraSolicitado => 'atencao',
+            self::AguardandoCliente => 'atencao',
             self::Aprovada, self::Concluida => 'sucesso',
             default => 'info',
         };

@@ -47,8 +47,6 @@ Middleware: `web`, `auth`, `papel:cliente`, `ativo`. Modelos ligados à rota **s
 | `/clientes/{cliente}/servicos/novo` | `equipe.frentes.criar` | E7 |
 | `/servicos/{frente}` | `equipe.frentes.ver` | E8 |
 | `/etapas/{etapa}` + ações (`iniciar`, `publicar`, `confirmar`, `complemento`, `concluir`) | `equipe.etapas.*` | E9 |
-| `POST /pedidos/{pedido}/correcao-nossa` | `equipe.pedidos.correcao` | RN-24 |
-| `POST /pedidos/{pedido}/iniciar-extra`, `/cancelar-extra` | `equipe.pedidos.*` | RN-27 |
 | `POST /fases/{etapa}/aprovacoes`, `PUT/DELETE /aprovacoes/{entrega}`, `PUT /aprovacoes/{entrega}/prazo` | `equipe.aprovacoes.*` | E9 · cards (RN-70 a RN-76) |
 | `/servicos`, `/servicos/{modelo}`, `/servicos-fases/{modeloEtapa}` | `equipe.servicos.*` | E10 · fluxos padrão (RN-10a) |
 | `/consulta`, `/consulta/{cliente}` | `equipe.consulta.*` | E13 · aba Clientes, só GET (RN-81) |

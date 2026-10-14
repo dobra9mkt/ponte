@@ -32,14 +32,11 @@
                     @if ($entrega->aprovacao)
                         <p class="font-medium text-teal">{{ __($entrega->ehVersaoFinal($frente->revisoes_incluidas) ? 'fluxo.versao_final_autorizado_em' : 'entregas.voce_aprovou', ['data' => $entrega->aprovacao->aprovado_em->format('d/m/Y'), 'hora' => $entrega->aprovacao->aprovado_em->format('H:i')]) }}</p>
                     @elseif ($pedido)
-                        <p class="font-medium">{{ $pedido->situacao_extra === 'aguardando_orcamento' ? __('entregas.extra_enviado') : __('entregas.voce_pediu', ['data' => $pedido->created_at->format('d/m/Y')]) }}</p>
+                        <p class="font-medium">{{ __('entregas.voce_pediu', ['data' => $pedido->created_at->format('d/m/Y')]) }}</p>
                         <p class="mt-2 whitespace-pre-line text-sm text-mudo">{{ $pedido->texto }}</p>
                         @foreach ($pedido->arquivos as $imagem)
                             <a href="{{ route('arquivos.ver', $imagem) }}" target="_blank" rel="noopener" class="mt-2 inline-flex min-h-11 items-center text-sm font-medium text-tec hover:underline">{{ $imagem->nome_original }}</a>
                         @endforeach
-                        @if ($pedido->correcao_nossa_em)
-                            <p class="mt-3 text-sm text-teal">{{ __('entregas.devolvida', ['motivo' => $pedido->correcao_nossa_motivo]) }}</p>
-                        @endif
                     @endif
                 </div>
             </section>

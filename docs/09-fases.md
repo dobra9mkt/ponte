@@ -84,9 +84,10 @@ no Mailpit, simula a resposta e confere o histórico na aba Clientes, e aprova.
 **Entrega:** o cliente vê os cards publicados, aprova ou pede ajuste, e a equipe recebe o retorno.
 
 Tarefas (a detalhar quando a fase 2 for aprovada):
-- [ ] Telas do cliente: início, serviço, card de aprovação com Aprovar e Solicitar ajustes
-- [ ] Regras de revisão (RN-20 a RN-29) revistas para o modelo de rodadas
-- [ ] Escolha de propostas, WhatsApp e e-mails de retorno à equipe
+- [x] Telas do cliente: linha do tempo, seletor de serviços, card com Aprovar e Solicitar ajustes, Minha conta
+- [x] Regras de revisão (RN-20 a RN-29) substituídas pelo modelo de rodadas (14/10/2026)
+- [x] E-mails de retorno à equipe
+- [ ] WhatsApp (escolha de propostas saiu em 14/10/2026)
 
 ---
 

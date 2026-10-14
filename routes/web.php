@@ -28,7 +28,6 @@ Route::middleware(['cliente', 'throttle:geral'])->group(function () {
 
     Route::get('/', Cliente\InicioController::class)->name('inicio');
     Route::get('/servicos/{frente}', Cliente\FrenteController::class)->can('view', 'frente')->name('frentes.ver');
-    Route::get('/etapas/{etapa}', Cliente\EtapaController::class)->can('view', 'etapa')->name('etapas.ver');
     Route::get('/entregas/{entrega}', [Cliente\EntregaController::class, 'show'])->can('view', 'entrega')->name('entregas.ver');
     Route::post('/entregas/{entrega}/aprovar', [Cliente\EntregaController::class, 'aprovar'])->can('responder', 'entrega')->name('entregas.aprovar');
     Route::post('/entregas/{entrega}/ajustes', [Cliente\EntregaController::class, 'ajustes'])->can('responder', 'entrega')->name('entregas.ajustes');

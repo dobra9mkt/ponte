@@ -7,7 +7,7 @@ entrega, com 3 revisões por frente. **A segurança dos dados vem antes de qualq
 
 | Quem | Entra por | Faz o quê |
 |---|---|---|
-| Cliente (1 login por cliente) | `ponte.dobra9.com.br/entrar` | Acompanha, envia materiais, aprova ou pede ajuste, escolhe propostas, baixa entregas finais |
+| Cliente (1 login por cliente) | `ponte.dobra9.com.br/entrar` | Acompanha, envia materiais, aprova ou pede ajuste, baixa entregas finais |
 | Equipe: Rose e Elias | Caminho secreto (`/{PONTE_CAMINHO_EQUIPE}`), com 2FA | Cadastra clientes e serviços, organiza as fases, mostra cards de aprovação ao cliente, acompanha prazos, arquiva |
 
 Rose e Elias têm o mesmo acesso completo; não há níveis de permissão entre eles.
@@ -45,7 +45,7 @@ Registro completo com datas em [`decisoes.md`](decisoes.md). Resumo:
 | Endereço | ponte.dobra9.com.br (calendario.dobra9.com.br é de colaboradores e não é usado) |
 | Tecnologia | Laravel na Hostinger que a Dobra 9 já usa |
 | Escopo | Só o processo de trabalho. Cobrança e gestão de contratos ficam fora |
-| Revisões | 3 por frente; depois, ajuste extra cobrado à parte |
+| Revisões | Até 3 por fase; ajustes na 3ª viram a versão final, que o cliente só autoriza |
 | Rebranding | Briefing → direção visual → 2 propostas com recomendação → 3 revisões → manual e arquivos |
 | Usuários | 1 login por cliente |
 | Entrada do cliente | E-mail e senha, com "lembrar de mim" |

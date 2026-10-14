@@ -2,8 +2,6 @@
 @php
     $frente = $entrega->etapa->frente;
     $total = $frente->revisoes_incluidas;
-    $usadas = $frente->revisoesUsadas();
-    $extra = $entrega->gasta_revisao && $usadas >= $total;
     $rascunho = $entrega->rascunhos()->where('user_id', auth()->id())->first();
     $erros = $errors->hasAny(['texto', 'imagens', 'imagens.*', 'rascunho']);
     $versaoFinal = $entrega->ehVersaoFinal($total);
@@ -50,29 +48,17 @@
         </form>
 
         @unless ($versaoFinal)
-
         <form method="POST" action="{{ route('entregas.ajustes', $entrega) }}" enctype="multipart/form-data" class="space-y-5"
             @if (! $erros) x-show="aberto" x-cloak @endif
             x-data="rascunho" data-url="{{ route('entregas.rascunho', $entrega) }}" data-revisao="{{ $rascunho->revisao ?? 0 }}"
             data-salvando="{{ __('entregas.rascunho_salvando') }}" data-salvo="{{ __('entregas.rascunho_salvo') }}" data-erro="{{ __('entregas.rascunho_erro') }}">
             @csrf
-            <input type="hidden" name="modo" value="{{ $extra ? 'extra' : 'revisao' }}">
-            <input type="hidden" name="revisoes_esperadas" value="{{ $usadas }}">
             <x-campo nome="texto" :prefixo="'ajuste-'.$entrega->id" :rotulo="__('entregas.ajustes')" :valor="$rascunho?->texto" :ajuda="__('entregas.ajustes_ajuda')" :linhas="5" maxlength="10000" required x-ref="texto" x-on:input="agendar" />
             <p class="-mt-3 h-4 text-xs" x-bind:class="classeEstado" x-text="estado" aria-live="polite"></p>
             <x-campo nome="imagens[]" :prefixo="'ajuste-'.$entrega->id" tipo="file" :rotulo="__('entregas.imagens')" multiple accept="image/png,image/jpeg,image/webp" opcional />
             @foreach ($errors->get('imagens*') as $mensagens)
                 <p class="text-sm font-medium text-alerta">{{ $mensagens[0] }}</p>
             @endforeach
-            <p class="text-sm text-mudo">
-                @if (! $entrega->gasta_revisao)
-                    {{ __('entregas.nao_conta') }}
-                @elseif ($extra)
-                    {{ __('entregas.sem_revisoes', ['total' => $total]) }}
-                @else
-                    {{ __('entregas.usa_revisao', ['numero' => $usadas + 1, 'total' => $total]) }}
-                @endif
-            </p>
             <div class="flex flex-wrap gap-3">
                 <x-botao>{{ __('entregas.enviar_ajustes') }}</x-botao>
                 <x-botao variante="discreto" type="button" x-on:click="fechar">{{ __('entregas.cancelar') }}</x-botao>

@@ -44,12 +44,9 @@ class EntregaController extends Controller
 
     public function ajustes(PedirAjusteRequest $request, Entrega $entrega, PedirAjuste $pedir): RedirectResponse
     {
-        $pedir($entrega, $request->safe()->except('imagens'), array_values($request->file('imagens', [])));
+        $pedir($entrega, $request->validated('texto'), array_values($request->file('imagens', [])));
 
-        $extra = $request->validated('modo') === 'extra';
-
-        return redirect()->route('frentes.ver', $entrega->etapa->frente_id)
-            ->with('sucesso', __($extra ? 'entregas.extra_enviado' : 'entregas.ajuste_enviado'));
+        return redirect()->route('frentes.ver', $entrega->etapa->frente_id)->with('sucesso', __('entregas.ajuste_enviado'));
     }
 
     public function rascunho(SalvarRascunhoRequest $request, Entrega $entrega, SalvarRascunhoAjuste $salvar): JsonResponse|RedirectResponse

@@ -19,38 +19,32 @@ class PedirAjuste
 {
     public function __construct(private RespostaEntrega $resposta, private ArquivosEntrega $arquivos, private AvisosEntrega $avisos) {}
 
-    /** @param array<string, mixed> $dados
+    /**
+     * Um pacote de ajustes por rodada; na versão final o cliente só autoriza (RN-21, RN-71, RN-76).
+     *
      * @param  list<UploadedFile>  $imagens
      */
-    public function __invoke(Entrega $entrega, array $dados, array $imagens): void
+    public function __invoke(Entrega $entrega, string $texto, array $imagens): void
     {
         $arquivos = $this->arquivos->preparar($imagens);
         try {
-            DB::transaction(function () use ($entrega, $dados, $arquivos) {
+            DB::transaction(function () use ($entrega, $texto, $arquivos) {
                 $etapa = $this->resposta->travar($entrega);
                 if ($entrega->ehVersaoFinal($etapa->frente->revisoes_incluidas)) {
                     throw ValidationException::withMessages(['entrega' => __('fluxo.versao_final_sem_ajustes')]);
                 }
-                $usadas = $etapa->frente->revisoesUsadas();
-                $extra = $entrega->gasta_revisao && $usadas >= $etapa->frente->revisoes_incluidas;
-                if ((int) $dados['revisoes_esperadas'] !== $usadas || $dados['modo'] !== ($extra ? 'extra' : 'revisao')) {
-                    throw ValidationException::withMessages(['entrega' => __('entregas.saldo_mudou')]);
-                }
                 $pedido = new PedidoAjuste;
-                $conta = $entrega->gasta_revisao && ! $extra;
                 $pedido->forceFill([
                     'entrega_id' => $entrega->id, 'frente_id' => $etapa->frente_id, 'enviado_por' => auth()->id(),
-                    'texto' => $dados['texto'], 'tipo' => $extra ? 'extra' : 'revisao',
-                    'conta_como_revisao' => $conta, 'numero_revisao' => $conta ? $usadas + 1 : null,
-                    'situacao_extra' => $extra ? 'aguardando_orcamento' : null,
+                    'texto' => $texto, 'tipo' => 'revisao',
                     'ip' => request()->ip(), 'navegador' => mb_substr((string) request()->userAgent(), 0, 255),
                 ])->save();
                 $this->arquivos->registrar($pedido, $arquivos);
-                Transicoes::aplicar($etapa, $extra ? EstadoEtapa::AjusteExtraSolicitado : EstadoEtapa::AjustesEmAndamento);
+                Transicoes::aplicar($etapa, EstadoEtapa::AjustesEmAndamento);
                 $etapa->save();
                 $entrega->forceFill(['situacao' => SituacaoCard::AjustesSolicitados])->save();
                 $entrega->rascunhos()->delete();
-                Atividade::registrar($extra ? 'ajuste.extra_solicitado' : 'ajuste.enviado', $etapa, ['etapa' => $entrega->titulo, 'versao' => $entrega->versao]);
+                Atividade::registrar('ajuste.enviado', $etapa, ['etapa' => $entrega->titulo, 'versao' => $entrega->versao]);
                 $entrega->setRelation('etapa', $etapa);
                 $this->avisos->avisarEquipe($entrega, 'ajuste');
             });

@@ -74,25 +74,23 @@ vencimento (RN-74) e `AlertarPrazoVencido` no dia seguinte ao vencimento (RN-75)
 O acesso do cliente (convite, criar senha, boas-vindas) segue RN-02 e RN-03 e será revisto na fase do
 login do cliente.
 
-## Fases antigas: pendência, escolha, entrega final e recorrente
+## Fases antigas: pendência, entrega final e recorrente
 
 As regras abaixo continuam como referência para as fases futuras e serão revistas quando chegar a vez delas.
 
 | Tipo | Fluxo |
 |---|---|
 | `pendencia_cliente` | `a_fazer` → `aguardando_cliente` (equipe libera) → `recebida` (cliente envia) → `concluida` ou de volta (pedir complemento) |
-| `escolha` | Como aprovação, mas o cliente escolhe uma proposta (RN-28) |
 | `entrega_final` | `a_fazer` → `em_producao` → `concluida` (com arquivos). Aparece em "Arquivos" do cliente |
 | `recorrente` | Fica `em_producao`; a equipe publica um item por mês (ex.: relatório) |
-| Ajuste extra | Revisões esgotadas → `ajuste_extra_solicitado` → equipe inicia ou cancela (RN-27) |
 
-## Fluxo: pedir ajuste (lado do cliente, a rever na fase do login do cliente)
+## Fluxo: pedir ajuste
 
-1. Na etapa `aguardando_cliente`, o cliente toca em **"Pedir ajuste"**.
-2. Escreve os itens (um campo por item, "+ adicionar item") e anexa referências, se quiser.
-3. Tela de confirmação: "Você vai usar a revisão 2 de 3 do Rebranding…" (RN-22, RN-26).
-4. Confirma → `PedirAjuste` em transação com trava na frente (RN-29) → etapa em `ajustes_em_andamento`.
-5. Sem revisões → o botão já aparece como "Solicitar ajuste extra" (RN-27).
+1. No card aguardando resposta, o cliente toca em **"Solicitar ajustes"**.
+2. Escreve o que quer ajustar e anexa imagens, se quiser; o texto fica salvo como rascunho (RN-21a).
+3. Envia → `PedirAjuste` em transação com trava no serviço e na fase → card "Ajustes solicitados" e
+   fase em `ajustes_em_andamento`; a equipe recebe o aviso (RN-76).
+4. Na versão final não há "Solicitar ajustes": o cliente só autoriza (RN-71).
 
 ## Fluxo: concluir e arquivar
 

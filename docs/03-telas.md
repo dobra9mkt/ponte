@@ -123,36 +123,16 @@ Criação de sites                     Previsão de conclusão: 11/11/2026
   ativo depois de marcada.
 - Com rascunho de ajuste salvo (RN-21a), o botão vira **"Continuar ajustes (N itens)"**.
 
-**Escolha** (`escolha`): as opções lado a lado no computador; no celular, abas **"Proposta 1 ·
-Proposta 2"** que se alternam com um toque, e cada imagem abre em **tela cheia**. A recomendada tem o
-selo **"Recomendada pela Dobra 9"** e o porquê. Botão "Escolher esta"
-→ confirmação com a regra de não misturar (RN-28). Também há "Pedir ajuste" se a etapa gastar revisão.
-
 **Pendência** (`pendencia_cliente`): o que enviar (texto da equipe), prazo, área de envio de arquivos
 (arrastar ou tocar) + campo de mensagem; ou o **formulário de briefing** quando a etapa for o briefing
 (salva rascunho automático; botão "Enviar respostas").
 
 **Trabalho da equipe / entrega final / recorrente**: só leitura, com o aviso da equipe e arquivos.
 
-### C7 · Pedir ajuste (passo 1 → 2)
+### C7 · Pedir ajuste
 
-```
-Passo 1                         Passo 2 (confirmação)
-│ O que você quer ajustar?   │  │ Você vai usar a revisão  │
-│ 1 Onde? [Início ________]  │  │ 2 de 3 do Site.          │
-│   [____________________]   │  │ Ela vale para o Site     │
-│ 2 Onde? [Contato _______]  │  │ inteiro; depois desta,   │
-│   [____________________]   │  │ resta 1.                 │
-│ + adicionar item           │  │                          │
-│ 📎 Anexar referência       │  │ Confira se incluiu todos │
-│ Rascunho salvo às 14:32    │  │ os ajustes.              │
-│                            │  │ • Início: …  • Contato: …│
-│ [Revisar e enviar →]       │  │ [Voltar] [Usar revisão e │
-                                │           enviar]        │
-```
-- O passo 1 salva sozinho (RN-21a). A cliente pode sair e voltar outro dia; o rascunho continua lá.
-- "Onde?" é opcional.
-Sem revisões → tela de ajuste extra com o texto de RN-27 e botão "Solicitar ajuste extra".
+No próprio card: campo de texto e imagens opcionais, com rascunho salvo sozinho (RN-21a), e o botão
+"Enviar ajustes". Não aparece na versão final (RN-71).
 
 ### C8 · Arquivos
 Lista agrupada por serviço: entregas aprovadas e finais, com data e botão Baixar (RN-52).

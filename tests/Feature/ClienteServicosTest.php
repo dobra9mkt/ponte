@@ -9,13 +9,6 @@ use App\Models\Modelo;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
-dataset('rotasDoCliente', ['serviço' => 'frentes.ver', 'etapa' => 'etapas.ver']);
-
-function rotaDoCliente(string $nome, Frente $frente): string
-{
-    return route($nome, $nome === 'frentes.ver' ? $frente : $frente->etapas()->firstOrFail());
-}
-
 function servicoVisivel(Cliente $cliente): Frente
 {
     $frente = servicoDoCliente($cliente);
@@ -25,25 +18,25 @@ function servicoVisivel(Cliente $cliente): Frente
     return $frente;
 }
 
-it('SEG-10 / SEG-11: cliente A recebe 404 nas rotas de serviço e etapa do cliente B', function (string $rota) {
+it('SEG-10 / SEG-11: cliente A recebe 404 no serviço do cliente B', function () {
     $frenteDeB = servicoVisivel(Cliente::factory()->create());
     actingAsCliente();
 
-    $this->get(rotaDoCliente($rota, $frenteDeB))->assertNotFound();
-})->with('rotasDoCliente');
+    $this->get(route('frentes.ver', $frenteDeB))->assertNotFound();
+});
 
-it('o dono vê as próprias rotas de serviço e etapa', function (string $rota) {
+it('o dono vê o próprio serviço', function () {
     $usuario = actingAsCliente();
     $frente = servicoVisivel($usuario->cliente);
 
-    $this->get(rotaDoCliente($rota, $frente))->assertOk();
-})->with('rotasDoCliente');
+    $this->get(route('frentes.ver', $frente))->assertOk();
+});
 
-it('visitante é levado para entrar', function (string $rota) {
+it('visitante é levado para entrar', function () {
     $frente = servicoVisivel(Cliente::factory()->create());
 
-    $this->get(rotaDoCliente($rota, $frente))->assertRedirect(route('entrar'));
-})->with('rotasDoCliente');
+    $this->get(route('frentes.ver', $frente))->assertRedirect(route('entrar'));
+});
 
 it('serviço ainda não mostrado ao cliente devolve 404', function () {
     $usuario = actingAsCliente();
@@ -60,7 +53,6 @@ it('fase oculta não aparece para o cliente e devolve 404', function () {
     $oculta->forceFill(['oculta' => true])->save();
 
     $this->get(route('frentes.ver', $frente))->assertOk()->assertSee('Pesquisa')->assertDontSee('Copy');
-    $this->get(route('etapas.ver', $oculta))->assertNotFound();
 });
 
 it('serviço arquivado devolve 404 ao cliente', function () {
@@ -142,7 +134,6 @@ it('RN-16a: o cliente vê só as fases em andamento ou finalizadas', function ()
     $this->get(route('frentes.ver', $frente))->assertOk()
         ->assertSee('Pesquisa')->assertSee('Copy')
         ->assertDontSee('>Desenvolvimento</h2>', false)->assertDontSee('Preparo das imagens');
-    $this->get(route('etapas.ver', $aFazer))->assertNotFound();
 
     actingAsEquipe();
     $this->post(rotaEquipe('etapas.iniciar', $aFazer));

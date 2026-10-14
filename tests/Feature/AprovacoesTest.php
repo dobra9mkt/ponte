@@ -121,7 +121,7 @@ it('RN-76: cliente aprova e a fase segue', function () {
 it('RN-76: cliente pede ajuste e a nova rodada vem numerada e com os links da anterior', function () {
     $primeiro = cardMostrado($this->fase, ['links' => [['rotulo' => 'Site de teste', 'url' => 'https://teste.cliente.com.br']]]);
     actingAsCliente($this->cliente);
-    $this->post(route('entregas.ajustes', $primeiro), ['texto' => 'Trocar a foto do topo', 'modo' => 'revisao', 'revisoes_esperadas' => 0])
+    $this->post(route('entregas.ajustes', $primeiro), ['texto' => 'Trocar a foto do topo'])
         ->assertSessionHasNoErrors()->assertRedirect(route('frentes.ver', $this->frente));
 
     expect($primeiro->fresh()->situacao)->toBe(SituacaoCard::AjustesSolicitados)
@@ -145,7 +145,6 @@ it('segurança: cliente não vê rascunho nem responde card de outro cliente', f
     actingAsCliente($this->cliente);
     $this->get(route('entregas.ver', $rascunho))->assertNotFound();
     $this->get(route('arquivos.ver', $rascunho->arquivos->sole()))->assertNotFound();
-    $this->get(route('etapas.ver', $this->fase))->assertDontSee('Confira o menu');
 
     actingAsEquipe();
     $this->put(rotaEquipe('aprovacoes.update', $rascunho), ['nota' => 'Pronto', 'mostrar' => '1']);
@@ -172,7 +171,7 @@ it('RN-17: o cliente vê "Revisão N de 3" e o aviso só na última', function (
     foreach ([1, 2] as $rodada) {
         actingAsCliente($this->cliente);
         $this->get(route('frentes.ver', $this->frente))->assertSee("Revisão {$rodada} de 3")->assertDontSee(__('fluxo.ultima_revisao'));
-        $this->post(route('entregas.ajustes', $card), ['texto' => 'Ajustar', 'modo' => 'revisao', 'revisoes_esperadas' => 0]);
+        $this->post(route('entregas.ajustes', $card), ['texto' => 'Ajustar']);
 
         actingAsEquipe();
         $this->post(rotaEquipe('aprovacoes.store', $this->fase));
@@ -190,7 +189,7 @@ function terceiraRevisaoMostrada(): Entrega
     $card = cardMostrado(test()->fase);
     foreach ([1, 2] as $rodada) {
         actingAsCliente(test()->cliente);
-        test()->post(route('entregas.ajustes', $card), ['texto' => 'Ajustar', 'modo' => 'revisao', 'revisoes_esperadas' => 0]);
+        test()->post(route('entregas.ajustes', $card), ['texto' => 'Ajustar']);
         actingAsEquipe();
         test()->post(rotaEquipe('aprovacoes.store', test()->fase))->assertRedirect();
         $card = test()->fase->entregas()->firstOrFail();
@@ -215,7 +214,7 @@ it('RN-71: 3ª revisão aprovada encerra a fase para novos cards', function () {
 it('RN-71: ajustes na 3ª revisão viram a versão final, que o cliente só aprova', function () {
     $terceira = terceiraRevisaoMostrada();
     actingAsCliente($this->cliente);
-    $this->post(route('entregas.ajustes', $terceira), ['texto' => 'Último ajuste', 'modo' => 'revisao', 'revisoes_esperadas' => 0])->assertSessionHasNoErrors();
+    $this->post(route('entregas.ajustes', $terceira), ['texto' => 'Último ajuste'])->assertSessionHasNoErrors();
 
     actingAsEquipe();
     $this->get(rotaEquipe('frentes.ver', [$this->cliente, $this->frente]))->assertSee(__('equipe.enviar_versao_final'))->assertDontSee(__('equipe.nova_rodada'));
@@ -233,7 +232,7 @@ it('RN-71: ajustes na 3ª revisão viram a versão final, que o cliente só apro
     $this->get(route('entregas.ver', $final))->assertSee('Autorizar publicação no servidor')->assertSee(__('fluxo.versao_final_pendente'))
         ->assertSee(__('fluxo.versao_final_o_que_fazer'))->assertSee('Ajustes feitos')->assertDontSee(__('entregas.observacoes_dobra'))
         ->assertDontSee(__('entregas.pendente'))->assertDontSee(__('entregas.solicitar_ajustes'));
-    $this->post(route('entregas.ajustes', $final), ['texto' => 'Mais um', 'modo' => 'revisao', 'revisoes_esperadas' => 0])->assertSessionHasErrors('entrega');
+    $this->post(route('entregas.ajustes', $final), ['texto' => 'Mais um'])->assertSessionHasErrors('entrega');
     $this->post(route('entregas.aprovar', $final), ['confirmar' => '1'])->assertSessionHasNoErrors()->assertSessionHas('sucesso', __('fluxo.versao_final_registrada'));
     $this->get(route('frentes.ver', $this->frente))->assertSee('Autorizada em');
     $this->get(route('entregas.ver', $final))->assertSee('Autorizado em');
@@ -249,7 +248,7 @@ it('RN-71: ajustes na 3ª revisão viram a versão final, que o cliente só apro
 it('o pedido do cliente fica à vista e o rascunho da nova rodada só abre quando a equipe quer', function () {
     $primeiro = cardMostrado($this->fase);
     actingAsCliente($this->cliente);
-    $this->post(route('entregas.ajustes', $primeiro), ['texto' => 'Trocar a foto do topo', 'modo' => 'revisao', 'revisoes_esperadas' => 0]);
+    $this->post(route('entregas.ajustes', $primeiro), ['texto' => 'Trocar a foto do topo']);
 
     actingAsEquipe();
     $this->followingRedirects()->post(rotaEquipe('aprovacoes.store', $this->fase))
@@ -257,4 +256,15 @@ it('o pedido do cliente fica à vista e o rascunho da nova rodada só abre quand
 
     $this->get(rotaEquipe('frentes.ver', [$this->cliente, $this->frente]))
         ->assertSee('Trocar a foto do topo')->assertSee('Abrir 2ª revisão');
+});
+
+it('o formulário de ajustes não fala em revisões que não contam', function () {
+    $this->frente->forceFill(['publicada_em' => now()])->save();
+    $card = cardMostrado($this->fase);
+    actingAsCliente($this->cliente);
+
+    $this->get(route('entregas.ver', $card))->assertOk()
+        ->assertSee(__('entregas.enviar_ajustes'))
+        ->assertDontSee('não contam como revisão')
+        ->assertDontSee('ajuste extra');
 });

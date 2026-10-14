@@ -53,12 +53,8 @@ equipe em 360px e computador. Sem erros de JavaScript/CSP ou rolagem horizontal.
 ## Fase 3
 
 - [ ] Transições: cada transição fora de [`02-fluxos.md`](02-fluxos.md) lança erro
-- [ ] RN-20 / RN-25: contador conta só pedidos com `conta_como_revisao`
-- [ ] RN-23: aprovar, aprovar direção visual e escolher proposta não gastam revisão
-- [ ] RN-24: correção nossa devolve a revisão e grava quem/quando/por quê
-- [ ] RN-27: sem revisões, `PedirAjuste` é recusado e só `SolicitarAjusteExtra` é aceito; a etapa só vai para ajustes após `IniciarAjusteExtra`
-- [ ] RN-29: dois pedidos simultâneos com 1 revisão restante → só um gasta
-- [ ] RN-21a: salvar rascunho não gasta revisão nem envia e-mail; enviar apaga o rascunho; cliente A não lê rascunho de B
+- [x] RN-71: até 3 revisões por fase; ajustes na 3ª viram a versão final, que só pode ser autorizada
+- [ ] RN-21a: salvar rascunho não envia e-mail; enviar apaga o rascunho; cliente A não lê rascunho de B
 - [ ] RN-43: aprovar sem marcar a confirmação é recusado
 - [ ] RN-34: o link do WhatsApp só aparece na área da equipe e leva o número e a mensagem certos
 - [ ] RN-40 / SEG-14: aprovação grava hash, IP e navegador e não pode ser alterada

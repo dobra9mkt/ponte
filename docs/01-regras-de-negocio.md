@@ -50,8 +50,8 @@ Nas telas: **serviço** e **fase**. No código: `Frente` e `Etapa`. Fluxo comple
 - **RN-14** · Situações da fase: **A fazer**, **Em andamento**, **Aguardando cliente**, **Ajustes**,
   **Concluída**. "Aguardando cliente" e "Ajustes" só são alcançadas pelos cards de aprovação
   (RN-70 a RN-76); as demais a equipe muda pelos botões do card. Transições em [`02-fluxos.md`](02-fluxos.md).
-  Os tipos de etapa antigos (`pendencia_cliente`, `escolha` etc.) saem das telas da equipe; pendências
-  e escolha de propostas serão revistas nas suas fases.
+  Os tipos de etapa antigos (`pendencia_cliente` etc.) saem das telas da equipe; pendências serão
+  revistas na fase 4. A escolha de propostas saiu (14/10/2026).
 - **RN-16a** · No serviço mostrado, o cliente vê **só as fases em andamento ou finalizadas**. Fases
   "A fazer" ficam escondidas e aparecem quando a equipe clica em **Iniciar** (ou mostra uma aprovação nela).
 - **RN-16c** · Cada serviço tem um **Nome para o cliente** opcional (no fluxo padrão e no serviço do cliente).
@@ -127,33 +127,15 @@ Nas telas: **serviço** e **fase**. No código: `Frente` e `Etapa`. Fluxo comple
 
 ## Revisões
 
-> As regras abaixo tratam do lado do cliente e serão revistas na fase do login do cliente.
-> A numeração das rodadas dos cards está em RN-71.
+> RN-20, RN-22 a RN-29 foram **substituídas em 14/10/2026** pelo modelo de rodadas: até 3 revisões por
+> fase e a versão final (RN-71, RN-76). Saíram o contador de revisões do serviço inteiro, a "correção
+> nossa", o "ajuste extra" cobrado pelo portal e a escolha de propostas. Continuam valendo:
 
-- **RN-20** · Cada frente tem **3 revisões incluídas** (valor padrão, editável por frente
-  pela equipe). A contagem vale para a frente inteira, não por etapa.
-- **RN-21** · Uma revisão = **um pacote** de observações enviado de uma vez: campo de texto livre,
-  com indicação opcional de página/parte e imagens opcionais, sem exigir cadastro item a item.
-- **RN-21a** · O texto fica salvo como **rascunho** (um por entrega e usuário) e pode
-  ser completada em dias diferentes. Rascunho não gasta revisão nem avisa a equipe; só o envio
-  confirmado conta. Ao aprovar ou receber nova versão, o rascunho da etapa é descartado.
-- **RN-22** · Antes de enviar, o cliente vê e confirma: "Você vai usar a revisão N de 3 do <frente>",
-  com o aviso de que a revisão vale para o **serviço inteiro** e quantas restam depois dela.
-- **RN-23** · Só gasta revisão o pedido de ajuste em etapa com `gasta_revisao = true`. **Não gastam:**
-  aprovar qualquer coisa, aprovar a direção visual, escolher uma proposta.
-- **RN-24** · A equipe pode marcar um pedido como **"correção nossa"** (erro da Dobra 9: link quebrado,
-  erro de digitação, falha técnica). A revisão volta para o cliente, com registro de quem marcou, quando
-  e por quê. O cliente vê a mensagem de revisão devolvida.
-- **RN-25** · O contador fica discreto nos detalhes do trabalho e em destaque na confirmação de ajustes.
-  O Início dá prioridade à próxima ação do cliente, seguida do andamento dos seus trabalhos.
-- **RN-26** · Na última revisão disponível, a confirmação avisa que é a última.
-- **RN-27** · Com as revisões esgotadas, o botão "Pedir ajuste" vira **"Solicitar ajuste extra"**.
-  O pedido extra não muda a etapa para ajustes: ele avisa a equipe para orçar. Só quando a equipe
-  clica em "Iniciar ajuste extra" (depois do acerto, feito fora do portal) a etapa vai para ajustes.
-- **RN-28** · Escolha de proposta: o cliente escolhe **uma** opção como base. Pedir elemento de outra
-  proposta é feito numa revisão. O portal não oferece "misturar".
-- **RN-29** · Dois pedidos simultâneos (duas abas) nunca gastam a mesma revisão: contagem em transação
-  com trava na frente.
+- **RN-21** · Um pedido de ajustes = **um pacote** de observações enviado de uma vez: campo de texto
+  livre e imagens opcionais.
+- **RN-21a** · O texto fica salvo como **rascunho** (um por card e usuário) e pode ser completado em dias
+  diferentes. Rascunho não avisa a equipe; só o envio confirmado conta. Ao aprovar ou receber nova
+  rodada, o rascunho é descartado.
 
 ## Prazos e lembretes
 
@@ -174,8 +156,8 @@ Nas telas: **serviço** e **fase**. No código: `Frente` e `Etapa`. Fluxo comple
   A entrega preserva título, instrução, confirmação exigida, links e arquivos daquela versão.
   O hash de um link registra seu endereço, não congela o conteúdo de sites externos.
 - **RN-41** · Toda ação relevante grava uma `Atividade` (entrada, envio de acesso, entrega publicada,
-  aprovação, pedido de ajuste, correção nossa, download, arquivamento). Somente inserção.
-- **RN-42** · Depois de aprovada, a etapa não volta. Uma mudança depois disso é uma nova etapa ou ajuste extra.
+  aprovação, pedido de ajuste, download, arquivamento). Somente inserção.
+- **RN-42** · Depois de aprovada, a etapa não volta. Uma mudança depois disso é uma nova etapa ou outro serviço.
 - **RN-43** · Uma etapa pode ter uma **confirmação antes de aprovar** (`confirmar_antes_de_aprovar`),
   um texto que o cliente precisa marcar para o botão Aprovar funcionar. Ex.: no "Site no link de
   teste": "Naveguei pelo site no celular e no computador."

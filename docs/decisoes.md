@@ -21,6 +21,7 @@ Mais recente primeiro. Cada mudança de regra ganha uma linha aqui antes de ir p
 | 14/10/2026 | Linha do tempo do cliente: rodadas de fase concluída ficam fechadas atrás de "Ver histórico"; fases em andamento sempre abertas (RN-17) | Rose |
 | 14/10/2026 | Lixeira com "Excluir definitivamente" e "Esvaziar lixeira": o item some da Lixeira e não se restaura, mas os dados ficam guardados no banco (RN-82a) | Rose |
 | 14/10/2026 | Minha conta do cliente: dados só leitura, baixar o próprio contrato e trocar senha; sai "Sair de todos os aparelhos" (RN-07 mudada) | Rose |
+| 14/10/2026 | RN-20 a RN-29 substituídas pelo modelo de rodadas (ficam RN-21 e RN-21a); saem do código o contador de revisões do serviço, a "correção nossa", o ajuste extra, a escolha de propostas e a página antiga de fase do cliente | Rose |
 | 14/10/2026 | Depois de arquivado, o link do cliente mostra a página "projeto concluído e arquivado" com os canais oficiais e dobra9.com.br (RN-65a, fase 5) | Rose |
 | 14/10/2026 | Na versão final o termo é sempre "autorizar / autorizado", nunca "aprovado" (RN-71) | Rose |
 | 14/10/2026 | Tela do cliente com a logo completa da Dobra 9 e texto de boas-vindas; "Nome para o cliente" opcional em cada serviço (Criação de sites → "Desenvolvimento do seu site") (RN-16c, RN-16d) | Rose |
