@@ -1,6 +1,9 @@
 <?php
 
 use App\Models\Cliente;
+use App\Models\Etapa;
+use App\Models\Frente;
+use App\Models\Modelo;
 use App\Models\User;
 use Database\Factories\UserFactory;
 use PragmaRX\Google2FA\Google2FA;
@@ -12,6 +15,22 @@ dataset('rotasDaEquipe', fn () => [
     'ficha' => fn () => ['get', rotaEquipe('clientes.show', Cliente::factory()->create())],
     'contrato' => fn () => ['get', rotaEquipe('clientes.contrato', Cliente::factory()->create())],
     'enviar acesso' => fn () => ['post', rotaEquipe('clientes.enviar-acesso', Cliente::factory()->create())],
+    'criar serviço' => fn () => ['post', rotaEquipe('frentes.store', Cliente::factory()->create())],
+    'serviço' => fn () => ['get', rotaEquipe('frentes.ver', [($f = Frente::factory()->create())->cliente_id, $f])],
+    'nova fase' => fn () => ['post', rotaEquipe('etapas.store', [($f = Frente::factory()->create())->cliente_id, $f])],
+    'editar fase' => fn () => ['put', rotaEquipe('etapas.update', Etapa::factory()->create())],
+    'remover fase' => fn () => ['delete', rotaEquipe('etapas.destroy', Etapa::factory()->create())],
+    'iniciar fase' => fn () => ['post', rotaEquipe('etapas.iniciar', Etapa::factory()->create())],
+    'adicionar aprovação' => fn () => ['post', rotaEquipe('aprovacoes.store', Etapa::factory()->create())],
+    'consulta' => fn () => ['get', rotaEquipe('consulta.index')],
+    'consulta do cliente' => fn () => ['get', rotaEquipe('consulta.ver', Cliente::factory()->create())],
+    'serviços padrão' => fn () => ['get', rotaEquipe('servicos.index')],
+    'serviço padrão' => fn () => ['get', rotaEquipe('servicos.ver', Modelo::query()->firstOrFail())],
+    'novo serviço padrão' => fn () => ['post', rotaEquipe('servicos.store')],
+    'excluir cliente' => fn () => ['delete', rotaEquipe('clientes.destroy', Cliente::factory()->create())],
+    'excluir serviço' => fn () => ['delete', rotaEquipe('frentes.destroy', [($f = Frente::factory()->create())->cliente_id, $f])],
+    'lixeira' => fn () => ['get', rotaEquipe('lixeira')],
+    'restaurar cliente' => fn () => ['post', rotaEquipe('lixeira.cliente', tap(Cliente::factory()->create())->delete())],
     'conta' => fn () => ['get', rotaEquipe('conta')],
     'configurar 2fa' => fn () => ['get', rotaEquipe('2fa.configurar')],
     'inexistente' => fn () => ['get', url(config('ponte.caminho_equipe').'/qualquer-coisa')],

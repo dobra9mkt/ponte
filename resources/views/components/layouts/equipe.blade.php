@@ -2,8 +2,11 @@
 @php
     $usuario = auth()->user();
     $itens = [
-        ['rota' => 'equipe.painel', 'ativo' => 'equipe.painel', 'nome' => 'Painel', 'icone' => 'painel'],
-        ['rota' => 'equipe.clientes.index', 'ativo' => 'equipe.clientes.*', 'nome' => 'Clientes', 'icone' => 'clientes'],
+        ['rota' => 'equipe.painel', 'ativo' => 'equipe.painel', 'nome' => __('equipe.menu_painel'), 'icone' => 'painel'],
+        ['rota' => 'equipe.clientes.index', 'ativo' => ['equipe.clientes.*', 'equipe.frentes.*'], 'nome' => __('equipe.menu_cadastro'), 'icone' => 'pasta'],
+        ['rota' => 'equipe.consulta.index', 'ativo' => 'equipe.consulta.*', 'nome' => __('equipe.menu_clientes'), 'icone' => 'clientes'],
+        ['rota' => 'equipe.servicos.index', 'ativo' => 'equipe.servicos.*', 'nome' => __('equipe.menu_servicos'), 'icone' => 'modelos'],
+        ['rota' => 'equipe.lixeira', 'ativo' => 'equipe.lixeira*', 'nome' => __('equipe.menu_lixeira'), 'icone' => 'lixo'],
     ];
     $iniciais = collect(explode(' ', (string) $usuario?->name))->filter()->take(2)->map(fn ($p) => mb_substr($p, 0, 1))->implode('');
 @endphp

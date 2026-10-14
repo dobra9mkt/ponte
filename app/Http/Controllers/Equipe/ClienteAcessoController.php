@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Equipe;
 
 use App\Acoes\AlterarSituacaoCliente;
 use App\Acoes\EnviarAcesso;
-use App\Acoes\SalvarCliente;
 use App\Enums\SituacaoCliente;
 use App\Http\Controllers\Controller;
-use App\Models\Atividade;
 use App\Models\Cliente;
+use App\Servicos\RespostaDoContrato;
 use Illuminate\Http\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -35,19 +34,8 @@ class ClienteAcessoController extends Controller
         return back()->with('sucesso', __('ponte.clientes.reativado'));
     }
 
-    public function contrato(Cliente $cliente): Response
+    public function contrato(Cliente $cliente, RespostaDoContrato $contrato): Response
     {
-        $conteudo = SalvarCliente::lerContrato($cliente);
-        Atividade::registrar('contrato.baixado', $cliente);
-
-        $nome = 'contrato-'.str($cliente->empresa)->slug().'.pdf';
-
-        return response($conteudo, 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="'.$nome.'"',
-            'X-Content-Type-Options' => 'nosniff',
-            'Content-Security-Policy' => 'sandbox',
-            'Cache-Control' => 'no-store, private',
-        ]);
+        return $contrato($cliente);
     }
 }

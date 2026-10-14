@@ -28,6 +28,7 @@ Middleware: `web`, `auth`, `papel:cliente`, `ativo`. Modelos ligados à rota **s
 | GET | `/arquivos` | `arquivos` | C8 | cliente |
 | GET | `/arquivos/{arquivo}/baixar` | `arquivos.baixar` | — | `ArquivoPolicy@download` |
 | GET/POST | `/conta` | `conta` | C9 | cliente |
+| GET | `/conta/contrato` | `conta.contrato` | C9 · baixa o próprio contrato (RN-07) | cliente |
 | GET | `/privacidade` | `privacidade` | — | público |
 
 ## Área da equipe — `ponte.dobra9.com.br/{PONTE_CAMINHO_EQUIPE}`
@@ -48,7 +49,9 @@ Middleware: `web`, `auth`, `papel:cliente`, `ativo`. Modelos ligados à rota **s
 | `/etapas/{etapa}` + ações (`iniciar`, `publicar`, `confirmar`, `complemento`, `concluir`) | `equipe.etapas.*` | E9 |
 | `POST /pedidos/{pedido}/correcao-nossa` | `equipe.pedidos.correcao` | RN-24 |
 | `POST /pedidos/{pedido}/iniciar-extra`, `/cancelar-extra` | `equipe.pedidos.*` | RN-27 |
-| `/modelos`, `/modelos/{modelo}` | `equipe.modelos.*` | E10 |
+| `POST /fases/{etapa}/aprovacoes`, `PUT/DELETE /aprovacoes/{entrega}`, `PUT /aprovacoes/{entrega}/prazo` | `equipe.aprovacoes.*` | E9 · cards (RN-70 a RN-76) |
+| `/servicos`, `/servicos/{modelo}`, `/servicos-fases/{modeloEtapa}` | `equipe.servicos.*` | E10 · fluxos padrão (RN-10a) |
+| `/consulta`, `/consulta/{cliente}` | `equipe.consulta.*` | E13 · aba Clientes, só GET (RN-81) |
 | `/arquivamento`, `/arquivamento/{frente}/*` | `equipe.arquivamento.*` | E11 |
 | `/conta` | `equipe.conta` | E12 |
 

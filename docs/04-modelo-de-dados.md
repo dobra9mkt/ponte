@@ -53,6 +53,7 @@ Reenviar acesso invalida convites anteriores do mesmo usuário.
 | empresa | string | |
 | contato_nome | string | |
 | email | string | e-mail de acesso (copiado para `users.email`) |
+| email_avisos | string | recebe os avisos de aprovação e lembretes (RN-06); padrão = `email` |
 | telefone | text (cripto) | |
 | endereco | text (cripto) | |
 | observacoes | text (cripto) | |
@@ -61,13 +62,18 @@ Reenviar acesso invalida convites anteriores do mesmo usuário.
 | situacao | enum `ativo`/`desativado`/`arquivado` | |
 
 ## modelos e modelo_etapas
-`modelos`: `nome`, `slug` único, `revisoes_incluidas` (default 3), `descricao`, `ativo`.
+`modelos`: `nome`, `nome_cliente` (nullable, RN-16c), `slug` único, `revisoes_incluidas` (default 3), `descricao`, `ativo`.
 
 `modelo_etapas`: `modelo_id`, `ordem`, `titulo`, `tipo` (`TipoEtapa`), `descricao_cliente` (text),
 `duracao_dias_uteis` (int), `prazo_resposta_dias_uteis` (int, default 3, RN-30), `gasta_revisao` (bool),
 `formulario` (string nullable, ex.: `briefing-rebranding`), `confirmar_antes_de_aprovar` (string nullable, RN-43).
 
-Dados iniciais vêm de `dados/modelos/*.yaml` (seeder `ModelosSeeder`).
+Os modelos são os **fluxos padrão** dos serviços (RN-10), lidos de `dados/modelos/*.yaml` pelo
+`ModelosSeeder` só para a carga inicial (os seis serviços do doc 14); depois são editados na tela
+Serviços (RN-10a). `modelos` ganha `deleted_at` (desativar). `clientes`, `frentes` e `etapas` têm
+`descartado_em` (datetime nullable): item excluído definitivamente da Lixeira, guardado e escondido (RN-82a). `modelo_etapas` ganha `responsavel`
+(string nullable, texto livre) e `o_que_fazer` (text nullable), copiados para a fase;
+`duracao_dias_uteis` passa a ser nullable.
 
 ## frentes
 | Coluna | Tipo | Notas |
@@ -75,9 +81,11 @@ Dados iniciais vêm de `dados/modelos/*.yaml` (seeder `ModelosSeeder`).
 | cliente_id | FK | |
 | modelo_id | FK nullable | null = em branco |
 | nome | string | ex.: "Rebranding" |
-| revisoes_incluidas | tinyint | copiado do modelo, editável (RN-20) |
-| inicio_em | date | |
-| prazo_final | date | |
+| nome_cliente | string(100) nullable | nome que o cliente vê (RN-16c); vazio = `nome` |
+| revisoes_incluidas | tinyint | padrão 3, editável (RN-20) |
+| inicio_em | date nullable | opcional |
+| prazo_final | date nullable | maior previsão das etapas; sem data = A combinar |
+| publicada_em | datetime nullable | null = preparação privada; preenchido = acompanhamento liberado (RN-11a) |
 | situacao | enum `ativa`/`concluida`/`arquivada` | |
 | concluida_em | datetime nullable | RN-60 |
 | arquivavel_em | date nullable | `concluida_em` + 30 dias (RN-61) |
@@ -91,24 +99,39 @@ Revisões usadas = `pedidos_ajuste` da frente com `conta_como_revisao = true` (c
 | frente_id | FK | |
 | ordem | smallint | |
 | titulo | string | |
-| tipo | enum `TipoEtapa` | `pendencia_cliente`, `aprovacao`, `escolha`, `trabalho_equipe`, `entrega_final`, `recorrente` |
+| tipo | enum `TipoEtapa` | legado; fora das telas da equipe desde 14/10/2026 (RN-14) |
 | estado | enum `EstadoEtapa` | ver `02-fluxos.md` |
+| responsavel | string nullable | texto livre: equipe, freelancer ou cliente (RN-12) |
+| o_que_fazer | text nullable | RN-12 |
+| entrada_em | date nullable | data de entrada (RN-12, RN-13) |
+| termino_previsto_em | date nullable | previsão de término; substitui `data_prevista` |
 | descricao_cliente | text nullable | o que o cliente lê |
 | gasta_revisao | bool | RN-23 |
 | formulario | string nullable | ex.: `briefing-rebranding` |
-| prazo_resposta_dias_uteis | tinyint, default 3 | RN-30 |
 | confirmar_antes_de_aprovar | string nullable | RN-43 |
-| data_prevista | date nullable | |
-| aguardando_desde | datetime nullable | quando foi para `aguardando_cliente` (prazo RN-30) |
-| lembrete_1_em, lembrete_2_em | datetime nullable | RN-31 |
 | oculta | bool | RN-12 |
 | aviso_equipe | text nullable | aviso ao concluir trabalho da equipe |
 
-Índices: `(frente_id, ordem)`, `(estado, aguardando_desde)` para os lembretes.
+Prazo e lembretes passam a ser do card (`entregas`). Índice: `(frente_id, ordem)`.
 
-## entregas
-`etapa_id`, `versao` (int, sequencial por etapa), `nota` (text), `link` (string nullable, só https),
-`publicada_por` (FK users), `publicada_em`. Arquivos via `arquivos`.
+## entregas (cards de aprovação)
+| Coluna | Tipo | Notas |
+|---|---|---|
+| etapa_id | FK | |
+| versao | int | rodada: 1ª, 2ª, 3ª revisão, sequencial por fase (RN-71) |
+| situacao | enum `SituacaoCard` | `rascunho`, `aguardando_cliente`, `aprovado`, `ajustes_solicitados` |
+| nota | text | o que revisar (obrigatório para publicar) |
+| links | json | lista de `{rotulo, url}`, só https |
+| texto_aprovar | string(60) nullable | texto do botão de aprovação da versão final (RN-71) |
+| responder_ate | date nullable | prazo: 5 dias úteis após a publicação, editável (RN-73) |
+| criada_por, publicada_por | FK users nullable | |
+| publicada_em | datetime nullable | null = rascunho |
+| hash_conteudo | char(64) nullable | gravado ao publicar (RN-72) |
+| lembrete_enviado_em | datetime nullable | RN-74 |
+| alerta_vencido_em | datetime nullable | RN-75 |
+| deleted_at | | exclusão suave, só de rascunho |
+
+Arquivos via `arquivos`. Índice `(situacao, prazo_em)` para o agendador.
 
 ## opcoes
 `etapa_id`, `ordem`, `titulo`, `descricao`, `recomendada` (bool), `motivo_recomendacao` (text nullable),
@@ -145,7 +168,7 @@ apagado ao enviar, aprovar ou publicar nova versão. Anexos do rascunho ficam em
 | arquivavel_type, arquivavel_id | morph | entrega, opcao, pedido_ajuste, etapa (materiais) |
 | nome_original | string | só para exibir; **nunca** usado como caminho |
 | caminho | string | nome aleatório (uuid) no disco `privado` |
-| mime | string | detectado pelo conteúdo, não pela extensão |
+| mime | string | detectado pelo conteúdo, não pela extensão; da equipe aceita qualquer tipo (RN-50) |
 | tamanho | bigint | |
 | sha256 | char(64) | integridade e hash da aprovação |
 | origem | enum `equipe`/`cliente` | |

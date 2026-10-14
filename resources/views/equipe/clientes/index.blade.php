@@ -1,4 +1,4 @@
-<x-layouts.equipe titulo="Clientes" :subtitulo="$clientes->count().' '.($clientes->count() === 1 ? 'cliente' : 'clientes')">
+<x-layouts.equipe :titulo="__('equipe.cadastro_titulo')" :subtitulo="$clientes->count().' '.($clientes->count() === 1 ? 'cliente' : 'clientes')">
     <x-slot:acoes>
         <x-botao :href="route('equipe.clientes.create')">
             <x-icone nome="mais" class="h-4 w-4" />

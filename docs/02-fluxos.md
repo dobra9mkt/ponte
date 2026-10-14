@@ -3,80 +3,90 @@
 Toda mudança de estado passa por uma classe de ação em `app/Acoes/` que confere se a transição é
 permitida (tabelas abaixo), grava a `Atividade` e dispara os avisos. Transição fora da tabela = erro.
 
-## Estados de uma etapa
+## Estados de uma fase (14/10/2026)
 
-| Estado (`EstadoEtapa`) | O cliente vê | A equipe vê |
-|---|---|---|
-| `a_fazer` | Próxima (cinza) | A fazer |
-| `em_producao` | Em produção pela Dobra 9 | Em produção |
-| `aguardando_cliente` | **Precisa de você** | Esperando cliente (N dias úteis) |
-| `recebida` | Recebido, obrigado | Material recebido: conferir |
-| `ajustes_em_andamento` | Ajustes em andamento | Ajustes pedidos: fazer |
-| `ajuste_extra_solicitado` | Ajuste extra solicitado: aguardando orçamento | Orçar ajuste extra |
-| `aprovada` | Aprovada em DD/MM | Aprovada |
-| `concluida` | Concluída | Concluída |
+Nas telas: fase. No código: `Etapa`. Fluxo completo da equipe em [`14-fluxo-equipe.md`](14-fluxo-equipe.md).
 
-## Etapa de aprovação (`aprovacao`) e de escolha (`escolha`)
+| Estado (`EstadoEtapa`) | A equipe vê |
+|---|---|
+| `a_fazer` | A fazer |
+| `em_producao` | Em andamento |
+| `aguardando_cliente` | Aguardando cliente (prazo DD/MM) |
+| `ajustes_em_andamento` | Ajustes |
+| `concluida` | Concluída |
 
 ```mermaid
 stateDiagram-v2
     [*] --> a_fazer
     a_fazer --> em_producao: equipe inicia
-    em_producao --> aguardando_cliente: equipe publica entrega
-    aguardando_cliente --> aprovada: cliente aprova / escolhe
-    aguardando_cliente --> ajustes_em_andamento: cliente pede ajuste (tem revisão)
-    aguardando_cliente --> ajuste_extra_solicitado: cliente pede ajuste extra (sem revisão)
-    ajuste_extra_solicitado --> ajustes_em_andamento: equipe inicia ajuste extra
-    ajuste_extra_solicitado --> aguardando_cliente: equipe recusa / cliente desiste
-    ajustes_em_andamento --> aguardando_cliente: equipe publica nova versão
-    aprovada --> [*]
+    em_producao --> aguardando_cliente: equipe mostra card ao cliente
+    a_fazer --> aguardando_cliente: equipe mostra card ao cliente
+    aguardando_cliente --> em_producao: cliente aprova
+    aguardando_cliente --> ajustes_em_andamento: cliente pede ajuste
+    ajustes_em_andamento --> aguardando_cliente: equipe mostra a nova rodada
+    em_producao --> concluida: equipe conclui
+    concluida --> [*]
 ```
 
 | De | Para | Quem | Ação (`app/Acoes`) | Efeitos |
 |---|---|---|---|---|
 | `a_fazer` | `em_producao` | Equipe | `IniciarEtapa` | — |
-| `em_producao` | `aguardando_cliente` | Equipe | `PublicarEntrega` | Cria `Entrega` v1; e-mail ao cliente; começa o prazo de resposta da etapa (RN-30) |
-| `aguardando_cliente` | `aprovada` | Cliente | `AprovarEntrega` / `EscolherOpcao` | Cria `Aprovacao` (hash); e-mail à equipe |
-| `aguardando_cliente` | `ajustes_em_andamento` | Cliente | `PedirAjuste` | Cria `PedidoAjuste`; gasta revisão se `gasta_revisao`; e-mail à equipe |
-| `aguardando_cliente` | `ajuste_extra_solicitado` | Cliente | `SolicitarAjusteExtra` | Cria `PedidoAjuste` tipo `extra`; e-mail à equipe para orçar |
-| `ajuste_extra_solicitado` | `ajustes_em_andamento` | Equipe | `IniciarAjusteExtra` | — |
-| `ajuste_extra_solicitado` | `aguardando_cliente` | Equipe | `CancelarAjusteExtra` | Pedido marcado como cancelado |
-| `ajustes_em_andamento` | `aguardando_cliente` | Equipe | `PublicarEntrega` | Cria `Entrega` vN+1; e-mail ao cliente; reinicia prazo |
+| `a_fazer` / `em_producao` / `ajustes_em_andamento` | `aguardando_cliente` | Equipe | `PublicarEntrega` | Card publicado e bloqueado; prazo de 5 dias úteis; e-mail ao e-mail de avisos (RN-72, RN-73) |
+| `aguardando_cliente` | `em_producao` | Cliente | `AprovarEntrega` | Cria `Aprovacao` (hash); e-mail à equipe (RN-76) |
+| `aguardando_cliente` | `ajustes_em_andamento` | Cliente | `PedirAjuste` | Card "Ajustes solicitados"; e-mail à equipe (RN-76) |
+| `em_producao` | `concluida` | Equipe | `ConcluirEtapa` | Só sem card aberto |
 
-Em qualquer momento, sobre um `PedidoAjuste` do tipo `revisao`, a equipe pode `MarcarCorrecaoNossa`:
-o pedido deixa de contar (RN-24), sem mudar o estado da etapa.
+Enquanto a fase está em `aguardando_cliente`, não dá para concluí-la nem abrir outro card.
 
-## Pendência do cliente (`pendencia_cliente`)
+## Estados de um card de aprovação
+
+| Situação (`SituacaoCard`) | Quando | Pode editar? |
+|---|---|---|
+| `rascunho` | Adicionar aprovação / Nova rodada | Sim; pode excluir |
+| `aguardando_cliente` | Mostrar para cliente | Não; só o prazo |
+| `aprovado` | Cliente aprovou | Não |
+| `ajustes_solicitados` | Cliente pediu ajuste | Não; a equipe cria a próxima rodada |
 
 ```mermaid
 stateDiagram-v2
-    [*] --> a_fazer
-    a_fazer --> aguardando_cliente: equipe libera
-    aguardando_cliente --> recebida: cliente envia
-    recebida --> concluida: equipe confirma
-    recebida --> aguardando_cliente: equipe pede complemento
+    [*] --> rascunho: Adicionar aprovação / Nova rodada
+    rascunho --> aguardando_cliente: Mostrar para cliente
+    aguardando_cliente --> aprovado: cliente aprova
+    aguardando_cliente --> ajustes_solicitados: cliente pede ajuste
+    aprovado --> [*]
+    ajustes_solicitados --> [*]
 ```
 
-Pendências não gastam revisão. "Pedir complemento" leva uma mensagem da equipe ao cliente.
-O briefing do Rebranding é uma pendência com formulário (perguntas em `dados/briefing-rebranding.yaml`).
+Tarefas automáticas (agendador, uma vez por card): `EnviarLembretePrazo` 1 dia útil antes do
+vencimento (RN-74) e `AlertarPrazoVencido` no dia seguinte ao vencimento (RN-75). Card já respondido
+é ignorado.
 
-## Trabalho da equipe (`trabalho_equipe`), entrega final e recorrente
+## Fluxo: do cadastro ao primeiro card
+
+1. Equipe cadastra o cliente com o e-mail de avisos (RN-06) e anexa o contrato se quiser (RN-07).
+2. Na ficha, **Cadastrar serviço** → escolhe o serviço e a data de início → fases do fluxo padrão carregadas (RN-10, RN-13).
+3. Equipe ajusta as fases: responsável, o que fazer, entrada e término (RN-12).
+4. Numa fase, **Adicionar aprovação** → card em rascunho (RN-70).
+5. **Mostrar para cliente** → card bloqueado, prazo, fase "Aguardando cliente", e-mail ao cliente (RN-72).
+6. Véspera do prazo: lembrete ao cliente; vencido: alerta à equipe (RN-74, RN-75).
+7. Resposta do cliente → fase segue ou **Nova rodada** (RN-76).
+
+O acesso do cliente (convite, criar senha, boas-vindas) segue RN-02 e RN-03 e será revisto na fase do
+login do cliente.
+
+## Fases antigas: pendência, escolha, entrega final e recorrente
+
+As regras abaixo continuam como referência para as fases futuras e serão revistas quando chegar a vez delas.
 
 | Tipo | Fluxo |
 |---|---|
-| `trabalho_equipe` | `a_fazer` → `em_producao` → `concluida`. Ao concluir, a equipe pode escrever um aviso que o cliente vê |
+| `pendencia_cliente` | `a_fazer` → `aguardando_cliente` (equipe libera) → `recebida` (cliente envia) → `concluida` ou de volta (pedir complemento) |
+| `escolha` | Como aprovação, mas o cliente escolhe uma proposta (RN-28) |
 | `entrega_final` | `a_fazer` → `em_producao` → `concluida` (com arquivos). Aparece em "Arquivos" do cliente |
-| `recorrente` | Fica `em_producao`; a equipe publica um item por mês (ex.: relatório), que aparece na linha do tempo e em "Arquivos" |
+| `recorrente` | Fica `em_producao`; a equipe publica um item por mês (ex.: relatório) |
+| Ajuste extra | Revisões esgotadas → `ajuste_extra_solicitado` → equipe inicia ou cancela (RN-27) |
 
-## Fluxo: do cadastro ao primeiro acesso
-
-1. Equipe cadastra o cliente (RN-06), anexa o contrato se quiser (RN-07).
-2. Equipe clica em "Adicionar serviço", escolhe o modelo, data de início e prazo → etapas criadas com datas (RN-11, RN-13).
-3. Equipe revisa e ajusta as etapas.
-4. Equipe clica em **"Enviar acesso"** → e-mail com link de 72 h (RN-02, RN-03).
-5. Cliente cria a senha → vê a tela de boas-vindas com as regras (prazo de resposta, 3 revisões, o que conta) → Início.
-
-## Fluxo: pedir ajuste
+## Fluxo: pedir ajuste (lado do cliente, a rever na fase do login do cliente)
 
 1. Na etapa `aguardando_cliente`, o cliente toca em **"Pedir ajuste"**.
 2. Escreve os itens (um campo por item, "+ adicionar item") e anexa referências, se quiser.

@@ -3,11 +3,16 @@
 Cinco fases e um fechamento. Cada fase termina com a Rose testando no navegador e aprovando; só então
 começa a próxima. As fases 1 a 3 bastam para receber a Bela Bartók.
 
-**Fase atual: Fase 1 · Base segura (iniciada em 13/10/2026).**
+**Fase atual: Fase 2 · Área da equipe — refeita pela Rose em 14/10/2026.**
 
-> **Onde paramos (13/10/2026):** fase 1 pronta no computador, com o visual novo da área da equipe
-> (barra lateral, painel, ficha em duas colunas, histórico recolhido). Falta: a Rose testar e aprovar,
-> salvar a versão (commit) e publicar na Hostinger, que depende da Preparação (GitHub, Hostinger, Resend, backup).
+Estrutura em [`14-fluxo-equipe.md`](14-fluxo-equipe.md): cadastrar cliente, cadastrar serviço com as
+fases do fluxo padrão, fases com responsável e datas, cards de aprovação por rodada, prazo de 5 dias
+úteis, lembrete e alerta de vencido, aba Clientes só para consulta. **Foco só no login da equipe;**
+o login do cliente vem na fase 3. O trabalho local dos docs 12 e 13 (sem commit) é a base que será
+adaptada; nada vai para o git antes de a Rose aprovar.
+
+> **Onde paramos (13/10/2026):** fase 1 aprovada pela Rose e salva. A publicação na Hostinger continua
+> pendente: depende da Preparação (GitHub, Hostinger, Resend, backup).
 
 ---
 
@@ -50,49 +55,38 @@ Pronto quando:
 
 ---
 
-## Fase 2 · Serviços e modelos
+## Fase 2 · Área da equipe (refeita em 14/10/2026)
 
-**Entrega:** a equipe adiciona Rebranding e Site a um cliente, ajusta as etapas, e o cliente vê a
-linha do tempo de cada serviço.
+**Entrega:** a equipe cadastra um cliente, cadastra um serviço com as fases carregadas, organiza as
+fases e mostra um card de aprovação ao cliente, com prazo, e-mail, lembrete e alerta de vencido.
 
 Tarefas:
-- [ ] Tabelas `modelos`, `modelo_etapas`, `frentes`, `etapas`; enums `TipoEtapa`, `EstadoEtapa`
-- [ ] Seeder lendo `dados/modelos/*.yaml`, incluindo prazo de resposta e confirmação antes de aprovar (RN-30, RN-43)
-- [ ] Serviço `DiasUteis` com `config/feriados.php` (nacionais 2026–2027 + Belo Horizonte)
-- [ ] "Adicionar serviço" E7 com prévia das datas (RN-10, RN-11, RN-13)
-- [ ] Tela do serviço da equipe E8: reordenar, editar, adicionar, ocultar etapas (RN-12)
-- [ ] Modelos E10
-- [ ] Cliente: Início C4 com cartões das frentes e contador de revisões (RN-25); Serviço C5; Etapa C6 só leitura
-- [ ] Ações `IniciarEtapa`; trabalho da equipe com aviso ao concluir
-- [ ] Policies `FrentePolicy`, `EtapaPolicy@view` + testes de acesso cruzado
+- [x] Barra lateral: Painel, Cadastrar cliente, Clientes, Serviços (RN-80)
+- [x] Cadastro do cliente com e-mail de avisos de aprovação (RN-06)
+- [x] Cadastrar serviço: lista de serviços e fases do fluxo padrão carregadas (RN-10, RN-11, RN-13)
+- [x] Carga inicial dos seis serviços do doc 14 e tela Serviços para criar e editar fluxos padrão (RN-10a)
+- [x] Fase com responsável, o que fazer, entrada e término; editar no card (RN-12); situações (RN-14)
+- [x] Card de aprovação: rascunho, anexos de qualquer tipo, links, rodadas e histórico (RN-70, RN-71)
+- [x] Mostrar para cliente: bloqueio, hash, prazo de 5 dias úteis editável, fase "Aguardando cliente", e-mail (RN-72, RN-73)
+- [x] Agendador: lembrete 1 dia útil antes e alerta de vencido à equipe (RN-74, RN-75)
+- [x] Nova rodada a partir de "Ajustes solicitados" (RN-76)
+- [x] Painel com prazos vencidos, aguardando cliente e ajustes
+- [x] Aba Clientes só para consulta, com histórico de aprovações (RN-81)
+- [x] Policies e testes de acesso; área da equipe com 404 para quem não é equipe
 
-Pronto quando: a Rose monta o projeto da Bela Bartók (dados de `dados/piloto-bela-bartok.yaml`) com
-um cliente de teste e aprova o que o cliente vê.
+Pronto quando: a Rose cadastra um cliente de teste, cadastra um serviço, mostra um card, vê o e-mail
+no Mailpit, simula a resposta e confere o histórico na aba Clientes, e aprova.
 
 ---
 
-## Fase 3 · Aprovações e revisões
+## Fase 3 · Login do cliente
 
-**Entrega:** o ciclo completo publicar → aprovar / pedir ajuste → nova versão → aprovar, com o
-contador de revisões, a escolha de propostas e o ajuste extra.
+**Entrega:** o cliente vê os cards publicados, aprova ou pede ajuste, e a equipe recebe o retorno.
 
-Tarefas:
-- [ ] Tabelas `entregas`, `opcoes`, `pedidos_ajuste`, `aprovacoes`, `arquivos`
-- [ ] Uploads da equipe no disco privado (SEG-20 a SEG-25) e download com policy
-- [ ] Ações `PublicarEntrega`, `AprovarEntrega`, `EscolherOpcao`, `PedirAjuste`, `SolicitarAjusteExtra`, `IniciarAjusteExtra`, `CancelarAjusteExtra`, `MarcarCorrecaoNossa` ([`02-fluxos.md`](02-fluxos.md))
-- [ ] Contagem de revisões em transação com trava (RN-29)
-- [ ] Rascunho do pedido de ajuste salvo sozinho, com "Onde?" por item (RN-21, RN-21a)
-- [ ] Confirmação antes de aprovar (RN-43)
-- [ ] Escolha no celular com abas e imagem em tela cheia
-- [ ] Botão "Avisar no WhatsApp" (RN-34)
-- [ ] Hash da aprovação (RN-40)
-- [ ] Telas: C6 aprovação e escolha, C7 pedir ajuste em 2 passos, E9 etapa da equipe
-- [ ] Todos os textos de [`07-textos-e-emails.md`](07-textos-e-emails.md) desta fase
-- [ ] E-mails: entrega publicada, aprovado, ajuste pedido, ajuste extra, revisão devolvida (fila `database`)
-- [ ] Painel da equipe E3 (as três listas)
-
-Pronto quando: a Rose faz o Rebranding inteiro de mentira (direção visual, 2 propostas, 3 revisões,
-1 correção nossa, 1 ajuste extra) e aprova.
+Tarefas (a detalhar quando a fase 2 for aprovada):
+- [ ] Telas do cliente: início, serviço, card de aprovação com Aprovar e Solicitar ajustes
+- [ ] Regras de revisão (RN-20 a RN-29) revistas para o modelo de rodadas
+- [ ] Escolha de propostas, WhatsApp e e-mails de retorno à equipe
 
 ---
 
@@ -120,6 +114,7 @@ Tarefas:
 - [ ] Lembretes RN-31, contagem de dias de espera RN-32, resumo RN-33
 - [ ] Concluir serviço (RN-60), aviso de 30 dias (RN-61)
 - [ ] Arquivamento E11: pacote ZIP + PDF do histórico em fila, download, confirmação digitando o nome, remoção (RN-62 a RN-65)
+- [ ] Página "projeto concluído e arquivado" com link para dobra9.com.br (RN-65a)
 - [ ] Cópias de segurança diárias fora da Hostinger (SEG-54)
 
 Pronto quando: a Rose arquiva um serviço de teste, abre o pacote no computador e confere que nada

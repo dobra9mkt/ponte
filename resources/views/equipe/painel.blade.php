@@ -1,68 +1,64 @@
-<x-layouts.equipe titulo="Painel" :subtitulo="ucfirst(now()->translatedFormat('l, j \\d\\e F'))">
+@php
+    $colunas = [
+        ['titulo' => __('equipe.vencidos'), 'tom' => 'alerta', 'itens' => $vencidos->map(fn ($card) => [
+            'fase' => $card->etapa, 'detalhe' => __('equipe.venceu_em', ['data' => $card->responder_ate->format('d/m')]),
+        ])],
+        ['titulo' => __('equipe.aguardando'), 'tom' => 'atencao', 'itens' => $aguardando->map(fn ($card) => [
+            'fase' => $card->etapa, 'detalhe' => __('equipe.ate', ['data' => $card->responder_ate->format('d/m')]),
+        ])],
+        ['titulo' => __('equipe.ajustes'), 'tom' => 'info', 'itens' => $ajustes->map(fn ($fase) => [
+            'fase' => $fase, 'detalhe' => $fase->frente->nome,
+        ])],
+    ];
+@endphp
+<x-layouts.equipe :titulo="__('equipe.menu_painel')" :subtitulo="ucfirst(now()->translatedFormat('l, j \\d\\e F'))">
     <x-slot:cabecalho>{{ $saudacao }}, {{ $primeiroNome }}</x-slot:cabecalho>
-    <x-slot:acoes>
-        <x-botao :href="route('equipe.clientes.create')">
-            <x-icone nome="mais" class="h-4 w-4" />
-            Novo cliente
-        </x-botao>
-    </x-slot:acoes>
 
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <x-numero rotulo="Clientes ativos" :valor="$clientesAtivos" icone="clientes" />
-        <x-numero rotulo="Aguardando criar a senha" :valor="$semSenha" icone="chave" :tom="$semSenha > 0 ? 'atencao' : 'neutro'" />
-        <x-numero rotulo="Logins errados em 24 h" :valor="$falhasHoje" icone="escudo" :tom="$falhasHoje > 20 ? 'alerta' : 'neutro'" />
-    </div>
+    @if ($falhasLogin > config('ponte.alerta_falhas_login_por_hora'))
+        <x-aviso tipo="erro" class="mb-6">{{ __('equipe.falhas_login', ['qtd' => $falhasLogin]) }}</x-aviso>
+    @endif
 
-    <div class="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <x-cartao class="lg:col-span-2">
-            <div class="mb-4 flex items-center justify-between gap-4">
-                <h2 class="text-lg font-semibold">Clientes</h2>
-                @if ($clientes->isNotEmpty())
-                    <a href="{{ route('equipe.clientes.index') }}" class="link text-sm">Ver todos</a>
+    <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
+        @foreach ($colunas as $coluna)
+            <section class="rounded-cartao bg-white shadow-cartao">
+                <header class="flex items-center justify-between gap-3 border-b border-linha px-5 py-4">
+                    <h2 class="text-base font-semibold">{{ $coluna['titulo'] }}</h2>
+                    <x-etiqueta :tom="$coluna['itens']->isEmpty() ? 'neutro' : $coluna['tom']">{{ $coluna['itens']->count() }}</x-etiqueta>
+                </header>
+                @if ($coluna['itens']->isEmpty())
+                    <p class="px-5 py-6 text-sm text-mudo">{{ __('equipe.nada') }}</p>
+                @else
+                    <ul class="divide-y divide-linha/70">
+                        @foreach ($coluna['itens'] as $item)
+                            @php($fase = $item['fase'])
+                            <li>
+                                <a href="{{ route('equipe.frentes.ver', [$fase->frente->cliente_id, $fase->frente_id]).'#fase-'.$fase->id }}" class="flex items-start gap-3 px-5 py-3.5 transition hover:bg-off">
+                                    <x-cor-cliente :cor="$fase->frente->cliente->cor" class="mt-2" />
+                                    <span class="min-w-0 flex-1">
+                                        <span class="block truncate text-[0.95rem] font-medium text-navy">{{ $fase->titulo }}</span>
+                                        <span class="block truncate text-sm text-mudo">{{ $fase->frente->cliente->empresa }} · {{ $item['detalhe'] }}</span>
+                                    </span>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 @endif
-            </div>
-
-            @if ($clientes->isEmpty())
-                <div class="rounded-campo border border-dashed border-linha px-6 py-10 text-center">
-                    <p class="font-titulo font-semibold text-navy">Nenhum cliente ainda</p>
-                    <p class="mt-1 text-sm text-mudo">Cadastre o primeiro. Nada é enviado até você clicar em "Enviar acesso".</p>
-                    <x-botao :href="route('equipe.clientes.create')" variante="secundario" class="mt-4">Cadastrar cliente</x-botao>
-                </div>
-            @else
-                <ul class="-mx-2 divide-y divide-linha">
-                    @foreach ($clientes as $cliente)
-                        <li>
-                            <a href="{{ route('equipe.clientes.show', $cliente) }}" class="flex min-h-14 items-center gap-3 rounded-campo px-2 py-3 transition hover:bg-off">
-                                <x-cor-cliente :cor="$cliente->cor" />
-                                <span class="min-w-0 flex-1">
-                                    <span class="block truncate font-medium text-navy">{{ $cliente->empresa }}</span>
-                                    <span class="block truncate text-sm text-mudo">{{ $cliente->contato_nome }}</span>
-                                </span>
-                                <span class="hidden sm:block"><x-acesso-cliente :cliente="$cliente" /></span>
-                                <x-icone nome="seta" class="h-4 w-4 text-mudo" />
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            @endif
-        </x-cartao>
-
-        <x-cartao titulo="Aguardando criar a senha">
-            @if ($aguardandoSenha->isEmpty())
-                <p class="text-sm text-mudo">Todos os clientes já criaram a senha.</p>
-            @else
-                <ul class="-mx-2 space-y-1">
-                    @foreach ($aguardandoSenha as $cliente)
-                        <li>
-                            <a href="{{ route('equipe.clientes.show', $cliente) }}" class="block rounded-campo px-2 py-2.5 transition hover:bg-off">
-                                <span class="block truncate text-[0.95rem] font-medium text-navy">{{ $cliente->empresa }}</span>
-                                <x-acesso-cliente :cliente="$cliente" class="mt-1" />
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-                <p class="mt-3 text-xs text-mudo">Abra o cliente para enviar ou reenviar o acesso.</p>
-            @endif
-        </x-cartao>
+            </section>
+        @endforeach
     </div>
+
+    @if ($semAcesso->isNotEmpty())
+        <section class="mt-8">
+            <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-mudo">{{ __('equipe.sem_acesso') }}</h2>
+            <ul class="flex flex-wrap gap-2">
+                @foreach ($semAcesso as $cliente)
+                    <li>
+                        <a href="{{ route('equipe.clientes.show', $cliente) }}" class="flex min-h-11 items-center gap-2 rounded-full border border-linha bg-white px-4 text-sm font-medium text-navy transition hover:border-tec">
+                            <x-cor-cliente :cor="$cliente->cor" />{{ $cliente->empresa }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </section>
+    @endif
 </x-layouts.equipe>

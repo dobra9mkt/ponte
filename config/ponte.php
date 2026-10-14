@@ -8,6 +8,8 @@ return [
 
     'whatsapp_dobra9' => env('PONTE_WHATSAPP_DOBRA9'),
 
+    'prazo_resposta_dias_uteis' => 5,
+
     'convite_validade_horas' => 72,
 
     'lembrar_de_mim_dias' => 30,

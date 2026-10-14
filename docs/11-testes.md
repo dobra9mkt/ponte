@@ -3,6 +3,22 @@
 Pest, com banco SQLite em memória. Cada teste cita a regra (RN-xx) ou o item de segurança (SEG-xx)
 que protege. Nenhuma fase é aprovada com teste falhando.
 
+## Fase 2 refeita · 14/10/2026
+
+Testes previstos em [`14-fluxo-equipe.md`](14-fluxo-equipe.md) ("Verificação prevista"), cada um
+citando RN-06, RN-10 a RN-14, RN-70 a RN-76, RN-80 e RN-81. Prazos e lembretes com data simulada
+(`travel`) e `Mail::fake()`. Arquivos: `ServicosPadraoTest`, `FasesTest`, `AprovacoesTest`, `PrazosTest`,
+`ConsultaTest`. Os testes do fluxo simples foram removidos. Suíte em 14/10/2026: 159 testes, 617 verificações.
+
+## Simplificação da fase 2 · 13/10/2026
+
+`FluxoSimplesTest` verifica criação sem catálogo, rascunhos privados (incluindo URLs diretas),
+liberação com etapa visível e sem e-mail, datas opcionais, recorrência sem data e preservação dos
+valores no formulário correto após erro. `FrentesTest` foi ajustado às novas RN-10 e RN-13.
+`AreaEquipeTest` inclui a rota de liberação. Suíte: 152 testes / 554 verificações.
+Navegador com dados fictícios: criar, editar, liberar, iniciar e concluir; cliente em 390px,
+equipe em 360px e computador. Sem erros de JavaScript/CSP ou rolagem horizontal.
+
 ## Ajudantes (fase 1)
 
 - Fábricas: `User::factory()->equipe()`, `User::factory()->cliente($cliente)`, `Cliente`, `Frente`
@@ -28,11 +44,11 @@ que protege. Nenhuma fase é aprovada com teste falhando.
 
 ## Fase 2
 
-- [ ] SEG-10 / SEG-11: cliente A recebe 404 em todas as rotas de frente/etapa de B
-- [ ] RN-11: editar etapas da frente não altera o modelo, e vice-versa
-- [ ] RN-12: etapa com aprovação não pode ser removida
-- [ ] RN-13: datas em dias úteis pulam fins de semana e feriados; empurrar datas move as seguintes
-- [ ] Etapa oculta não aparece para o cliente e devolve 404
+- [x] SEG-10 / SEG-11: cliente A recebe 404 em todas as rotas de frente/etapa de B
+- [x] RN-11: editar etapas da frente não altera o modelo, e vice-versa
+- [x] RN-12: etapa com aprovação não pode ser removida
+- [x] RN-13: datas em dias úteis pulam fins de semana e feriados; empurrar datas move as seguintes
+- [x] Etapa oculta não aparece para o cliente e devolve 404
 
 ## Fase 3
 

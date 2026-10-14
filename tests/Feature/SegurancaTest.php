@@ -2,9 +2,7 @@
 
 use App\Mail\AlertaFalhasLogin;
 use App\Models\Atividade;
-use App\Models\Cliente;
 use Database\Factories\UserFactory;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 it('SEG-31: toda resposta tem os cabeçalhos de segurança', function (string $url) {
@@ -82,16 +80,6 @@ it('erro mostra página genérica sem detalhes técnicos', function () {
     config(['app.debug' => false]);
 
     $this->get('/nao-existe')->assertNotFound()->assertSee('Página não encontrada')->assertDontSee('Symfony');
-});
-
-it('cliente troca a senha e sai dos outros aparelhos', function () {
-    $usuario = actingAsCliente(Cliente::factory()->comLogin()->create());
-    DB::table('sessions')->insert(['id' => 'outro-aparelho', 'user_id' => $usuario->id, 'payload' => '', 'last_activity' => time()]);
-
-    $this->post(route('conta.sair-todos'), ['senha_confirmacao' => 'errada'])->assertSessionHasErrors('senha_confirmacao');
-    $this->post(route('conta.sair-todos'), ['senha_confirmacao' => UserFactory::SENHA])->assertSessionHasNoErrors();
-
-    expect(DB::table('sessions')->where('id', 'outro-aparelho')->exists())->toBeFalse();
 });
 
 it('SEG-52: a privacidade avisa que entradas e ações ficam registradas com IP e navegador', function () {

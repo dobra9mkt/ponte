@@ -38,8 +38,18 @@ class ClientePolicy
         return $this->update($usuario, $cliente);
     }
 
+    public function delete(User $usuario, Cliente $cliente): bool
+    {
+        return $usuario->ehEquipe();
+    }
+
+    public function restore(User $usuario, Cliente $cliente): bool
+    {
+        return $usuario->ehEquipe() && $cliente->trashed() && $cliente->descartado_em === null;
+    }
+
     public function baixarContrato(User $usuario, Cliente $cliente): bool
     {
-        return $usuario->ehEquipe() && $cliente->temContrato();
+        return $cliente->temContrato() && ($usuario->ehEquipe() || $usuario->cliente_id === $cliente->id);
     }
 }

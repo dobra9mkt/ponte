@@ -1,4 +1,24 @@
-# Ponte — instruções para quem programa
+# Coding Principles
+- Functions do ONE thing: A function should do one thing, do it well, and do only that. Prefer single-action classes (invokable controllers or Action classes) for business logic.
+- Single Responsibility: Each class/module has one reason to change.
+- Meaningful names: Names reveal intent. They must be informative, distinctive, pronounceable, and searchable.
+- Comments minimally: Only for context and provenance when code intent isn't obvious. No emojis in comments.
+- DRY (Don't Repeat Yourself): Avoid duplication, but don't abstract prematurely.
+- Laravel conventions: Follow the standard directory structure.
+- Dependency Injection: Inject via constructor or method parameter. No hardcoded new, no static facades in domain logic. This ensures testability.
+- Avoid deep nesting: One level of abstraction per function. No if inside for inside if inside try.
+- Wrap third-party code: Any external library (payment gateways, APIs, etc.) must be wrapped behind a thin interface owned by the project.
+- Validate all input: Use Form Requests or in-service validation. Blade auto-escapes with {{ }}. Webhooks must verify signatures.
+- Migrations are schema source of truth: Never alter production DB manually. Seeders are for development only.
+- Prevent IDOR: Authorize every resource access (e.g., $this->authorize('view', $product)). No sequential IDs for sensitive resources? Use UUIDs if needed.
+- Do not expose internals: Custom error pages (no debug in production). Log critical actions but never log passwords, full tokens, or payment details.
+- Syntax check after changes: After modifying any PHP file, you MUST run php -l <file> on those specific files only. Never attempt to open a browser or run browser-based tests. If you modified multiple files, run the command for each one sequentially. If a syntax error is found, fix it immediately and re-check until the file passes lint.
+- Aways soft delete for every data on database. Don't delete permanent, just soft delete.
+- Every new function gets a test. Bug fixes get a regression test.
+- Mock external I/O (API, DB, filesystem) with named fake classes, not inline stubs.
+- Tests must be F.I.R.S.T: fast, independent, repeatable, self-validating, timely.
+- Toda vez que você criar ou alterar uma migration, avisa que eu preciso rodar php artisan migrate, pra eu saber quando rodar ou não.
+
 
 Portal de acompanhamento de clientes da Dobra 9 (ponte.dobra9.com.br). Antes de qualquer tarefa,
 leia `docs/00-visao-geral.md`, `docs/01-regras-de-negocio.md` e a fase atual em `docs/09-fases.md`.
@@ -7,7 +27,6 @@ leia `docs/00-visao-geral.md`, `docs/01-regras-de-negocio.md` e a fase atual em 
 
 - Tudo em **português do Brasil**: conversa, textos das telas, mensagens de commit, nomes de
   tabelas, colunas, rotas e classes de domínio (ver "Nomes" abaixo).
-- A Rose não é programadora: explicar o que mudou **para quem usa**, sem jargão.
 - **Uma fase por vez.** Não adiantar trabalho de fases seguintes. Cada fase termina com a Rose
   testando e aprovando.
 - Regra nova ou mudada → atualizar o documento em `docs/` **antes** do código, e registrar em
@@ -71,21 +90,5 @@ Lista completa em `docs/06-seguranca.md`. O mínimo que nenhum PR pode quebrar:
 5. Nenhum segredo no repositório. Nenhuma senha de cliente guardada, nunca.
 6. Campos pessoais (telefone, endereço, observações) e o arquivo do contrato **criptografados**.
 
-## Comandos (depois da fase 1)
 
-```bash
-composer install && npm install
-php artisan migrate --seed      # cria tabelas e os modelos de etapas de dados/modelos/
-npm run dev                     # telas com recarga automática
-php artisan test                # todos os testes (Pest)
-./vendor/bin/pint               # arruma o estilo
-./vendor/bin/phpstan analyse    # análise estática
-composer audit                  # falhas conhecidas nas bibliotecas
-```
 
-## Antes de dizer "pronto"
-
-- [ ] Testes passando (`php artisan test`), incluindo os de acesso entre clientes
-- [ ] Pint e PHPStan sem erros
-- [ ] Testado no navegador, no tamanho de celular
-- [ ] Documento em `docs/` atualizado se alguma regra mudou

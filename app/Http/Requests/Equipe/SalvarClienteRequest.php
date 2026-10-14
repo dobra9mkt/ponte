@@ -18,6 +18,7 @@ class SalvarClienteRequest extends FormRequest
             'empresa' => ['required', 'string', 'max:150'],
             'contato_nome' => ['required', 'string', 'max:150'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($usuarioId)],
+            'email_avisos' => ['required', 'string', 'email', 'max:255'],
             'telefone' => ['nullable', 'string', 'max:30'],
             'endereco' => ['nullable', 'string', 'max:500'],
             'observacoes' => ['nullable', 'string', 'max:5000'],
@@ -27,6 +28,9 @@ class SalvarClienteRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
-        $this->merge(['email' => mb_strtolower(trim((string) $this->input('email')))]);
+        $email = mb_strtolower(trim((string) $this->input('email')));
+        $avisos = mb_strtolower(trim((string) $this->input('email_avisos')));
+
+        $this->merge(['email' => $email, 'email_avisos' => $avisos !== '' ? $avisos : $email]);
     }
 }

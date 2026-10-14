@@ -1,5 +1,10 @@
 # 03 · Telas
 
+**Atualização de 14/10/2026:** as telas da equipe seguem [`14-fluxo-equipe.md`](14-fluxo-equipe.md)
+(barra lateral com Painel, Cadastrar cliente e Clientes; serviço com fases do fluxo padrão; cards de
+aprovação por rodada). As telas do cliente (C1 a C9) serão revistas na fase do login do cliente; os
+esboços abaixo são referência.
+
 Todas pensadas **primeiro para o celular** (360 px) e depois para o computador. Visual em
 [`10-identidade-visual.md`](10-identidade-visual.md); textos em [`07-textos-e-emails.md`](07-textos-e-emails.md).
 Rotas em [`05-rotas-e-permissoes.md`](05-rotas-e-permissoes.md).
@@ -34,6 +39,9 @@ Rotas em [`05-rotas-e-permissoes.md`](05-rotas-e-permissoes.md).
   **o que conta como revisão** — e o botão "Entendi, vamos lá".
 
 ### C4 · Início
+
+Substituída pela linha do tempo com abas de serviço (RN-16b). Só aparece sem nenhum serviço mostrado:
+boas-vindas e aviso de preparação.
 
 ```
 ┌──────────────────────────────┐
@@ -81,6 +89,18 @@ Menu: Início · Arquivos · Minha conta · Sair
 │ ○ Ajustes na escolhida 27/11 │
 │ ○ Manual e arquivos   04/12  │
 └──────────────────────────────┘
+```
+
+**Atualização de 14/10/2026 (RN-17):** a tela do serviço do cliente é uma linha do tempo vertical:
+
+```
+Criação de sites                     Previsão de conclusão: 11/11/2026
+● Começamos em 05/10/2026
+✓ Pesquisa              Concluída        05/10 → 09/10
+✓ Copy                  Concluída        09/10 → 16/10
+● Preparo das imagens   Aguardando sua aprovação   13/10 → 16/10
+   ├ 1ª revisão · enviada em 14/10 · responder até 21/10   [Revisar]
+○ Desenvolvimento       Próxima          16/10 → 30/10
 ```
 
 ### C6 · Etapa — varia pelo tipo
@@ -138,7 +158,8 @@ Sem revisões → tela de ajuste extra com o texto de RN-27 e botão "Solicitar 
 Lista agrupada por serviço: entregas aprovadas e finais, com data e botão Baixar (RN-52).
 
 ### C9 · Minha conta
-Trocar senha, ver e-mail de acesso, sair de todos os aparelhos, link para a página de privacidade.
+Seus dados só para leitura (contato, empresa, e-mail, telefone, endereço), **Baixar contrato (PDF)** quando
+houver, e trocar senha. Correções nos dados são feitas pela equipe. Sair fica só no topo.
 
 ---
 
@@ -150,59 +171,80 @@ dígitos do aplicativo (ou um código de recuperação). Primeira vez: QR code p
 
 ### Estrutura da área da equipe
 
-Barra lateral fixa à esquerda (no celular, menu que desliza): Painel, Calendário, Clientes, Modelos
-(cada item aparece quando a fase dele estiver pronta) e, no rodapé, a conta da pessoa e Sair. Cada
-tela tem um cabeçalho com título, link de voltar e as ações principais à direita. Telas de detalhe
-usam duas colunas: conteúdo no centro e um painel lateral com situação, ações e histórico.
+Barra lateral fixa à esquerda (no celular, menu que desliza): **Painel**, **Cadastrar cliente**,
+**Clientes**, **Serviços** (RN-80) e, no rodapé, a conta da pessoa e Sair. Calendário e Arquivamento entram quando
+as fases deles estiverem prontas. Cada tela tem um cabeçalho com título, link de voltar e as ações
+principais à direita. Telas de detalhe usam duas colunas: conteúdo no centro e painel lateral.
 
 ### E3 · Painel
 ```
-┌──────────┬────────────────────────────────────────────────────┐
-│ Ponte    │ Bom dia, Rose · terça, 13 de outubro  [+ Cliente]  │
-│          ├───────────────┬───────────────┬────────────────────┤
-│ ▣ Painel │ ESPERA POR NÓS│ ESPERA CLIENTE│ ESTA SEMANA        │
-│ ◷ Agenda │ Ajustes: Layou│ Direção visual│ Seg 09 Propostas   │
-│ ☺ Client.│ Bela · rev 2  │ Bela · 2 d.ú. │ Qua 11 Layout      │
-│ ☰ Modelos├───────────────┴───────────────┼────────────────────┤
-│          │ CLIENTES (situação do acesso) │ AGUARDANDO SENHA   │
-│          │ ● Bela Bartók   Senha criada  │ ● Outro            │
-│ ──────── │ ● Outro         Sem acesso    │   Convite enviado  │
-│ Rose  ⚙  │                               │                    │
-│ Sair     │ AVISOS: … concluído há 30 dias → Arquivar          │
-└──────────┴────────────────────────────────────────────────────┘
+┌──────────────────┬────────────────────────────────────────────────┐
+│ Ponte            │ Bom dia, Rose · quarta, 14 de outubro          │
+│                  ├────────────────┬────────────────┬──────────────┤
+│ Painel           │ PRAZO VENCIDO  │ AGUARDANDO     │ ESPERA POR   │
+│ Cadastrar cliente│ Layout · Bela  │ CLIENTE        │ NÓS (ajustes)│
+│ Clientes         │ venceu 23/10   │ Logo · Bela    │ Site · Outro │
+│                  │                │ vence 27/10    │ 2ª revisão   │
+│ ──────────────── │                │                │              │
+│ Rose · Sair      │                │                │              │
+└──────────────────┴────────────────┴────────────────┴──────────────┘
 ```
-Na fase 1 o painel mostra os números, os clientes e quem ainda não criou a senha; as três listas chegam na fase 3.
-O histórico de atividades (RN-41) não fica no painel: aparece recolhido na ficha do cliente ("Histórico (N) ▸") e só a equipe vê.
+O alerta de prazo vencido (RN-75) aparece aqui até o cliente responder ou a equipe mudar o prazo.
+O histórico de atividades (RN-41) não fica no painel.
+
+### E5 · Cadastrar cliente (lista) e E6 · Ficha do cliente
+- Lista dos clientes em trabalho e o botão **Novo cliente**.
+- Formulário: empresa*, contato*, e-mail de acesso*, **e-mail de avisos de aprovação*** (vem com o
+  e-mail do contato), telefone, endereço, observações, contrato (PDF).
+- Ficha: cabeçalho com empresa e contato; **serviços** em primeiro plano com o botão
+  **Cadastrar serviço**; no painel lateral, cadastro, acesso ("Enviar acesso") e histórico recolhido.
+
+### E7 · Cadastrar serviço
+Formulário curto na ficha: escolher o serviço (lista da tela Serviços, ou **Outro** com o nome
+escrito) e a data de início (opcional) → **Cadastrar serviço** abre o E8 já com as fases do fluxo padrão (RN-10, RN-13).
+
+### E8 · Serviço — fases
+```
+Site · Bela Bartók                    Previsão de conclusão: 18/12
+──────────────────────────────────────────────────────────────────
+01 Mapa do site            Concluída     Elias · 13/10 → 17/10
+02 Layout                  Aguardando cliente · prazo 23/10
+   Quem faz: Rose · Desenhar as telas principais
+   Entrada 20/10 · Término 30/10                     [Editar fase]
+   ┌ 1ª revisão · Aguardando o cliente · prazo 23/10 [alterar] ┐
+   │ Confira o menu e as cores da página inicial               │
+   │ layout-v1.pdf · Site de teste ↗                           │
+   └───────────────────────────────────────────────────────────┘
+03 Programação             A fazer       Elias · 02/11 → 27/11
++ Nova fase
+```
+- Cada fase é um card: nome, responsável, o que fazer, entrada, término e situação (RN-12, RN-14).
+  **Editar fase** abre os campos no próprio card, com Salvar e Cancelar.
+- Um botão de próximo passo por fase (Iniciar fase → Concluir fase) e **Adicionar aprovação**.
+  Subir, descer, ocultar e remover ficam em **Mais opções**.
+
+### E9 · Card de aprovação (dentro da fase)
+- **Rascunho**: o que revisar, anexos (qualquer arquivo, RN-50), links, prazo calculado (5 dias úteis,
+  com "alterar"), botões **Mostrar para cliente** e "Excluir rascunho" (RN-70, RN-73).
+- **Aguardando o cliente**: conteúdo só leitura, prazo com "alterar"; "Prazo vencido em DD/MM" quando
+  vencer (RN-72, RN-75).
+- **Aprovado**: "Aprovado em 22/10/2026, às 10:42." (RN-76).
+- **Ajustes solicitados**: texto do cliente e botão **Nova rodada** (RN-76).
+- Rodadas anteriores ficam recolhidas abaixo ("1ª revisão · Ajustes solicitados em 21/10 ▸") (RN-71).
+
+### E10 · Serviços (fluxos padrão)
+Lista de serviços com **Novo serviço**. Ao abrir um: nome e as fases do fluxo padrão, cada uma com
+nome, responsável, o que fazer e duração em dias úteis (opcional), editáveis no card com Salvar e
+Cancelar; subir, descer, adicionar e remover. Desativar tira o serviço da lista de cadastro sem afetar
+quem já tem. Mudanças valem só para serviços cadastrados depois (RN-10a, RN-11).
+
+### E13 · Clientes (somente visualização)
+Lista de clientes → ao abrir um, cada serviço com resumo (fase atual, barra de progresso, início e término
+previsto) e as fases com marcador de situação, responsável e período; as aprovações aparecem dentro da
+própria fase (rodada, situação e data). Nenhum botão de edição (RN-81).
 
 ### E4 · Calendário
-Mês e semana; cada item = etapa com data prevista ou prazo do cliente; uma cor por cliente; clicar abre
-a etapa. Filtro por cliente. (Sem arrastar no calendário na v1: datas mudam na tela da frente.)
-
-### E5 · Clientes (lista) e E6 · Cliente (ficha)
-- Lista: empresa, contato, serviços ativos, situação do acesso (não enviado / enviado em DD/MM / ativo).
-- Ficha: dados do cadastro (RN-06), contrato anexado (RN-07, só equipe), botão **"Enviar acesso"** /
-  "Reenviar acesso", serviços do cliente, botão **"Adicionar serviço"**, desativar, arquivar cliente.
-  A ficha não mostra quando o cliente entrou pela última vez (evita cara de vigilância).
-- Formulário novo/editar cliente: empresa*, contato*, e-mail*, telefone, endereço, observações, contrato (PDF).
-
-### E7 · Adicionar serviço
-Modelo (Rebranding, Site, … ou Em branco), nome (preenchido pelo modelo), data de início, revisões
-incluídas (3), prazo final. Prévia das etapas com as datas calculadas (RN-13) antes de salvar.
-
-### E8 · Serviço (frente) — visão da equipe
-Lista de etapas com arrastar para reordenar, editar (título, tipo, descrição para o cliente, data,
-gasta revisão?), adicionar, ocultar/remover (RN-12). Contador de revisões, com a lista de pedidos e o
-botão "Marcar como correção nossa" em cada um. Botão "Concluir serviço" quando tudo estiver pronto.
-
-### E9 · Etapa — visão da equipe
-Conforme o estado: "Iniciar", **"Publicar entrega"** (arquivos + link + nota curta → "Enviar para
-aprovação"), opções da escolha (marcar recomendada + por quê), pedidos de ajuste recebidos com os itens,
-materiais recebidos ("Confirmar recebimento" / "Pedir complemento"), histórico completo da etapa.
-Depois de publicar ou liberar: botão **"Avisar no WhatsApp"** com a mensagem pronta (RN-34).
-
-### E10 · Modelos
-Lista de modelos; editar etapas padrão (título, tipo, duração em dias úteis, gasta revisão, descrição
-para o cliente) e as revisões incluídas. Mudanças valem só para serviços novos (RN-11).
+Fica para uma fase seguinte: mês e semana, cada item uma fase ou um prazo de card, cor por cliente.
 
 ### E11 · Arquivamento
 Lista de serviços concluídos há 30+ dias. Fluxo de RN-62/RN-63: gerar pacote → baixar → confirmar

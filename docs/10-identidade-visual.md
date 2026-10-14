@@ -50,7 +50,7 @@ Fontes servidas pelo próprio portal (pacotes `@fontsource-variable/montserrat` 
 
 - Raio: 10 px (campos, botões), 16 px (cartões)
 - Sombra dos cartões: `0 1px 2px rgb(7 30 61 / 0.06), 0 8px 24px rgb(7 30 61 / 0.06)`
-- Margem lateral no celular: 16 px; largura máxima do conteúdo do cliente: 720 px; da equipe: 1280 px
+- Cliente: margem lateral de 20 px no celular e conteúdo até 1024 px; duas colunas de trabalhos no computador e uma no celular. Equipe: margem de 16 px no celular e conteúdo até 1280 px.
 - Área de toque mínima: 44 × 44 px
 
 ## Tailwind

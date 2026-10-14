@@ -1,0 +1,9 @@
+nome: Servidores web Linux
+fases:
+  - Levantamento da necessidade
+  - Configuração do servidor
+  - Configuração de backups e monitoramento
+  - Migração dos sites/sistemas
+  - Testes
+  - Validação do cliente
+  - Entrega

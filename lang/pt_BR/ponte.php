@@ -59,15 +59,23 @@ return [
         'precisa_de_voce' => 'Precisa de você',
         'tudo_em_dia' => 'Tudo em dia! A Dobra 9 está trabalhando no seu projeto.',
         'preparando' => 'Estamos preparando as etapas do seu projeto. Assim que estiverem prontas, elas aparecem aqui.',
+        'fazer_agora' => 'O que fazer agora',
+        'nada_agora' => 'Você não tem nenhuma pendência agora.',
+        'seus_servicos' => 'Seus serviços',
     ],
 
     'conta' => [
         'titulo' => 'Minha conta',
-        'email_acesso' => 'E-mail de acesso',
         'trocar_senha' => 'Trocar senha',
-        'sair_todos' => 'Sair de todos os aparelhos',
-        'sair_todos_texto' => 'Encerra o acesso em todos os outros celulares e computadores. Este aparelho continua conectado.',
-        'sair_todos_feito' => 'Pronto. Os outros aparelhos foram desconectados.',
+        'seus_dados' => 'Seus dados',
+        'contato' => 'Contato',
+        'empresa' => 'Empresa',
+        'email' => 'E-mail',
+        'telefone' => 'Telefone',
+        'endereco' => 'Endereço',
+        'dados_ajuda' => 'Precisa corrigir algum dado? Fale com a Dobra 9.',
+        'contrato' => 'Contrato',
+        'baixar_contrato' => 'Baixar contrato (PDF)',
     ],
 
     'revisoes' => [
@@ -93,7 +101,7 @@ return [
 
     'aprovar' => [
         'confirmar' => 'Aprovar :etapa (versão :versao)? Depois de aprovado, a etapa não volta.',
-        'feito' => 'Aprovado em :data às :hora por :nome. Obrigado! Seguimos para a próxima etapa.',
+        'feito' => 'Aprovado em :data às :hora por :nome. Seguimos para a próxima etapa.',
     ],
 
     'esperando' => 'Aguardando a sua resposta há :dias dias úteis. O cronograma anda junto com a sua resposta.',
@@ -108,6 +116,35 @@ return [
         'acesso_enviado' => 'Acesso enviado para :email. O link vale por 72 horas.',
         'desativado' => 'Cliente desativado. O acesso foi encerrado.',
         'reativado' => 'Cliente reativado.',
+    ],
+
+    'frentes' => [
+        'criada' => 'Trabalho criado. Agora, adicione a primeira etapa.',
+        'salva' => 'Trabalho salvo.',
+        'previsao' => 'Previsão de conclusão: :data',
+        'etapa_de' => 'Etapa :n de :total',
+        'agora' => 'Agora: :etapa',
+        'concluido' => 'Etapas concluídas',
+        'sem_etapas' => 'As etapas deste trabalho ainda estão sendo preparadas.',
+    ],
+
+    'etapas' => [
+        'adicionada' => 'Etapa adicionada.',
+        'salva' => 'Etapa salva.',
+        'removida' => 'Etapa removida.',
+        'ocultada' => 'Etapa ocultada. O cliente não vê mais esta etapa.',
+        'mostrada' => 'Etapa visível para o cliente.',
+        'iniciada' => 'Etapa em produção.',
+        'concluida' => 'Etapa concluída.',
+        'prevista' => 'Previsão: :data',
+        'aviso_da_equipe' => 'Recado da Dobra 9',
+        'em_producao' => 'A Dobra 9 está trabalhando nesta etapa. Avisaremos quando houver algo para você ver.',
+        'proxima' => 'Esta etapa ainda não começou.',
+        'mensal' => 'Todo mês',
+    ],
+
+    'modelos' => [
+        'salvo' => 'Modelo salvo. As mudanças valem só para serviços adicionados daqui em diante.',
     ],
 
     'emails' => [

@@ -8,7 +8,7 @@ entrega, com 3 revisões por frente. **A segurança dos dados vem antes de qualq
 | Quem | Entra por | Faz o quê |
 |---|---|---|
 | Cliente (1 login por cliente) | `ponte.dobra9.com.br/entrar` | Acompanha, envia materiais, aprova ou pede ajuste, escolhe propostas, baixa entregas finais |
-| Equipe: Rose e Elias | Caminho secreto (`/{PONTE_CAMINHO_EQUIPE}`), com 2FA | Cadastra clientes, adiciona serviços, publica entregas, responde ajustes, vê o calendário, arquiva |
+| Equipe: Rose e Elias | Caminho secreto (`/{PONTE_CAMINHO_EQUIPE}`), com 2FA | Cadastra clientes e serviços, organiza as fases, mostra cards de aprovação ao cliente, acompanha prazos, arquiva |
 
 Rose e Elias têm o mesmo acesso completo; não há níveis de permissão entre eles.
 
@@ -24,16 +24,17 @@ Rose e Elias têm o mesmo acesso completo; não há níveis de permissão entre 
 |---|---|---|
 | Cliente | A empresa atendida (ex.: Escola de Música Bela Bartók) | `Cliente` |
 | Projeto | O conjunto de frentes de um cliente (não é tabela própria) | — |
-| Frente / Serviço | Uma parte contratada, com 3 revisões próprias: Rebranding, Site, Página de vendas, Sistema | `Frente` |
-| Modelo | Lista padrão de etapas de um tipo de frente | `Modelo`, `ModeloEtapa` |
-| Etapa | Um passo dentro da frente (ex.: Layout) | `Etapa` |
-| Entrega | Uma versão enviada para o cliente ver (arquivo e/ou link) | `Entrega` |
+| Serviço | Uma parte contratada: Sistemas sob medida, Aplicativos, Criação de sites, Segurança, Servidores, Tráfego pago, ou outro criado pela equipe | `Frente` |
+| Fluxo padrão | Lista padrão de fases de um serviço, carregada ao cadastrá-lo | `Modelo`, `ModeloEtapa` |
+| Fase | Um passo dentro do serviço (ex.: Layout), com responsável e datas | `Etapa` |
+| Card de aprovação | Uma rodada (1ª, 2ª, 3ª revisão) mostrada ao cliente: o que revisar, anexos e links | `Entrega` |
 | Opção | Uma das propostas numa etapa de escolha | `Opcao` |
 | Revisão | Um pacote de ajustes que o cliente envia de uma vez | `PedidoAjuste` |
 | Aprovação | O registro imutável de que o cliente aprovou | `Aprovacao` |
 | Atividade | Linha do registro de tudo o que acontece | `Atividade` |
 
-> Na tela da equipe, o botão diz **"Adicionar serviço"**; no código e nos documentos, serviço = frente.
+> Nas telas, usamos **serviço** e **fase**. No código, serviço = frente e fase = etapa.
+> Fluxo da equipe (14/10/2026) em [`14-fluxo-equipe.md`](14-fluxo-equipe.md).
 
 ## Decisões tomadas
 
@@ -53,7 +54,8 @@ Registro completo com datas em [`decisoes.md`](decisoes.md). Resumo:
 | E-mails | Remetente contato@dobra9.com.br |
 | Visual | Identidade da Dobra 9, sem símbolo próprio para o Ponte |
 | Arquivamento | 30 dias após concluir, a equipe baixa o pacote e o portal apaga os dados |
-| Etapas | Editáveis em cada projeto, sem alterar o modelo original |
+| Fases | Carregadas do fluxo padrão do serviço e editáveis em cada cliente, sem alterar o padrão |
+| Aprovação | Card por rodada em qualquer fase; prazo de 5 dias úteis; lembrete na véspera; alerta de vencido à equipe |
 
 ## Fora desta versão
 

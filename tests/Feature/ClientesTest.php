@@ -22,6 +22,15 @@ function pdfFalso(): UploadedFile
     return arquivoReal('contrato.pdf', "%PDF-1.4\n1 0 obj<<>>endobj\ntrailer<<>>\n%%EOF");
 }
 
+/** @param array<string, string> $dados */
+function clienteComContrato(array $dados): Cliente
+{
+    $cliente = Cliente::factory()->comLogin()->create($dados);
+    test()->put(rotaEquipe('clientes.update', $cliente), $dados + ['email_avisos' => $dados['email'], 'contrato' => pdfFalso()])->assertSessionHasNoErrors();
+
+    return $cliente->fresh();
+}
+
 it('cadastra cliente e cria o login dele sem senha', function () {
     $this->post(rotaEquipe('clientes.store'), [
         'empresa' => 'Escola de Música Bela Bartók',
@@ -94,14 +103,14 @@ it('RN-07: contrato só aceita PDF de verdade', function () {
     expect(Cliente::count())->toBe(0);
 });
 
-it('SEG-13: nenhuma rota do cliente devolve o contrato', function () {
+it('SEG-13: o caminho do contrato nunca aparece para o cliente nem a rota da equipe', function () {
     $this->post(route('sair'));
     $cliente = Cliente::factory()->comLogin()->create();
     $cliente->forceFill(['contrato_caminho' => 'contratos/teste'])->save();
     actingAsCliente($cliente);
 
     foreach ([route('inicio'), route('conta')] as $url) {
-        $this->get($url)->assertDontSee('contratos/teste')->assertDontSee('Contrato');
+        $this->get($url)->assertDontSee('contratos/teste');
     }
 
     $this->get(rotaEquipe('clientes.contrato', $cliente))->assertNotFound();
@@ -172,4 +181,34 @@ it('a ficha não mostra quando o cliente entrou pela última vez', function () {
     $cliente->usuario->forceFill(['ultimo_acesso_em' => now()->subHour()])->save();
 
     $this->get(rotaEquipe('clientes.show', $cliente))->assertOk()->assertDontSee('Último acesso');
+});
+
+it('C9: Minha conta mostra os dados do cliente só para leitura e o contrato para baixar', function () {
+    $cliente = clienteComContrato(['empresa' => 'Escola Bela Bartók', 'contato_nome' => 'Maria Teste', 'email' => 'maria@exemplo.com', 'telefone' => '(31) 99999-0000', 'endereco' => 'Rua das Flores, 10']);
+
+    actingAsCliente($cliente);
+    $pagina = $this->get(route('conta'))->assertOk()
+        ->assertSee('Maria Teste')->assertSee('Escola Bela Bartók')->assertSee('maria@exemplo.com')
+        ->assertSee('(31) 99999-0000')->assertSee('Rua das Flores, 10')
+        ->assertSee(route('conta.contrato'))->assertDontSee($cliente->contrato_caminho)
+        ->assertDontSee('Sair de todos');
+    expect(substr($pagina->getContent(), strpos($pagina->getContent(), '<main')))->not->toContain('name="empresa"');
+
+    $resposta = $this->get(route('conta.contrato'))->assertOk();
+    expect($resposta->getContent())->toStartWith('%PDF')
+        ->and($resposta->headers->get('Content-Disposition'))->toContain('attachment');
+
+    Storage::disk('privado')->delete($cliente->contrato_caminho);
+});
+
+it('SEG-13: cliente sem contrato não baixa nada e nunca baixa o de outro cliente', function () {
+    $comContrato = clienteComContrato(['empresa' => 'Com contrato', 'contato_nome' => 'A', 'email' => 'a@exemplo.com']);
+    $semContrato = Cliente::factory()->comLogin()->create();
+
+    actingAsCliente($semContrato);
+    $this->get(route('conta'))->assertOk()->assertDontSee(route('conta.contrato'));
+    $this->get(route('conta.contrato'))->assertForbidden();
+    $this->get(rotaEquipe('clientes.contrato', $comContrato))->assertNotFound();
+
+    Storage::disk('privado')->delete($comContrato->contrato_caminho);
 });

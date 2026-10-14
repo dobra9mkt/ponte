@@ -2,7 +2,7 @@
 <x-layouts.equipe
     :titulo="$novo ? 'Novo cliente' : 'Editar cadastro'"
     :subtitulo="$novo ? null : $cliente->empresa"
-    :voltar="$novo ? ['url' => route('equipe.clientes.index'), 'nome' => 'Clientes'] : ['url' => route('equipe.clientes.show', $cliente), 'nome' => $cliente->empresa]"
+    :voltar="$novo ? ['url' => route('equipe.clientes.index'), 'nome' => __('equipe.cadastro_titulo')] : ['url' => route('equipe.clientes.show', $cliente), 'nome' => $cliente->empresa]"
 >
     <form method="POST" action="{{ $novo ? route('equipe.clientes.store') : route('equipe.clientes.update', $cliente) }}" enctype="multipart/form-data" class="max-w-2xl space-y-6" novalidate>
         @csrf
@@ -14,7 +14,8 @@
             <div class="space-y-5">
                 <x-campo nome="empresa" rotulo="Empresa" :valor="$cliente->empresa" required autofocus />
                 <x-campo nome="contato_nome" rotulo="Pessoa de contato" :valor="$cliente->contato_nome" required />
-                <x-campo nome="email" rotulo="E-mail de acesso" tipo="email" :valor="$cliente->email" ajuda="É com este e-mail que o cliente entra no portal." required />
+                <x-campo nome="email" rotulo="E-mail de acesso" tipo="email" :valor="$cliente->email" required />
+                <x-campo nome="email_avisos" :rotulo="__('equipe.email_avisos')" tipo="email" :valor="$cliente->email_avisos" :placeholder="__('Igual ao e-mail de acesso')" />
                 <x-campo nome="telefone" rotulo="Telefone / WhatsApp" tipo="tel" :valor="$cliente->telefone" inputmode="tel" opcional />
             </div>
         </x-cartao>

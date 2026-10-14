@@ -3,7 +3,7 @@
     $jaEnviado = $usuario?->password !== null || $usuario?->convites()->exists();
     $whatsapp = $cliente->whatsappUrl();
 @endphp
-<x-layouts.equipe :titulo="$cliente->empresa" :voltar="['url' => route('equipe.clientes.index'), 'nome' => 'Clientes']">
+<x-layouts.equipe :titulo="$cliente->empresa" :voltar="['url' => route('equipe.clientes.index'), 'nome' => __('equipe.cadastro_titulo')]">
     <x-slot:cabecalho>
         <span class="flex items-start gap-3">
             <span class="mt-[0.6em]"><x-cor-cliente :cor="$cliente->cor" /></span>
@@ -19,36 +19,94 @@
         @can('update', $cliente)
             <x-botao variante="secundario" :href="route('equipe.clientes.edit', $cliente)">
                 <x-icone nome="editar" class="h-4 w-4" />
-                Editar
+                {{ __('fluxo.editar_cadastro') }}
             </x-botao>
         @endcan
     </x-slot:acoes>
 
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <div class="space-y-6">
-            <x-cartao titulo="Contato">
-                <dl class="grid gap-5 sm:grid-cols-2">
-                    <x-dado icone="conta" rotulo="Pessoa de contato">{{ $cliente->contato_nome }}</x-dado>
-                    <x-dado icone="email" rotulo="E-mail de acesso"><span class="break-all">{{ $cliente->email }}</span></x-dado>
-                    <x-dado icone="telefone" rotulo="Telefone">
-                        {{ $cliente->telefone ?: '—' }}
-                        @if ($whatsapp)
-                            <a href="{{ $whatsapp }}" target="_blank" rel="noopener noreferrer" class="link ml-1 text-sm">WhatsApp ↗</a>
-                        @endif
-                    </x-dado>
-                    <x-dado icone="local" rotulo="Endereço"><span class="whitespace-pre-line">{{ $cliente->endereco ?: '—' }}</span></x-dado>
-                </dl>
-            </x-cartao>
-
-            <x-cartao titulo="Observações internas">
-                <p class="whitespace-pre-line text-[0.95rem] {{ $cliente->observacoes ? 'text-texto' : 'text-mudo' }}">{{ $cliente->observacoes ?: 'Nenhuma observação.' }}</p>
-            </x-cartao>
-
-            <x-cartao titulo="Serviços">
-                <div class="rounded-campo border border-dashed border-linha px-6 py-8 text-center">
-                    <p class="text-sm text-mudo">Os serviços (Rebranding, Site…) aparecem aqui na próxima etapa do portal.</p>
+            <section aria-labelledby="servicos-titulo" x-data="alternar">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <h2 id="servicos-titulo" class="text-xl font-semibold">{{ __('equipe.servicos') }}</h2>
+                    @can('update', $cliente)
+                        <x-botao variante="secundario" type="button" x-on:click="alternar" x-show="!aberto">
+                            <x-icone nome="mais" class="h-4 w-4" />{{ __('equipe.cadastrar_servico') }}
+                        </x-botao>
+                    @endcan
                 </div>
-            </x-cartao>
+
+                @can('update', $cliente)
+                    <form method="POST" action="{{ route('equipe.frentes.store', $cliente) }}" x-data="servicoNovo"
+                        @class(['mt-4 rounded-cartao bg-white p-5 shadow-cartao sm:p-6']) @unless ($errors->hasAny(['modelo_id', 'nome', 'inicio_em', 'prazo_final'])) x-show="aberto" x-cloak @endunless>
+                        @csrf
+                        <div class="grid gap-4 sm:grid-cols-[minmax(0,1fr)_11rem_11rem]">
+                            <div class="space-y-1.5">
+                                <label for="campo-modelo_id" class="block text-[0.95rem] font-medium text-navy">{{ __('equipe.servico') }}</label>
+                                <select id="campo-modelo_id" name="modelo_id" class="campo" x-ref="servico" x-on:change="escolher">
+                                    @foreach ($servicos as $servico)
+                                        <option value="{{ $servico->id }}" @selected((string) old('modelo_id') === (string) $servico->id)>{{ $servico->nome }}</option>
+                                    @endforeach
+                                    <option value="" @selected(old('modelo_id', $servicos->isEmpty() ? '' : null) === '')>{{ __('equipe.outro') }}</option>
+                                </select>
+                            </div>
+                            <x-campo nome="inicio_em" tipo="date" :rotulo="__('equipe.inicio')" />
+                            <x-campo nome="prazo_final" tipo="date" :rotulo="__('equipe.termino')" />
+                        </div>
+                        <div class="mt-4" x-show="outro" x-cloak>
+                            <x-campo nome="nome" :rotulo="__('equipe.nome_servico')" maxlength="100" />
+                        </div>
+                        <div class="mt-5 flex flex-wrap gap-2">
+                            <x-botao>{{ __('equipe.cadastrar_servico') }}</x-botao>
+                            <x-botao variante="discreto" type="button" x-on:click="fechar">{{ __('equipe.cancelar') }}</x-botao>
+                        </div>
+                    </form>
+                @endcan
+
+                <div class="mt-4 space-y-3">
+                    @forelse ($cliente->frentes as $frente)
+                        @php
+                            $atual = App\Models\Frente::etapaAtual($frente->etapas);
+                            $prontas = $frente->etapas->filter(fn ($e) => $e->estado->finalizada())->count();
+                        @endphp
+                        <a href="{{ route('equipe.frentes.ver', [$cliente, $frente]) }}" class="group block rounded-cartao bg-white p-5 shadow-cartao transition hover:ring-1 hover:ring-tec/40">
+                            <span class="flex items-start justify-between gap-3">
+                                <span class="min-w-0">
+                                    <span class="block break-words font-titulo text-[1.05rem] font-semibold text-navy">{{ $frente->nome }}</span>
+                                    <span class="mt-1 block text-sm text-mudo">{{ $atual ? __('equipe.agora', ['fase' => $atual->titulo]) : $frente->situacao->rotulo() }}</span>
+                                </span>
+                                <x-icone nome="seta" class="mt-1 h-5 w-5 text-mudo transition group-hover:text-tec" />
+                            </span>
+                            <x-progresso :feitas="$prontas" :total="$frente->etapas->count()" class="mt-4" />
+                            <span class="mt-2 flex flex-wrap justify-between gap-2 text-xs text-mudo">
+                                <span>{{ __('equipe.fases_concluidas', ['feitas' => $prontas, 'total' => $frente->etapas->count()]) }}</span>
+                                <span>{{ __('equipe.previsao', ['data' => $frente->prazo_final?->format('d/m/Y') ?? __('equipe.a_combinar')]) }}</span>
+                            </span>
+                        </a>
+                    @empty
+                        <p class="rounded-cartao border border-dashed border-linha px-5 py-8 text-center text-sm text-mudo">{{ __('equipe.sem_servicos') }}</p>
+                    @endforelse
+                </div>
+            </section>
+            <details class="rounded-cartao border border-linha bg-white">
+                <summary class="cursor-pointer px-5 py-4 font-titulo text-sm font-semibold text-navy">{{ __('fluxo.contato') }}</summary>
+                <div class="space-y-5 border-t border-linha p-5">
+                    <dl class="grid gap-5 sm:grid-cols-2">
+                        <x-dado icone="conta" rotulo="Pessoa de contato">{{ $cliente->contato_nome }}</x-dado>
+                        <x-dado icone="email" rotulo="E-mail de acesso"><span class="break-all">{{ $cliente->email }}</span></x-dado>
+                        <x-dado icone="enviar" rotulo="Avisos de aprovação"><span class="break-all">{{ $cliente->emailDeAvisos() }}</span></x-dado>
+                        <x-dado icone="telefone" rotulo="Telefone">
+                            {{ $cliente->telefone ?: '—' }}
+                            @if ($whatsapp)<a href="{{ $whatsapp }}" target="_blank" rel="noopener noreferrer" class="link ml-1 text-sm">WhatsApp ↗</a>@endif
+                        </x-dado>
+                        <x-dado icone="local" rotulo="Endereço"><span class="whitespace-pre-line">{{ $cliente->endereco ?: '—' }}</span></x-dado>
+                    </dl>
+                    <div class="border-t border-linha pt-5">
+                        <h3 class="text-sm font-semibold">{{ __('fluxo.observacoes') }}</h3>
+                        <p class="mt-2 whitespace-pre-line text-sm text-mudo">{{ $cliente->observacoes ?: __('fluxo.sem_observacoes') }}</p>
+                    </div>
+                </div>
+            </details>
         </div>
 
         <aside class="space-y-6">
@@ -111,6 +169,10 @@
                         </form>
                     @endif
                 </div>
+            @endcan
+            @can('delete', $cliente)
+                <x-excluir class="px-1" :acao="route('equipe.clientes.destroy', $cliente)" :rotulo="__('equipe.excluir_cliente')"
+                    :mensagem="__('equipe.excluir_cliente_confirmar', ['cliente' => $cliente->empresa])" />
             @endcan
         </aside>
     </div>

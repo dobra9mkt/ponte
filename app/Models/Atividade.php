@@ -34,10 +34,17 @@ class Atividade extends Model
         $usuario ??= auth()->user();
         $request = request();
 
+        $frente = match (true) {
+            $alvo instanceof Frente => $alvo,
+            $alvo instanceof Etapa => $alvo->frente,
+            default => null,
+        };
+
         $atividade = new self;
         $atividade->forceFill([
             'user_id' => $usuario?->id,
-            'cliente_id' => $cliente->id ?? ($alvo instanceof Cliente ? $alvo->id : $usuario?->cliente_id),
+            'cliente_id' => $cliente->id ?? $frente->cliente_id ?? ($alvo instanceof Cliente ? $alvo->id : $usuario?->cliente_id),
+            'frente_id' => $frente?->id,
             'acao' => $acao,
             'alvo_type' => $alvo?->getMorphClass(),
             'alvo_id' => $alvo?->getKey(),

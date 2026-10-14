@@ -26,7 +26,7 @@ Cada item tem um código (SEG-xx) para citar em testes e commits.
 | SEG-10 | Cada cliente vê só o que é dele | Policies em todas as rotas + consultas a partir de `auth()->user()->cliente`; recurso alheio → 404 |
 | SEG-11 | Teste de acesso cruzado obrigatório | Para cada rota do cliente, um teste Pest em que o cliente A tenta o recurso do cliente B e recebe 404 |
 | SEG-12 | Proteção contra atribuição em massa | `$fillable` explícito; dados só de `$request->validated()` |
-| SEG-13 | Contrato invisível ao cliente | Nenhuma rota do cliente lê `contrato_caminho`; teste específico |
+| SEG-13 | Cliente só baixa o próprio contrato | Rota `/conta/contrato` sem ID na URL: lê só o contrato do cliente logado; o caminho do arquivo nunca aparece na tela; teste específico |
 | SEG-14 | Registro imutável | `Aprovacao` e `Atividade` lançam exceção em `updating`/`deleting`; usuário MySQL da aplicação sem permissão de `DROP` |
 
 ## Arquivos
@@ -35,10 +35,10 @@ Cada item tem um código (SEG-xx) para citar em testes e commits.
 |---|---|---|
 | SEG-20 | Fora da pasta pública | Disco `privado` em `storage/app/private`; nunca `storage:link` para ele |
 | SEG-21 | Nome seguro | Salvo com UUID; o nome original só é exibido (escapado) |
-| SEG-22 | Tipo verificado pelo conteúdo | Regra `mimetypes:` (finfo) + lista de RN-50; extensão derivada do tipo detectado |
+| SEG-22 | Tipo verificado pelo conteúdo | Cliente: regra `mimetypes:` (finfo) + lista de RN-50; extensão derivada do tipo detectado. Equipe: qualquer tipo (RN-50), guardado sem extensão executável e sempre servido conforme SEG-24 |
 | SEG-23 | Tamanho limitado | 50 MB por arquivo (`max:51200`) e `upload_max_filesize`/`post_max_size` no PHP |
 | SEG-24 | Download seguro | Controller com policy; cabeçalhos `Content-Disposition: attachment` (exceto prévia de PNG/JPG/WEBP/PDF), `X-Content-Type-Options: nosniff` e `Content-Security-Policy: sandbox` em toda resposta de arquivo |
-| SEG-25 | SVG só da equipe | Cliente não envia SVG; SVG da equipe é sempre baixado, nunca exibido inline |
+| SEG-25 | SVG e HTML nunca exibidos | Cliente não envia SVG; SVG, HTML e qualquer tipo fora de PDF/PNG/JPG/WEBP enviados pela equipe são sempre baixados, nunca exibidos inline |
 | SEG-26 | Contrato criptografado | Conteúdo do PDF cifrado com `Crypt::encryptString` antes de gravar |
 | SEG-27 | ZIPs nunca são abertos no servidor | Só guardados e devolvidos |
 
