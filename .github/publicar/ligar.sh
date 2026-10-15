@@ -20,6 +20,10 @@ mkdir -p "$APP/shared/storage/app/private" \
          "$APP/shared/storage/framework/views" \
          "$APP/shared/storage/logs"
 
+# O servidor web roda como outro usuário: precisa atravessar estas pastas até public/, sem listá-las.
+chmod 711 "$APP" "$APP/releases"
+chmod 700 "$APP/shared"
+
 ln -sfn "$APP/shared/.env" "$NOVA/.env"
 ln -sfn "$APP/shared/storage" "$NOVA/storage"
 
