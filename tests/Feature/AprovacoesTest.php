@@ -27,7 +27,7 @@ it('RN-70: adicionar aprovação cria um card em rascunho, só para a equipe', f
     ]);
 
     expect($card)->situacao->toBe(SituacaoCard::Rascunho)->versao->toBe(1)->publicada_em->toBeNull()
-        ->and($card->links)->toBe([['rotulo' => 'teste.cliente.com.br', 'url' => 'https://teste.cliente.com.br']])
+        ->and($card->links)->toEqual([['rotulo' => 'teste.cliente.com.br', 'url' => 'https://teste.cliente.com.br']])
         ->and($card->arquivos->sole()->nome_original)->toBe('layout.fig')
         ->and($this->fase->fresh()->estado)->toBe(EstadoEtapa::AFazer);
     Storage::disk('privado')->assertExists($card->arquivos->sole()->caminho);
@@ -133,7 +133,7 @@ it('RN-76: cliente pede ajuste e a nova rodada vem numerada e com os links da an
 
     $segundo = $this->fase->entregas()->firstOrFail();
     expect($segundo)->versao->toBe(2)->situacao->toBe(SituacaoCard::Rascunho)
-        ->and($segundo->links)->toBe([['rotulo' => 'Site de teste', 'url' => 'https://teste.cliente.com.br']]);
+        ->and($segundo->links)->toEqual([['rotulo' => 'Site de teste', 'url' => 'https://teste.cliente.com.br']]);
 
     $this->put(rotaEquipe('aprovacoes.update', $segundo), ['nota' => 'Foto trocada', 'mostrar' => '1'])->assertSessionHasNoErrors();
     expect($this->fase->fresh()->estado)->toBe(EstadoEtapa::AguardandoCliente);

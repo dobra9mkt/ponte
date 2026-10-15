@@ -46,7 +46,7 @@ na preparação, com uma **chave SSH nova só para o Ponte**. A pasta do site n�
 Repositório privado próprio (`dobra9/ponte`). Publica a cada envio para `main`, que só acontece com
 versão aprovada pela Rose. Arquivo `.github/workflows/publicar.yml` (criado na fase 1):
 
-1. **Verificar:** `composer install`, `php artisan test`, `vendor/bin/pint --test`, `vendor/bin/phpstan`, `composer audit`, `npm audit --omit=dev`. Qualquer falha para tudo.
+1. **Verificar:** `composer install`, `php artisan test` (num MySQL 8.4 do próprio GitHub, como na Hostinger), `vendor/bin/pint --test`, `vendor/bin/phpstan`, `composer audit`, `npm audit --omit=dev`. Qualquer falha para tudo.
 2. **Montar:** `composer install --no-dev --optimize-autoloader`, `npm ci && npm run build`.
 3. **Enviar:** `rsync` para `~/ponte-app/releases/<data-commit>/` (sem `.env`, sem `storage`, sem `node_modules`, sem `tests`).
 4. **Ligar:** atalhos para `shared/.env` e `shared/storage`; `php artisan down`; `php artisan migrate --force`; `config:cache`, `route:cache`, `view:cache`, `event:cache`.

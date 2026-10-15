@@ -48,7 +48,7 @@ leia `docs/00-visao-geral.md`, `docs/01-regras-de-negocio.md` e a fase atual em 
 | Login e 2FA | Laravel Fortify, com telas Blade próprias |
 | Telas | Blade + componentes Blade + Tailwind CSS (via Vite) |
 | Interatividade | Alpine.js **build CSP** (`@alpinejs/csp`), para manter a CSP rígida sem `unsafe-eval` |
-| Banco | MySQL (Hostinger); SQLite em memória só nos testes |
+| Banco | MySQL (Hostinger); SQLite em memória nos testes do computador; MySQL nos testes da publicação |
 | Filas | `database`, processadas pelo agendador (sem worker permanente: hospedagem compartilhada) |
 | E-mail | SMTP da Hostinger (mailer `smtp` do Laravel) |
 | Testes | Pest |

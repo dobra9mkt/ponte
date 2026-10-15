@@ -36,8 +36,8 @@ return new class extends Migration
         });
 
         Schema::table('entregas', function (Blueprint $table) {
-            $table->dropUnique(['etapa_id', 'versao']);
             $table->index(['etapa_id', 'versao']);
+            $table->dropUnique(['etapa_id', 'versao']);
             $table->string('situacao', 30)->default('rascunho');
             $table->date('responder_ate')->nullable()->change();
             $table->char('hash_conteudo', 64)->nullable()->change();
