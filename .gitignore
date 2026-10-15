@@ -33,12 +33,7 @@ backups/
 /public/storage
 /bootstrap/cache/*.php
 
-# Laravel: logs, sessões, cache
-/storage/logs/
-/storage/framework/cache/data/
-/storage/framework/sessions/
-/storage/framework/views/
-/storage/framework/testing/
+# Laravel: logs, sessões, cache (o conteúdo fica de fora pelos .gitignore de cada pasta)
 .phpunit.result.cache
 .phpunit.cache/
 
