@@ -12,16 +12,16 @@ o login do cliente vem na fase 3. O trabalho local dos docs 12 e 13 (sem commit)
 adaptada; nada vai para o git antes de a Rose aprovar.
 
 > **Onde paramos (13/10/2026):** fase 1 aprovada pela Rose e salva. A publicação na Hostinger continua
-> pendente: depende da Preparação (GitHub, Hostinger, Resend, backup).
+> pendente: depende da Preparação (GitHub, Hostinger, e-mail, backup).
 
 ---
 
 ## Antes da fase 1 · Preparação (sem código)
 
 - [ ] Instalar no computador: Laravel Herd (Windows), Node 24, Git
-- [ ] Criar o repositório privado `ponte` no GitHub (a Rose cria ou autoriza)
+- [x] Criar o repositório privado `ponte` no GitHub (`dobra9mkt/ponte`, 14/10/2026)
 - [ ] Hostinger: passos 1 a 4 de [`08-infra-e-deploy.md`](08-infra-e-deploy.md)
-- [ ] Resend: chave de API nova só para o Ponte
+- [ ] E-mail: caixa de envio no SMTP da Hostinger
 - [ ] Definir o destino das cópias de segurança fora da Hostinger
 - [ ] Gerar o `PONTE_CAMINHO_EQUIPE` e guardá-lo no gerenciador de senhas da Rose
 

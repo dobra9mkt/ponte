@@ -1,0 +1,85 @@
+# Publica o Ponte na Hostinger a cada envio para a branch main (ver docs/08-infra-e-deploy.md).
+# Verifica, monta e envia para domains/ponte.dobra9.com.br/ponte-app/releases/<data-commit>; o atalho "current" só troca
+# depois que a nova versão está pronta. A chave fica em Settings → Secrets → PONTE_SSH_KEY.
+
+name: Publicar na Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: publicar
+  cancel-in-progress: false
+
+env:
+  SSH_HOST: 147.79.108.122
+  SSH_PORT: 65002
+  SSH_USER: u425831888
+  SSH_HOST_KEY: "[147.79.108.122]:65002 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ/mdMFVgHMrVN/pBcqYoUc9V/xKFd7IJKDECHnFQZ85"
+  PHP_SERVIDOR: /opt/alt/php84/usr/bin/php
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, intl, gd, zip, fileinfo, pdo_sqlite
+          coverage: none
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Montar telas
+        run: |
+          npm ci
+          npm run build
+          npm audit --omit=dev
+
+      - name: Verificar
+        run: |
+          composer install --no-interaction --no-progress
+          cp .env.example .env
+          php artisan key:generate
+          php artisan test --compact
+          vendor/bin/pint --test
+          vendor/bin/phpstan analyse --no-progress --memory-limit=1G
+          composer audit
+          rm .env
+
+      - name: Montar para produção
+        run: composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+
+      - name: Preparar chave
+        env:
+          CHAVE: ${{ secrets.PONTE_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$CHAVE" | tr -d '\r' > ~/.ssh/ponte
+          chmod 600 ~/.ssh/ponte
+          echo "$SSH_HOST_KEY" > ~/.ssh/known_hosts
+
+      - name: Enviar
+        run: |
+          VERSAO="$(date -u +%Y%m%d-%H%M%S)-${GITHUB_SHA::7}"
+          echo "VERSAO=$VERSAO" >> "$GITHUB_ENV"
+          rsync -rlz --chmod=D755,F644 \
+            --exclude='.git/' --exclude='.github/' --exclude='node_modules/' \
+            --exclude='tests/' --exclude='docs/' --exclude='recursos/' \
+            --exclude='storage/' --exclude='.env*' --exclude='public/hot' \
+            -e "ssh -i ~/.ssh/ponte -p $SSH_PORT" \
+            ./ "$SSH_USER@$SSH_HOST:domains/ponte.dobra9.com.br/ponte-app/releases/$VERSAO/"
+
+      - name: Ligar a nova versão
+        run: |
+          ssh -i ~/.ssh/ponte -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
+            bash -s -- "$VERSAO" "$PHP_SERVIDOR" < .github/publicar/ligar.sh

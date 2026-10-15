@@ -16,15 +16,17 @@ Sem ambiente intermediário na v1: os testes automáticos e o teste de invasão 
 > arquivos do Laravel ficariam acessíveis por `dobra9.com.br/...`.
 
 ```
-~/                                   (home da conta Hostinger)
+~/domains/ponte.dobra9.com.br/        (site próprio na conta u425831888)
 ├── ponte-app/
 │   ├── releases/<data-commit>/      cada publicação numa pasta nova
 │   ├── shared/
-│   │   ├── .env                     segredos de produção (criado à mão, uma vez)
+│   │   ├── .env                     segredos de produção (criado uma vez; senhas postas pela Rose)
 │   │   └── storage/                 arquivos privados, logs, sessões (persistem entre publicações)
 │   └── current -> releases/<última> atalho para a versão no ar
-└── domains/ponte.dobra9.com.br/
-    └── public_html -> ~/ponte-app/current/public   (atalho: só a pasta public fica exposta)
+└── public_html -> ponte-app/current/public   (atalho: só a pasta public fica exposta)
+
+A `ponte-app` fica ao lado da `public_html` (fora da parte pública) para aparecer no Gerenciador
+de arquivos do hPanel, que só mostra a pasta do site.
 ```
 
 Configuração única (fase 1):
@@ -50,7 +52,10 @@ versão aprovada pela Rose. Arquivo `.github/workflows/publicar.yml` (criado na 
 4. **Ligar:** atalhos para `shared/.env` e `shared/storage`; `php artisan down`; `php artisan migrate --force`; `config:cache`, `route:cache`, `view:cache`, `event:cache`.
 5. **Trocar:** `current` passa a apontar para a nova pasta; `php artisan up`. Mantém as 3 últimas versões (voltar = trocar o atalho).
 
-Segredos do GitHub: `PONTE_SSH_KEY` (privada), `PONTE_SSH_HOST_KEY` (impressão digital do servidor).
+Segredo do GitHub: `PONTE_SSH_KEY` (chave privada só do Ponte; a pública está em hPanel → Acesso SSH,
+nome `ponte-github`). Servidor, porta, usuário (`u425831888`, conta de hospedagem do Ponte) e a
+impressão digital do servidor ficam no próprio `publicar.yml`. Os comandos do passo 4 e 5 estão em
+`.github/publicar/ligar.sh`, que também troca o `public_html` pelo atalho na primeira publicação.
 
 ## Tarefas agendadas
 
@@ -80,8 +85,11 @@ Destino a confirmar com a Rose na fase 1. Retenção: 30 dias (RN-66).
 
 ## E-mail
 
-Resend, com o domínio `dobra9.com.br` (o mesmo do formulário do site). Uma **chave de API nova só
-para o Ponte**, com permissão apenas de envio. Remetente `contato@dobra9.com.br`.
+SMTP da Hostinger (`smtp.hostinger.com`, porta 465, SSL), com uma caixa de e-mail criada no hPanel
+para o envio. A senha dessa caixa fica só no `.env` do servidor.
+
+As caixas de entrada do `dobra9.com.br` continuam na Weblink (registros MX). **Não mudar os MX**:
+a Hostinger só envia. O SPF do domínio já inclui a Hostinger (`include:_spf.mail.hostinger.com`).
 
 ## Variáveis do `.env` de produção
 
@@ -112,8 +120,12 @@ SESSION_SAME_SITE=lax
 QUEUE_CONNECTION=database
 CACHE_STORE=database
 
-MAIL_MAILER=resend
-RESEND_API_KEY=
+MAIL_MAILER=smtp
+MAIL_SCHEME=smtps
+MAIL_HOST=smtp.hostinger.com
+MAIL_PORT=465
+MAIL_USERNAME=                   # endereço da caixa criada na Hostinger
+MAIL_PASSWORD=
 MAIL_FROM_ADDRESS=contato@dobra9.com.br
 MAIL_FROM_NAME="Dobra 9"
 

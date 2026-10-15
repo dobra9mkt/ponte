@@ -50,7 +50,7 @@ leia `docs/00-visao-geral.md`, `docs/01-regras-de-negocio.md` e a fase atual em 
 | Interatividade | Alpine.js **build CSP** (`@alpinejs/csp`), para manter a CSP rígida sem `unsafe-eval` |
 | Banco | MySQL (Hostinger); SQLite em memória só nos testes |
 | Filas | `database`, processadas pelo agendador (sem worker permanente: hospedagem compartilhada) |
-| E-mail | Resend (mailer nativo do Laravel), remetente contato@dobra9.com.br |
+| E-mail | SMTP da Hostinger (mailer `smtp` do Laravel) |
 | Testes | Pest |
 | Qualidade | Laravel Pint (estilo), Larastan nível 6+ (análise), `composer audit` (falhas conhecidas) |
 
