@@ -48,7 +48,7 @@
                     <span class="inline-flex items-center gap-1.5"><x-icone nome="calendario" class="h-4 w-4" />{{ $datas }}</span>
                 </p>
                 @if ($etapa->o_que_fazer)
-                    <p class="mt-3 whitespace-pre-line text-[0.95rem]">{{ $etapa->o_que_fazer }}</p>
+                    <x-texto-recolhivel :texto="$etapa->o_que_fazer" class="mt-3" />
                 @endif
             </div>
 

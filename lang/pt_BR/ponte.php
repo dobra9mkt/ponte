@@ -46,6 +46,11 @@ return [
         'trocada' => 'Senha alterada.',
     ],
 
+    'texto' => [
+        'ver_mais' => 'Ver mais',
+        'ver_menos' => 'Ver menos',
+    ],
+
     'boas_vindas' => [
         'titulo' => 'Olá, :nome! Que bom ter você aqui.',
         'titulo_sem_nome' => 'Olá! Que bom ter você aqui.',

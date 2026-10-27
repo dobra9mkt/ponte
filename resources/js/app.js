@@ -28,6 +28,9 @@ const alternavel = () => ({
     get classeSeta() {
         return this.aberto ? 'rotate-90' : '';
     },
+    get classeTexto() {
+        return this.aberto ? 'line-clamp-none' : '';
+    },
 });
 
 Alpine.data('confirmar', alternavel);

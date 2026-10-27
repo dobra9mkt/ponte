@@ -46,6 +46,20 @@ it('serviço ainda não mostrado ao cliente devolve 404', function () {
     $this->get(route('inicio'))->assertDontSee($frente->nomeParaCliente());
 });
 
+it('texto longo da fase vem recolhido com "Ver mais"; texto curto aparece sem botão', function () {
+    $usuario = actingAsCliente();
+    $frente = servicoVisivel($usuario->cliente);
+    $longo = str_repeat('Vamos levantar referências do seu mercado e dos concorrentes. ', 5);
+    $frente->etapas()->where('ordem', 1)->update(['o_que_fazer' => $longo]);
+    $frente->etapas()->where('ordem', 2)->update(['o_que_fazer' => 'Texto curto da fase.']);
+
+    $this->get(route('frentes.ver', $frente))->assertOk()
+        ->assertSee(trim($longo))
+        ->assertSee('line-clamp-2', false)
+        ->assertSee('Texto curto da fase.');
+    expect(substr_count($this->get(route('frentes.ver', $frente))->getContent(), __('ponte.texto.ver_mais')))->toBe(1);
+});
+
 it('fase oculta não aparece para o cliente e devolve 404', function () {
     $usuario = actingAsCliente();
     $frente = servicoVisivel($usuario->cliente);
