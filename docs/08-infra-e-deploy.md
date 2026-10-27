@@ -59,10 +59,16 @@ impressão digital do servidor ficam no próprio `publicar.yml`. Os comandos do 
 
 ## Tarefas agendadas
 
-Cron do hPanel, a cada minuto:
+Cron do hPanel (conta `u425831888`), tipo Personalizado, a cada minuto (`* * * * *`). Caminho completo
+e o PHP 8.4: o `php` comum do servidor é 8.1 e não roda o Ponte. Sem este cron nenhum e-mail sai,
+porque todos passam pela fila:
 ```
-cd ~/ponte-app/current && php artisan schedule:run >> /dev/null 2>&1
+/opt/alt/php84/usr/bin/php /home/u425831888/domains/ponte.dobra9.com.br/ponte-app/current/artisan schedule:run >> /home/u425831888/domains/ponte.dobra9.com.br/ponte-app/shared/storage/logs/cron.log 2>&1
 ```
+
+Depois de mudar o `shared/.env`, rodar `php artisan config:cache` na pasta `current` (com o PHP 8.4):
+a configuração fica guardada em cache e o `.env` novo só vale depois disso. Senhas no `.env` vão entre
+aspas simples.
 
 Agenda (em `routes/console.php`), fuso `America/Sao_Paulo`:
 
