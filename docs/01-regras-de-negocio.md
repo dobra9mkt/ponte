@@ -134,7 +134,9 @@ Nas telas: **serviço** e **fase**. No código: `Frente` e `Etapa`. Fluxo comple
 - **RN-82a** · Na Lixeira, **Excluir definitivamente** (por item) e **Esvaziar lixeira** (tudo), ambos com
   confirmação, tiram o item da Lixeira para sempre: não aparece mais em lugar nenhum e não pode ser
   restaurado. Os dados continuam guardados no banco (marcados como descartados), preservando as provas de
-  aprovação; saem de vez só no arquivamento da fase 5.
+  aprovação; saem de vez só no arquivamento da fase 5. Cliente excluído definitivamente **libera o
+  e-mail**: o login antigo passa a `descartado-<id>:<e-mail original>` (não entra, mas a prova das
+  aprovações continua mostrando quem era), e o mesmo e-mail pode ser cadastrado de novo, do zero.
 - **RN-83** · Itens na lixeira não geram lembretes, alertas nem aparecem no Painel ou na aba Clientes.
 
 ## Revisões

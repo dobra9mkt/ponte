@@ -67,6 +67,12 @@ class User extends Authenticatable
         return $this->ehEquipe() || $this->cliente?->estaAtivo() === true;
     }
 
+    /** Não é um e-mail válido, então ninguém entra nem recebe nada por ele (RN-82a). */
+    public static function emailDescartado(int $id, string $email): string
+    {
+        return mb_substr('descartado-'.$id.':'.$email, 0, 255);
+    }
+
     public function podeRedefinirSenha(): bool
     {
         return $this->podeEntrar() && ($this->ehCliente() || $this->hasEnabledTwoFactorAuthentication());

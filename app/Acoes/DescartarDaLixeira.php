@@ -6,6 +6,7 @@ use App\Models\Atividade;
 use App\Models\Cliente;
 use App\Models\Etapa;
 use App\Models\Frente;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -15,9 +16,26 @@ class DescartarDaLixeira
 {
     public function __invoke(Cliente|Frente|Etapa $item): void
     {
-        $item->forceFill(['descartado_em' => now()])->save();
+        DB::transaction(function () use ($item) {
+            $item->forceFill(['descartado_em' => now()])->save();
 
-        Atividade::registrar($this->acao($item), $item, ['item' => $this->nome($item)]);
+            if ($item instanceof Cliente) {
+                $this->liberarEmail($item);
+            }
+
+            Atividade::registrar($this->acao($item), $item, ['item' => $this->nome($item)]);
+        });
+    }
+
+    /** O e-mail volta a poder ser cadastrado; o original fica no login antigo, como prova (RN-82a). */
+    private function liberarEmail(Cliente $cliente): void
+    {
+        $usuario = $cliente->usuario;
+        if ($usuario === null || str_starts_with($usuario->email, 'descartado-')) {
+            return;
+        }
+
+        $usuario->forceFill(['email' => User::emailDescartado($usuario->id, $usuario->email)])->save();
     }
 
     public function esvaziar(): void

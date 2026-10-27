@@ -131,3 +131,44 @@ it('RN-82a: cliente não usa as rotas de descarte da lixeira', function () {
     $this->delete(rotaEquipe('lixeira.servico.descartar', $this->frente))->assertNotFound();
     $this->delete(rotaEquipe('lixeira.esvaziar'))->assertNotFound();
 });
+
+it('RN-82a: excluir cliente definitivamente libera o e-mail para um novo cadastro', function () {
+    actingAsEquipe();
+    $usuario = $this->cliente->usuario()->firstOrFail();
+    $email = $usuario->email;
+    $this->delete(rotaEquipe('clientes.destroy', $this->cliente));
+
+    $this->post(rotaEquipe('clientes.store'), ['empresa' => 'Outra', 'contato_nome' => 'Ana', 'email' => $email])->assertSessionHasErrors('email');
+
+    $this->delete(rotaEquipe('lixeira.cliente.descartar', $this->cliente))->assertRedirect(rotaEquipe('lixeira'));
+    expect($usuario->fresh()->email)->toBe('descartado-'.$usuario->id.':'.$email);
+
+    $this->post(rotaEquipe('clientes.store'), ['empresa' => 'Outra', 'contato_nome' => 'Ana', 'email' => $email])->assertSessionHasNoErrors();
+    expect(User::query()->where('email', $email)->sole()->cliente_id)->not->toBe($this->cliente->id);
+    auth()->logout();
+    $this->post(route('entrar'), ['email' => $usuario->fresh()->email, 'password' => UserFactory::SENHA]);
+    $this->assertGuest();
+});
+
+it('RN-82a: esvaziar a lixeira também libera o e-mail do cliente', function () {
+    actingAsEquipe();
+    $email = $this->cliente->usuario()->firstOrFail()->email;
+    $this->delete(rotaEquipe('clientes.destroy', $this->cliente));
+
+    $this->delete(rotaEquipe('lixeira.esvaziar'))->assertRedirect();
+
+    expect(User::query()->where('email', $email)->exists())->toBeFalse();
+});
+
+it('RN-82a: a publicação libera o e-mail de clientes descartados antes da regra', function () {
+    $usuario = $this->cliente->usuario()->firstOrFail();
+    $email = $usuario->email;
+    $this->cliente->delete();
+    $this->cliente->forceFill(['descartado_em' => now()])->save();
+    $ativo = Cliente::factory()->comLogin()->create()->usuario()->firstOrFail();
+
+    (require database_path('migrations/2026_10_27_000001_liberar_email_de_clientes_descartados.php'))->up();
+
+    expect($usuario->fresh()->email)->toBe('descartado-'.$usuario->id.':'.$email)
+        ->and($ativo->fresh()->email)->toBe($ativo->email);
+});
