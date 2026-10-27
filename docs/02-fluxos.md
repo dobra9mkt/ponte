@@ -25,6 +25,8 @@ stateDiagram-v2
     aguardando_cliente --> ajustes_em_andamento: cliente pede ajuste
     ajustes_em_andamento --> aguardando_cliente: equipe mostra a nova rodada
     em_producao --> concluida: equipe conclui
+    concluida --> em_producao: equipe reabre
+    em_producao --> a_fazer: equipe volta (sem aprovação mostrada)
     concluida --> [*]
 ```
 
@@ -35,6 +37,8 @@ stateDiagram-v2
 | `aguardando_cliente` | `em_producao` | Cliente | `AprovarEntrega` | Cria `Aprovacao` (hash); e-mail à equipe (RN-76) |
 | `aguardando_cliente` | `ajustes_em_andamento` | Cliente | `PedirAjuste` | Card "Ajustes solicitados"; e-mail à equipe (RN-76) |
 | `em_producao` | `concluida` | Equipe | `ConcluirEtapa` | Só sem card aberto |
+| `concluida` | `em_producao` | Equipe | `ReabrirEtapa` | Confirmação; histórico `etapa.reaberta` (RN-14a) |
+| `em_producao` | `a_fazer` | Equipe | `VoltarEtapaParaAFazer` | Só se nenhum card da fase foi mostrado ao cliente; confirmação; histórico `etapa.voltou_a_fazer` (RN-14a) |
 
 Enquanto a fase está em `aguardando_cliente`, não dá para concluí-la nem abrir outro card.
 

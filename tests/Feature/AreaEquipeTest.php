@@ -21,6 +21,8 @@ dataset('rotasDaEquipe', fn () => [
     'editar fase' => fn () => ['put', rotaEquipe('etapas.update', Etapa::factory()->create())],
     'remover fase' => fn () => ['delete', rotaEquipe('etapas.destroy', Etapa::factory()->create())],
     'iniciar fase' => fn () => ['post', rotaEquipe('etapas.iniciar', Etapa::factory()->create())],
+    'reabrir fase' => fn () => ['post', rotaEquipe('etapas.reabrir', Etapa::factory()->create())],
+    'voltar fase para a fazer' => fn () => ['post', rotaEquipe('etapas.voltar-a-fazer', Etapa::factory()->create())],
     'adicionar aprovação' => fn () => ['post', rotaEquipe('aprovacoes.store', Etapa::factory()->create())],
     'consulta' => fn () => ['get', rotaEquipe('consulta.index')],
     'consulta do cliente' => fn () => ['get', rotaEquipe('consulta.ver', Cliente::factory()->create())],

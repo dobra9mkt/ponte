@@ -27,6 +27,8 @@
         'etapa.mostrada' => 'mostrou ao cliente a etapa',
         'etapa.iniciada' => 'iniciou a etapa',
         'etapa.concluida' => 'concluiu a etapa',
+        'etapa.reaberta' => 'reabriu a etapa',
+        'etapa.voltou_a_fazer' => 'voltou para A fazer a etapa',
         'modelo.alterado' => 'alterou o modelo',
     ];
 @endphp

@@ -95,6 +95,21 @@
                         @csrf
                         <button class="flex min-h-10 w-full items-center gap-2 rounded-lg px-2.5 hover:bg-off"><x-icone :nome="$etapa->oculta ? 'olho' : 'olho-fechado'" class="h-4 w-4 text-mudo" />{{ __($etapa->oculta ? 'equipe.mostrar' : 'equipe.ocultar') }}</button>
                     </form>
+                    @foreach (['reabrir' => ['reabrir', 'etapas.reabrir'], 'voltar_a_fazer' => ['voltarParaAFazer', 'etapas.voltar-a-fazer']] as $volta => [$permissao, $rota])
+                        @can($permissao, $etapa)
+                            <div x-data="confirmar">
+                                <button type="button" class="flex min-h-10 w-full items-center gap-2 rounded-lg px-2.5 hover:bg-off" x-on:click="abrir" x-show="!aberto"><x-icone nome="voltar" class="h-4 w-4 text-mudo" />{{ __('equipe.'.$volta) }}</button>
+                                <form method="POST" action="{{ route('equipe.'.$rota, $etapa) }}" x-show="aberto" x-cloak class="space-y-2 p-2">
+                                    @csrf
+                                    <p>{{ __('equipe.'.$volta.'_confirmar', ['fase' => $etapa->titulo]) }}</p>
+                                    <div class="flex gap-2">
+                                        <x-botao class="min-h-9 px-3 py-1 text-sm">{{ __('equipe.confirmar') }}</x-botao>
+                                        <x-botao variante="secundario" type="button" class="min-h-9 px-3 py-1 text-sm" x-on:click="fechar">{{ __('equipe.cancelar') }}</x-botao>
+                                    </div>
+                                </form>
+                            </div>
+                        @endcan
+                    @endforeach
                     @can('delete', $etapa)
                         <div class="mt-1 border-t border-linha pt-1">
                             <button type="button" class="flex min-h-10 w-full items-center gap-2 rounded-lg px-2.5 text-alerta hover:bg-alerta/5" x-on:click="abrir" x-show="!aberto"><x-icone nome="lixo" class="h-4 w-4" />{{ __('equipe.excluir') }}</button>

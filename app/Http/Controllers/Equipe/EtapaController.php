@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Equipe;
 use App\Acoes\ConcluirEtapa;
 use App\Acoes\IniciarEtapa;
 use App\Acoes\OrganizarEtapas;
+use App\Acoes\ReabrirEtapa;
 use App\Acoes\SalvarEtapa;
+use App\Acoes\VoltarEtapaParaAFazer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Equipe\MoverRequest;
 use App\Http\Requests\Equipe\SalvarEtapaRequest;
@@ -61,6 +63,20 @@ class EtapaController extends Controller
     public function concluir(Etapa $etapa, ConcluirEtapa $concluir): RedirectResponse
     {
         $concluir($etapa);
+
+        return $this->voltarParaFase($etapa);
+    }
+
+    public function reabrir(Etapa $etapa, ReabrirEtapa $reabrir): RedirectResponse
+    {
+        $reabrir($etapa);
+
+        return $this->voltarParaFase($etapa);
+    }
+
+    public function voltarParaAFazer(Etapa $etapa, VoltarEtapaParaAFazer $voltar): RedirectResponse
+    {
+        $voltar($etapa);
 
         return $this->voltarParaFase($etapa);
     }

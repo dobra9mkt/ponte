@@ -105,4 +105,11 @@ class Etapa extends Model
     {
         return $this->estado === EstadoEtapa::EmProducao && ! $this->entregas()->where('situacao', SituacaoCard::Rascunho)->exists();
     }
+
+    /** Voltar para "A fazer" esconde a fase do cliente, então só vale se nada dela foi mostrado a ele (RN-14a). */
+    public function podeVoltarParaAFazer(): bool
+    {
+        return $this->estado === EstadoEtapa::EmProducao
+            && ! $this->entregas()->withTrashed()->where('situacao', '!=', SituacaoCard::Rascunho)->exists();
+    }
 }

@@ -16,9 +16,10 @@ class Transicoes
     {
         return [
             E::AFazer->value => [E::EmProducao, E::AguardandoCliente],
-            E::EmProducao->value => [E::AguardandoCliente, E::Concluida],
+            E::EmProducao->value => [E::AguardandoCliente, E::Concluida, E::AFazer],
             E::AguardandoCliente->value => [E::EmProducao, E::AjustesEmAndamento],
             E::AjustesEmAndamento->value => [E::AguardandoCliente],
+            E::Concluida->value => [E::EmProducao],
         ];
     }
 

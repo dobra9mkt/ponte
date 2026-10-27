@@ -56,11 +56,15 @@ Mensagem pronta do botão "Avisar no WhatsApp" (a equipe pode editar antes de en
 
 ## Boas-vindas (C3)
 
-1. **Responda dentro do prazo.** Em geral são 3 dias úteis; o prazo de cada entrega aparece na tela. O cronograma anda junto com a sua resposta.
-2. **Você tem 3 revisões por serviço.** O contador fica sempre visível. Depois da 3ª, ajustes são orçados à parte.
-3. **Uma revisão é um pacote.** Junte todos os ajustes e envie de uma vez. Erros nossos não contam como revisão.
+**Olá, :nome! Que bom ter você aqui.**
 
-Botão: **Entendi, vamos lá**
+Este é o espaço onde você acompanha cada etapa do seu projeto com a Dobra 9. Antes de começarmos, queremos alinhar três pontos com você. A sua participação é o que nos ajuda a cumprir os prazos combinados.
+
+1. **Quando pedirmos a sua aprovação.** Em algumas etapas, podemos pedir que você revise e aprove o que preparamos. Quando isso acontecer, você recebe um aviso por e-mail, e a solicitação aparece aqui no portal. Pedimos que responda em até 5 dias úteis: enquanto a aprovação não chega, a etapa fica parada, e o cronograma espera junto.
+2. **Até 3 rodadas de ajustes por aprovação.** Em cada etapa enviada para sua aprovação, você pode pedir ajustes até 3 vezes. Ajuste é qualquer mudança no que apresentamos: trocar uma cor, mudar um texto, mover uma imagem. Cada envio de ajustes conta como uma rodada, então reúna tudo o que quer mudar e envie de uma vez. Na 3ª rodada, confira cada detalhe com calma: ela é a última incluída no projeto. Depois dela, novas alterações são orçadas à parte.
+3. **Acompanhe tudo por aqui.** Neste portal você vê em que etapa o seu projeto está, o que já foi concluído e a previsão de entrega. Quando pedirmos a sua aprovação, é aqui que você responde: aprova ou descreve os ajustes que deseja. Materiais, arquivos e dúvidas continuam pelo nosso WhatsApp. Botão: **Falar com a Dobra 9 no WhatsApp** (número em `PONTE_WHATSAPP_DOBRA9`; sem número, o botão não aparece).
+
+Botão: **Entendi, vamos começar**
 
 ## E-mails
 

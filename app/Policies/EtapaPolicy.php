@@ -50,6 +50,16 @@ class EtapaPolicy
         return $this->update($usuario, $etapa) && $etapa->podeSerConcluida();
     }
 
+    public function reabrir(User $usuario, Etapa $etapa): bool
+    {
+        return $this->update($usuario, $etapa) && $etapa->estado === EstadoEtapa::Concluida;
+    }
+
+    public function voltarParaAFazer(User $usuario, Etapa $etapa): bool
+    {
+        return $this->update($usuario, $etapa) && $etapa->podeVoltarParaAFazer();
+    }
+
     public function adicionarAprovacao(User $usuario, Etapa $etapa): bool
     {
         return $this->update($usuario, $etapa) && $etapa->podeReceberCard();

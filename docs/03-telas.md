@@ -35,8 +35,10 @@ Rotas em [`05-rotas-e-permissoes.md`](05-rotas-e-permissoes.md).
 
 - C2: mostra o nome da empresa, campo senha + confirmar, regras da senha visíveis (mín. 10 caracteres).
 - Convite vencido/usado: "Este link não vale mais. Peça um novo à Dobra 9." + WhatsApp.
-- C3 (só no 1º acesso): três cartões curtos — **prazo para responder** (em geral 3 dias úteis), **3 revisões por serviço**,
-  **o que conta como revisão** — e o botão "Entendi, vamos lá".
+- C3 (só no 1º acesso): saudação com o primeiro nome do contato e um parágrafo de abertura; três cartões
+  com ícone — **quando pedirmos a sua aprovação** (5 dias úteis), **até 3 rodadas de ajustes por
+  aprovação**, **acompanhe tudo por aqui** (com o botão do WhatsApp da Dobra 9, se configurado) — e o
+  botão "Entendi, vamos começar". Texto escrito para servir também a quem só acompanha, sem aprovação.
 
 ### C4 · Início
 

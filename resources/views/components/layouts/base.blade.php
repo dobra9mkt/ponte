@@ -8,6 +8,7 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="theme-color" content="#071e3d">
     <title>{{ $titulo ? $titulo.' · ' : '' }}Ponte · Dobra 9</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('marca/dobra9-simbolo.svg') }}">
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

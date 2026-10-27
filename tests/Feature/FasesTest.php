@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\EstadoEtapa;
+use App\Models\Atividade;
 use App\Models\Cliente;
 use App\Models\Etapa;
 use App\Models\Frente;
@@ -108,6 +109,60 @@ it('adicionar, iniciar e concluir uma fase', function () {
     $this->post(rotaEquipe('etapas.concluir', $nova))->assertRedirect();
     expect($nova->fresh()->estado)->toBe(EstadoEtapa::Concluida);
     $this->post(rotaEquipe('etapas.iniciar', $nova))->assertForbidden();
+});
+
+it('RN-14a: fase concluída por engano reabre e volta para A fazer, com registro no histórico', function () {
+    actingAsEquipe();
+    $fase = servicoDoCliente($this->cliente)->etapas()->firstOrFail();
+    $this->post(rotaEquipe('etapas.iniciar', $fase));
+    $this->post(rotaEquipe('etapas.concluir', $fase));
+
+    $this->post(rotaEquipe('etapas.voltar-a-fazer', $fase))->assertForbidden();
+    $this->post(rotaEquipe('etapas.reabrir', $fase))->assertRedirect();
+    expect($fase->fresh()->estado)->toBe(EstadoEtapa::EmProducao);
+
+    $this->post(rotaEquipe('etapas.reabrir', $fase))->assertForbidden();
+    $this->post(rotaEquipe('etapas.voltar-a-fazer', $fase))->assertRedirect();
+    expect($fase->fresh()->estado)->toBe(EstadoEtapa::AFazer);
+
+    $this->post(rotaEquipe('etapas.voltar-a-fazer', $fase))->assertForbidden();
+    expect(Atividade::query()->where('acao', 'etapa.reaberta')->exists())->toBeTrue()
+        ->and(Atividade::query()->where('acao', 'etapa.voltou_a_fazer')->exists())->toBeTrue();
+});
+
+it('RN-14a: fase com aprovação já mostrada ao cliente não volta para A fazer, mas reabre', function () {
+    $fase = servicoDoCliente($this->cliente)->etapas()->firstOrFail();
+    cardMostrado($fase);
+    $fase->forceFill(['estado' => EstadoEtapa::EmProducao])->save();
+
+    $this->post(rotaEquipe('etapas.voltar-a-fazer', $fase))->assertForbidden();
+    expect($fase->fresh()->estado)->toBe(EstadoEtapa::EmProducao);
+
+    $fase->forceFill(['estado' => EstadoEtapa::Concluida])->save();
+    $this->post(rotaEquipe('etapas.reabrir', $fase))->assertRedirect();
+    expect($fase->fresh()->estado)->toBe(EstadoEtapa::EmProducao);
+});
+
+it('RN-14a: fase só com rascunho de aprovação ainda volta para A fazer', function () {
+    $fase = servicoDoCliente($this->cliente)->etapas()->firstOrFail();
+    cardEmRascunho($fase);
+    $this->post(rotaEquipe('etapas.iniciar', $fase));
+
+    $this->post(rotaEquipe('etapas.voltar-a-fazer', $fase))->assertRedirect();
+    expect($fase->fresh()->estado)->toBe(EstadoEtapa::AFazer);
+});
+
+it('RN-14a: os botões de voltar aparecem só quando valem', function () {
+    actingAsEquipe();
+    $frente = servicoDoCliente($this->cliente);
+    $fase = $frente->etapas()->firstOrFail();
+    $tela = fn () => $this->get(rotaEquipe('frentes.ver', [$this->cliente, $frente]));
+
+    $tela()->assertDontSee(rotaEquipe('etapas.reabrir', $fase))->assertDontSee(rotaEquipe('etapas.voltar-a-fazer', $fase));
+    $this->post(rotaEquipe('etapas.iniciar', $fase));
+    $tela()->assertSee(rotaEquipe('etapas.voltar-a-fazer', $fase))->assertDontSee(rotaEquipe('etapas.reabrir', $fase));
+    $this->post(rotaEquipe('etapas.concluir', $fase));
+    $tela()->assertSee(rotaEquipe('etapas.reabrir', $fase))->assertDontSee(rotaEquipe('etapas.voltar-a-fazer', $fase));
 });
 
 it('RN-82: excluir fase manda para a lixeira mantendo a ordem, mesmo com aprovação publicada', function () {

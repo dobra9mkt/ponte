@@ -88,6 +88,8 @@ if (filled(config('ponte.caminho_equipe'))) {
             Route::post('/fases/{etapa}/visibilidade', [Equipe\EtapaController::class, 'visibilidade'])->can('update', 'etapa')->name('etapas.visibilidade');
             Route::post('/fases/{etapa}/iniciar', [Equipe\EtapaController::class, 'iniciar'])->can('iniciar', 'etapa')->name('etapas.iniciar');
             Route::post('/fases/{etapa}/concluir', [Equipe\EtapaController::class, 'concluir'])->can('concluir', 'etapa')->name('etapas.concluir');
+            Route::post('/fases/{etapa}/reabrir', [Equipe\EtapaController::class, 'reabrir'])->can('reabrir', 'etapa')->name('etapas.reabrir');
+            Route::post('/fases/{etapa}/voltar-a-fazer', [Equipe\EtapaController::class, 'voltarParaAFazer'])->can('voltarParaAFazer', 'etapa')->name('etapas.voltar-a-fazer');
             Route::post('/fases/{etapa}/aprovacoes', [Equipe\AprovacaoController::class, 'store'])->can('adicionarAprovacao', 'etapa')->name('aprovacoes.store');
 
             Route::put('/aprovacoes/{entrega}', [Equipe\AprovacaoController::class, 'update'])->can('editar', 'entrega')->name('aprovacoes.update');

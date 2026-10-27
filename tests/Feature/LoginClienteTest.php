@@ -106,9 +106,29 @@ it('C3: boas-vindas aparecem só no primeiro acesso', function () {
     $usuario->forceFill(['boas_vindas_vistas_em' => null])->save();
 
     $this->get(route('inicio'))->assertRedirect(route('boas-vindas'));
-    $this->get(route('boas-vindas'))->assertOk()->assertSee('3 revisões por serviço');
+    $this->get(route('boas-vindas'))->assertOk()->assertSee('Até 3 rodadas de ajustes por aprovação');
     $this->post(route('boas-vindas.concluir'))->assertRedirect(route('inicio'));
     $this->get(route('inicio'))->assertOk();
+});
+
+it('C3: boas-vindas chamam o contato pelo primeiro nome e trazem as regras atuais', function () {
+    actingAsCliente(Cliente::factory()->comLogin()->create(['contato_nome' => 'Mariana Souza Lima']));
+
+    $this->get(route('boas-vindas'))->assertOk()
+        ->assertSee('Olá, Mariana! Que bom ter você aqui.')
+        ->assertSee('5 dias úteis')
+        ->assertDontSee('3 dias úteis')
+        ->assertDontSee('Erros nossos não contam');
+});
+
+it('C3: boas-vindas mostram o WhatsApp da Dobra 9 só quando o número está configurado', function () {
+    actingAsCliente();
+
+    config(['ponte.whatsapp_dobra9' => '+55 31 3058-3713']);
+    $this->get(route('boas-vindas'))->assertSee('https://wa.me/553130583713', false)->assertSee(__('ponte.boas_vindas.whatsapp'));
+
+    config(['ponte.whatsapp_dobra9' => null]);
+    $this->get(route('boas-vindas'))->assertDontSee('https://wa.me/', false)->assertDontSee(__('ponte.boas_vindas.whatsapp'));
 });
 
 it('equipe logada que abre a área do cliente vai para o painel', function () {

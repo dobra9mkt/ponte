@@ -4,6 +4,8 @@ Mais recente primeiro. Cada mudança de regra ganha uma linha aqui antes de ir p
 
 | Data | Decisão | Quem |
 |---|---|---|
+| 27/10/2026 | Fase pode voltar: "Reabrir fase" (Concluída → Em andamento) e "Voltar para A fazer" (Em andamento → A fazer, só sem aprovação mostrada ao cliente), com confirmação e registro no histórico, sem e-mail (RN-14a) | Rose |
+| 27/10/2026 | Boas-vindas do cliente (C3) reescritas: saudação pelo nome, três pontos (aprovação em 5 dias úteis, até 3 rodadas de ajustes por aprovação, acompanhar pelo portal) e botão do WhatsApp da Dobra 9 (+55 31 3058-3713). Saem o "3 dias úteis", o "3 revisões por serviço" e o "erros nossos não contam", que não valiam mais. Logo da área do cliente passa a ser a vetorial (SVG), que não borra | Rose |
 | 27/10/2026 | Linha do cron corrigida no doc 08: caminho completo `domains/ponte.dobra9.com.br/ponte-app/current/artisan`, PHP 8.4 (`/opt/alt/php84/usr/bin/php`) e saída em `shared/storage/logs/cron.log`; a linha antiga apontava para pasta inexistente e PHP 8.1, e os e-mails não saíam. Depois de mudar o `.env`, rodar `config:cache` | Claude, a pedido da Rose |
 | 27/10/2026 | "Esqueci minha senha" também na tela de entrar da equipe: só para conta com 2FA configurado, mantém o 2FA, encerra as sessões e avisa por e-mail que a senha foi trocada. Antes a senha da equipe só mudava por comando no servidor (RN-05a, SEG-09a) | Rose |
 | 14/10/2026 | A publicação roda os testes em MySQL 8.4, como na Hostinger, depois que a primeira publicação falhou numa mudança de estrutura que o SQLite aceita e o MySQL recusa. No computador, os testes continuam em SQLite | Rose |

@@ -55,6 +55,11 @@ Nas telas: **serviço** e **fase**. No código: `Frente` e `Etapa`. Fluxo comple
 - **RN-14** · Situações da fase: **A fazer**, **Em andamento**, **Aguardando cliente**, **Ajustes**,
   **Concluída**. "Aguardando cliente" e "Ajustes" só são alcançadas pelos cards de aprovação
   (RN-70 a RN-76); as demais a equipe muda pelos botões do card. Transições em [`02-fluxos.md`](02-fluxos.md).
+- **RN-14a** · Para corrigir um clique errado, a equipe pode voltar a situação da fase, sempre com
+  confirmação: **Reabrir fase** (Concluída → Em andamento; aprovações e revisões já feitas continuam
+  valendo) e **Voltar para A fazer** (Em andamento → A fazer, só se nenhuma aprovação daquela fase foi
+  mostrada ao cliente, para não esconder dele o que já viu). O cliente não recebe e-mail; a mudança
+  fica no histórico.
   Os tipos de etapa antigos (`pendencia_cliente` etc.) saem das telas da equipe; pendências serão
   revistas na fase 4. A escolha de propostas saiu (14/10/2026).
 - **RN-16a** · No serviço mostrado, o cliente vê **só as fases em andamento ou finalizadas**. Fases
