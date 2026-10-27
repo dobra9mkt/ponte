@@ -29,7 +29,7 @@ class RedefinirSenha extends Notification implements ShouldBeEncrypted, ShouldQu
                 'titulo' => __('ponte.emails.senha.assunto'),
                 'texto' => __('ponte.emails.senha.texto'),
                 'botao' => __('ponte.emails.senha.botao'),
-                'url' => route('senha.redefinir', ['token' => $this->token, 'email' => $notifiable->email]),
+                'url' => route($notifiable->ehEquipe() ? 'equipe.senha.redefinir' : 'senha.redefinir', ['token' => $this->token, 'email' => $notifiable->email]),
             ]);
     }
 }

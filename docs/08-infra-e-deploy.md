@@ -140,4 +140,6 @@ BACKUP_S3_ENDPOINT=
 ```
 
 Os usuários da equipe são criados por comando (`php artisan ponte:criar-equipe`), nunca por tela,
-e cada um configura o 2FA no primeiro acesso.
+e cada um configura o 2FA no primeiro acesso. Esquecer a senha com o 2FA configurado → "Esqueci minha
+senha" no caminho da equipe (RN-05a). Sem 2FA configurado ou sem o aplicativo → o mesmo comando
+redefine a senha.

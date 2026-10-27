@@ -14,6 +14,11 @@ primeiro e registra em [`decisoes.md`](decisoes.md).
   naquele aparelho).
 - **RN-05** · A equipe (Rose e Elias) entra pelo caminho secreto e **sempre** com 2FA por aplicativo
   autenticador. Sem 2FA configurado, a conta da equipe não acessa nada além da tela de configurar o 2FA.
+- **RN-05a** · A equipe tem **"Esqueci minha senha"** na tela de entrar do caminho secreto. O link só sai
+  para conta da equipe ativa **com 2FA já configurado**; trocar a senha não desliga o 2FA (o código
+  continua sendo pedido ao entrar), encerra todas as sessões abertas e manda um e-mail avisando que a
+  senha foi trocada. Conta da equipe sem 2FA configurado (ou que perdeu o aplicativo) só tem a senha
+  redefinida pelo comando `ponte:criar-equipe` no servidor.
 - **RN-06** · Cadastro do cliente: empresa, pessoa de contato, e-mail, telefone, endereço, observações
   e o **e-mail de avisos de aprovação** (padrão: o e-mail do contato; pode ser outro). Telefone,
   endereço e observações ficam criptografados no banco.

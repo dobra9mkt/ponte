@@ -39,6 +39,7 @@ Middleware: `web`, `auth`, `papel:cliente`, `ativo`. Modelos ligados à rota **s
 | Caminho (após o prefixo) | Nome | Tela |
 |---|---|---|
 | `/entrar`, `/dois-fatores` | `equipe.entrar`, `equipe.2fa` | E1, E2 (throttle; login de cliente aqui = erro genérico) |
+| `/esqueci-a-senha`, `/nova-senha/{token}`, `POST /nova-senha` | `equipe.senha.pedir`, `equipe.senha.redefinir`, `equipe.senha.salvar` | E1 · "Esqueci minha senha" (RN-05a; visitante, throttle `senha`; cliente logado = 404) |
 | `/` | `equipe.painel` | E3 |
 | `/calendario` | `equipe.calendario` | E4 |
 | `/clientes`, `/clientes/novo`, `/clientes/{cliente}` | `equipe.clientes.*` | E5, E6 |

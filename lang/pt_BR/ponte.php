@@ -120,6 +120,11 @@ return [
             'texto' => 'Recebemos um pedido para redefinir sua senha. Se não foi você, ignore este e-mail.',
             'botao' => 'Redefinir senha',
         ],
+        'senha_redefinida' => [
+            'assunto' => 'Sua senha foi trocada · Dobra 9',
+            'texto' => 'A senha da sua conta no Ponte foi trocada pelo "Esqueci minha senha" e todas as sessões foram encerradas. Se não foi você, avise a equipe agora e troque a senha do seu e-mail.',
+            'botao' => 'Entrar',
+        ],
         'alerta_login' => [
             'assunto' => '⚠ Tentativas de login suspeitas',
             'texto' => ':qtd tentativas falhas na última hora (IPs: :ips).',

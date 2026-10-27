@@ -81,6 +81,8 @@ itens de ajuste (SEG-46).
 | Cliente | Pendência liberada | Precisamos de :etapa | Para seguir com o :frente, precisamos que você envie: :etapa, até :prazo. | Enviar agora |
 | Cliente | Revisão devolvida | Seu ajuste não contou como revisão | Corrigimos um erro nosso em :etapa e devolvemos a revisão. | Ver |
 | Cliente | Redefinir senha | Redefinir sua senha · Dobra 9 | Recebemos um pedido para redefinir sua senha. Se não foi você, ignore este e-mail. | Redefinir senha |
+| Equipe | Redefinir senha (RN-05a) | Redefinir sua senha · Dobra 9 | Mesmo texto do cliente; o botão leva ao caminho da equipe. | Redefinir senha |
+| Equipe | Senha redefinida (RN-05a) | Sua senha foi trocada · Dobra 9 | A senha da sua conta no Ponte foi trocada pelo "Esqueci minha senha" e todas as sessões foram encerradas. Se não foi você, avise a equipe agora e troque a senha do seu e-mail. | Entrar |
 | Equipe | Prazo vencido (RN-75) | Prazo vencido: :empresa · :etapa | A :rodada de :etapa (:frente) venceu em :prazo sem resposta do cliente. | Abrir fase |
 | Equipe | Cliente aprovou / escolheu | ✔ :empresa aprovou :etapa | :nome aprovou :etapa (v:versao) às :hora. | Abrir etapa |
 | Equipe | Cliente pediu ajuste | :empresa pediu ajustes em :etapa (revisão :n de :total) | :qtd itens de ajuste. | Ver ajustes |

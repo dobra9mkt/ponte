@@ -67,6 +67,11 @@ class User extends Authenticatable
         return $this->ehEquipe() || $this->cliente?->estaAtivo() === true;
     }
 
+    public function podeRedefinirSenha(): bool
+    {
+        return $this->podeEntrar() && ($this->ehCliente() || $this->hasEnabledTwoFactorAuthentication());
+    }
+
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new RedefinirSenha($token));

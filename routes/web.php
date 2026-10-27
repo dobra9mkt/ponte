@@ -46,6 +46,11 @@ if (filled(config('ponte.caminho_equipe'))) {
             Route::post('/entrar', [Equipe\EntrarController::class, 'store']);
             Route::get('/dois-fatores', [Equipe\DoisFatoresController::class, 'create'])->name('2fa');
             Route::post('/dois-fatores', [Equipe\DoisFatoresController::class, 'store']);
+
+            Route::get('/esqueci-a-senha', [Equipe\SenhaController::class, 'pedir'])->name('senha.pedir');
+            Route::post('/esqueci-a-senha', [Equipe\SenhaController::class, 'enviar'])->middleware('throttle:senha');
+            Route::get('/nova-senha/{token}', [Equipe\SenhaController::class, 'redefinir'])->name('senha.redefinir');
+            Route::post('/nova-senha', [Equipe\SenhaController::class, 'salvar'])->middleware('throttle:senha')->name('senha.salvar');
         });
 
         Route::middleware(['equipe', 'throttle:geral'])->group(function () {

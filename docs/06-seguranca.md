@@ -17,7 +17,8 @@ Cada item tem um código (SEG-xx) para citar em testes e commits.
 | SEG-06 | Mensagens que não revelam contas | Login, "esqueci a senha" e convite sempre com a mesma resposta, exista ou não o e-mail |
 | SEG-07 | Sessão segura | `SESSION_SECURE_COOKIE=true`, `SESSION_ENCRYPT=true`, `http_only`, `same_site=lax`; `session()->regenerate()` no login; "sair de todos os aparelhos" com `Auth::logoutOtherDevices` |
 | SEG-08 | Convite seguro | Token aleatório de 64 caracteres; só o **hash** no banco; 72 h; uso único; reenviar invalida os anteriores |
-| SEG-09 | Equipe e cliente nunca se misturam | Login de cliente no caminho da equipe falha com erro genérico; equipe não entra pela tela do cliente |
+| SEG-09 | Equipe e cliente nunca se misturam | Login de cliente no caminho da equipe falha com erro genérico; equipe não entra pela tela do cliente. O mesmo vale para "Esqueci minha senha": cada tela só envia link e só aceita link do seu próprio papel |
+| SEG-09a | "Esqueci a senha" da equipe sem atalho | Link só para equipe ativa com 2FA confirmado (sem isso, quem tomasse o e-mail poderia criar a senha **e** o 2FA); a troca mantém o 2FA, gira o `remember_token`, apaga todas as sessões, registra `senha.redefinida` e manda o e-mail "Sua senha foi trocada". O link do e-mail leva ao caminho secreto, que só chega na caixa da própria pessoa da equipe |
 
 ## Acesso aos dados
 
@@ -104,6 +105,7 @@ continuam valendo para a produção.
 - [ ] Cliente tenta abrir o caminho da equipe e rotas `/equipe`, `/admin`, `/painel` → 404
 - [ ] Login: 6 tentativas erradas → bloqueio; mensagens iguais para e-mail existente e inexistente
 - [ ] "Esqueci a senha" e convite: mesma resposta para e-mail existente e inexistente; token reutilizado → recusado; token vencido → recusado
+- [ ] "Esqueci a senha" da equipe: e-mail de cliente ou de equipe sem 2FA → nenhum link; link de cliente na tela da equipe (e vice-versa) → recusado; depois da troca, entrar ainda pede o código do 2FA
 - [ ] Sessão: cookie com `Secure`, `HttpOnly`, `SameSite`; ID muda após login; sair invalida a sessão
 - [ ] CSRF: POST sem token → 419
 - [ ] XSS: `<script>alert(1)</script>` e `"><img src=x onerror=alert(1)>` em itens de ajuste, nota, nome de arquivo, respostas do briefing, nome da empresa → aparece como texto
