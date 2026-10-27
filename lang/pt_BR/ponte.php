@@ -2,6 +2,8 @@
 
 return [
 
+    'assinatura' => 'Soluções digitais para empresas',
+
     'login' => [
         'titulo' => 'Acompanhe o seu projeto',
         'erro' => 'E-mail ou senha incorretos.',

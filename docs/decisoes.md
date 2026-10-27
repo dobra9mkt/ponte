@@ -4,7 +4,7 @@ Mais recente primeiro. Cada mudança de regra ganha uma linha aqui antes de ir p
 
 | Data | Decisão | Quem |
 |---|---|---|
-| 27/10/2026 | Cabeçalho do serviço do cliente sem barra de progresso: ela contava só as fases já começadas e mostrava metade com o projeto no início. Fica "N fase(s) concluída(s)", sem total, e a previsão. Logo da tela de entrar do cliente menor (28 px de altura) | Rose |
+| 27/10/2026 | Cabeçalho do serviço do cliente sem barra de progresso: ela contava só as fases já começadas e mostrava metade com o projeto no início. Fica "N fase(s) concluída(s)", sem total, e a previsão. Logo das telas de entrar igual ao cabeçalho do site oficial: marca "DOBRA 9" com 24 px de altura e, embaixo, "Soluções digitais para empresas" em texto pequeno espaçado | Rose |
 | 27/10/2026 | Fim da linha do tempo do cliente: sai o "Término previsto" (repetia o cabeçalho) e entra "Próximas fases em breve.", só enquanto houver fase por começar (RN-17) | Rose |
 | 27/10/2026 | "O que fazer" da fase recolhido em 1 linha (antes 2; a Rose achou grande), com Ver mais (só quando o texto não cabe na tela) e Ver menos abrindo no próprio card (não em janela por cima), na linha do tempo do cliente e na tela do serviço da equipe | Rose |
 | 27/10/2026 | Ordem das fases muda arrastando (alça ⠿, no computador), salva sozinha; Subir/Descer ficam só no celular, dentro dos ⋯. Biblioteca SortableJS, envolvida num módulo do projeto | Rose |
