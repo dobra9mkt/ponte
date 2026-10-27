@@ -4,6 +4,7 @@ Mais recente primeiro. Cada mudança de regra ganha uma linha aqui antes de ir p
 
 | Data | Decisão | Quem |
 |---|---|---|
+| 27/10/2026 | Boas-vindas (C3) mais curtas e mais visuais: topo azul-marinho, três cartões com o 5 (dias úteis para responder) e o 3 (rodadas de ajustes) em número grande, um botão só e o WhatsApp como link discreto | Rose |
 | 27/10/2026 | E-mail de convite ao cliente sem "enviar o que precisarmos" (o cliente só envia fotos ao pedir ajustes): fica "acompanhar o projeto da :empresa e aprovar cada etapa" | Rose |
 | 27/10/2026 | E-mails sem a linha "Se o botão não funcionar, copie este endereço" (vale para todos); a versão só texto do e-mail continua com o endereço, porque lá não há botão | Rose |
 | 27/10/2026 | E-mails de aprovação ao cliente reescritos (doc 07): "Olá, Nome.", nome da fase e do serviço puxados sozinhos (serviço no assunto), "1ª versão" em vez de "revisão", texto próprio para a versão final ("Falta só a sua autorização") e botões "Responder na Ponte" / "Autorizar na Ponte" | Rose |

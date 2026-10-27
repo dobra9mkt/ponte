@@ -56,15 +56,19 @@ Mensagem pronta do botão "Avisar no WhatsApp" (a equipe pode editar antes de en
 
 ## Boas-vindas (C3)
 
+> 27/10/2026: textos encurtados (a Rose achou longo; cliente não lê texto grande). Tela com topo
+> azul-marinho, três cartões lado a lado (um embaixo do outro no celular), com o **5** e o **3** em
+> número grande, e o WhatsApp como link discreto embaixo do botão.
+
 **Olá, :nome! Que bom ter você aqui.**
 
-Este é o espaço onde você acompanha cada etapa do seu projeto com a Dobra 9. Antes de começarmos, queremos alinhar três pontos com você. A sua participação é o que nos ajuda a cumprir os prazos combinados.
+Aqui você acompanha cada etapa do seu projeto. Antes de começar, três combinados:
 
-1. **Quando pedirmos a sua aprovação.** Em algumas etapas, podemos pedir que você revise e aprove o que preparamos. Quando isso acontecer, você recebe um aviso por e-mail, e a solicitação aparece aqui no portal. Pedimos que responda em até 5 dias úteis: enquanto a aprovação não chega, a etapa fica parada, e o cronograma espera junto.
-2. **Até 3 rodadas de ajustes por aprovação.** Em cada etapa enviada para sua aprovação, você pode pedir ajustes até 3 vezes. Ajuste é qualquer mudança no que apresentamos: trocar uma cor, mudar um texto, mover uma imagem. Cada envio de ajustes conta como uma rodada, então reúna tudo o que quer mudar e envie de uma vez. Na 3ª rodada, confira cada detalhe com calma: ela é a última incluída no projeto. Depois dela, novas alterações são orçadas à parte.
-3. **Acompanhe tudo por aqui.** Neste portal você vê em que etapa o seu projeto está, o que já foi concluído e a previsão de entrega. Quando pedirmos a sua aprovação, é aqui que você responde: aprova ou descreve os ajustes que deseja. Materiais, arquivos e dúvidas continuam pelo nosso WhatsApp. Botão: **Falar com a Dobra 9 no WhatsApp** (número em `PONTE_WHATSAPP_DOBRA9`; sem número, o botão não aparece).
+1. **5 · dias úteis para responder.** Quando uma etapa precisar da sua aprovação, avisamos por e-mail. Enquanto você não responde, o projeto espera.
+2. **3 · rodadas de ajustes.** Em cada aprovação, você pode pedir ajustes 3 vezes. Junte tudo e envie de uma vez. Depois disso, novos ajustes são orçados à parte.
+3. **Tudo por aqui.** Aqui você vê o andamento, aprova e pede ajustes. Arquivos e dúvidas, pelo WhatsApp.
 
-Botão: **Entendi, vamos começar**
+Botão: **Entendi, vamos começar**. Embaixo, link **Dúvidas? Fale com a gente no WhatsApp** (número em `PONTE_WHATSAPP_DOBRA9`; sem número, o link não aparece).
 
 ## E-mails
 

@@ -106,7 +106,7 @@ it('C3: boas-vindas aparecem só no primeiro acesso', function () {
     $usuario->forceFill(['boas_vindas_vistas_em' => null])->save();
 
     $this->get(route('inicio'))->assertRedirect(route('boas-vindas'));
-    $this->get(route('boas-vindas'))->assertOk()->assertSee('Até 3 rodadas de ajustes por aprovação');
+    $this->get(route('boas-vindas'))->assertOk()->assertSee('rodadas de ajustes');
     $this->post(route('boas-vindas.concluir'))->assertRedirect(route('inicio'));
     $this->get(route('inicio'))->assertOk();
 });
@@ -116,7 +116,7 @@ it('C3: boas-vindas chamam o contato pelo primeiro nome e trazem as regras atuai
 
     $this->get(route('boas-vindas'))->assertOk()
         ->assertSee('Olá, Mariana! Que bom ter você aqui.')
-        ->assertSee('5 dias úteis')
+        ->assertSeeInOrder(['5', 'dias úteis para responder', '3', 'rodadas de ajustes', 'Tudo por aqui'])
         ->assertDontSee('3 dias úteis')
         ->assertDontSee('Erros nossos não contam');
 });

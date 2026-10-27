@@ -18,6 +18,7 @@
             </nav>
         </div>
     </header>
+    {{ $topo ?? '' }}
     <main id="conteudo" class="mx-auto min-h-[75dvh] max-w-5xl px-5 py-8 sm:px-8 sm:py-12">
         <x-mensagens />
         {{ $slot }}

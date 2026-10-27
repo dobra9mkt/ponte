@@ -56,13 +56,13 @@ return [
     'boas_vindas' => [
         'titulo' => 'Olá, :nome! Que bom ter você aqui.',
         'titulo_sem_nome' => 'Olá! Que bom ter você aqui.',
-        'abertura' => 'Este é o espaço onde você acompanha cada etapa do seu projeto com a Dobra 9. Antes de começarmos, queremos alinhar três pontos com você. A sua participação é o que nos ajuda a cumprir os prazos combinados.',
+        'abertura' => 'Aqui você acompanha cada etapa do seu projeto. Antes de começar, três combinados:',
         'cartoes' => [
-            ['icone' => 'feito', 'titulo' => 'Quando pedirmos a sua aprovação', 'texto' => 'Em algumas etapas, podemos pedir que você revise e aprove o que preparamos. Quando isso acontecer, você recebe um aviso por e-mail, e a solicitação aparece aqui no portal. Pedimos que responda em até 5 dias úteis: enquanto a aprovação não chega, a etapa fica parada, e o cronograma espera junto.'],
-            ['icone' => 'editar', 'titulo' => 'Até 3 rodadas de ajustes por aprovação', 'texto' => 'Em cada etapa enviada para sua aprovação, você pode pedir ajustes até 3 vezes. Ajuste é qualquer mudança no que apresentamos: trocar uma cor, mudar um texto, mover uma imagem. Cada envio de ajustes conta como uma rodada, então reúna tudo o que quer mudar e envie de uma vez. Na 3ª rodada, confira cada detalhe com calma: ela é a última incluída no projeto. Depois dela, novas alterações são orçadas à parte.'],
-            ['icone' => 'olho', 'titulo' => 'Acompanhe tudo por aqui', 'texto' => 'Neste portal você vê em que etapa o seu projeto está, o que já foi concluído e a previsão de entrega. Quando pedirmos a sua aprovação, é aqui que você responde: aprova ou descreve os ajustes que deseja. Materiais, arquivos e dúvidas continuam pelo nosso WhatsApp.'],
+            ['destaque' => '5', 'titulo' => 'dias úteis para responder', 'texto' => 'Quando uma etapa precisar da sua aprovação, avisamos por e-mail. Enquanto você não responde, o projeto espera.'],
+            ['destaque' => '3', 'titulo' => 'rodadas de ajustes', 'texto' => 'Em cada aprovação, você pode pedir ajustes 3 vezes. Junte tudo e envie de uma vez. Depois disso, novos ajustes são orçados à parte.'],
+            ['icone' => 'olho', 'titulo' => 'Tudo por aqui', 'texto' => 'Aqui você vê o andamento, aprova e pede ajustes. Arquivos e dúvidas, pelo WhatsApp.'],
         ],
-        'whatsapp' => 'Falar com a Dobra 9 no WhatsApp',
+        'whatsapp' => 'Dúvidas? Fale com a gente no WhatsApp',
         'botao' => 'Entendi, vamos começar',
     ],
 
