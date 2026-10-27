@@ -60,6 +60,7 @@ return [
     'etapas_privadas' => 'Monte as etapas com calma. O cliente só verá quando você liberar o acompanhamento.',
     'alteracoes_salvas' => 'Alterações salvas.',
     'progresso' => ':feitas de :total etapas concluídas',
+    'fases_concluidas' => '{0} Nenhuma fase concluída ainda|{1} 1 fase concluída|[2,*] :qtd fases concluídas',
     'etapas_prontas' => 'Etapas concluídas',
     'aguardando_etapas' => 'Etapas a organizar',
     'editar_cadastro' => 'Editar cadastro',

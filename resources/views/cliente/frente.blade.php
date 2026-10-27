@@ -36,9 +36,8 @@
         @endif
 
         <h1 class="break-words text-2xl font-semibold tracking-tight sm:text-3xl">{{ $frente->nomeParaCliente() }}</h1>
-        <x-progresso :feitas="$prontas" :total="$etapas->count()" class="mt-5" />
-        <div class="mt-3 flex flex-wrap justify-between gap-x-6 gap-y-1 text-sm text-mudo">
-            <span>{{ __('fluxo.progresso', ['feitas' => $prontas, 'total' => $etapas->count()]) }}</span>
+        <div class="mt-4 flex flex-wrap justify-between gap-x-6 gap-y-1 text-sm text-mudo">
+            <span>{{ trans_choice('fluxo.fases_concluidas', $prontas, ['qtd' => $prontas]) }}</span>
             <span>{{ __('fluxo.previsao') }}: <strong class="font-semibold text-navy">{{ $frente->prazo_final?->format('d/m/Y') ?? __('fluxo.a_combinar') }}</strong></span>
         </div>
     </section>

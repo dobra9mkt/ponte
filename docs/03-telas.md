@@ -98,10 +98,15 @@ equipe (E8), o "O que fazer" de cada fase mostra só a **1ª linha**. Quando o t
 (medido na própria tela, porque no celular cabe menos), aparece **Ver mais**, que abre o texto inteiro
 no próprio card, e **Ver menos**, que fecha. Texto que cabe aparece normal, sem botão.
 
+**Cabeçalho sem barra (27/10/2026):** o cabeçalho do serviço do cliente não tem barra de progresso.
+Como as fases "A fazer" ficam escondidas, a barra contava só as já começadas e mostrava metade com o
+projeto no começo. Fica só o texto **"N fase(s) concluída(s)"**, sem total, e a previsão de conclusão.
+
 **Atualização de 14/10/2026 (RN-17):** a tela do serviço do cliente é uma linha do tempo vertical:
 
 ```
 Criação de sites                     Previsão de conclusão: 11/11/2026
+2 fases concluídas
 ● Começamos em 05/10/2026
 ✓ Pesquisa              Concluída        05/10 → 09/10
 ✓ Copy                  Concluída        09/10 → 16/10

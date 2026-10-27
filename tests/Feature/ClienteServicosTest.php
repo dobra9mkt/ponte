@@ -61,6 +61,22 @@ it('o texto da fase vem recolhido em 1 linha, inteiro na página para o "Ver mai
         ->and(substr_count($resposta->getContent(), 'line-clamp-1'))->toBe(2);
 });
 
+it('cabeçalho do serviço mostra as fases concluídas sem barra nem total', function () {
+    $usuario = actingAsCliente();
+    $frente = servicoVisivel($usuario->cliente);
+
+    $this->get(route('frentes.ver', $frente))->assertOk()
+        ->assertDontSee('role="progressbar"', false)
+        ->assertDontSee('etapas concluídas')
+        ->assertSeeText('Nenhuma fase concluída ainda');
+
+    $frente->etapas()->where('ordem', 1)->update(['estado' => EstadoEtapa::Concluida]);
+    $this->get(route('frentes.ver', $frente))->assertSeeText('1 fase concluída');
+
+    $frente->etapas()->where('ordem', 2)->update(['estado' => EstadoEtapa::Concluida]);
+    $this->get(route('frentes.ver', $frente))->assertSeeText('2 fases concluídas');
+});
+
 it('RN-17: o fim da linha do tempo avisa das próximas fases só enquanto houver fase por começar', function () {
     $usuario = actingAsCliente();
     $frente = servicoVisivel($usuario->cliente);
