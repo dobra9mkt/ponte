@@ -64,7 +64,8 @@
 
         <section class="mt-8" aria-labelledby="fases-titulo">
             <h2 id="fases-titulo" class="sr-only">{{ __('equipe.fases') }}</h2>
-            <div class="space-y-4">
+            <div class="space-y-4" x-data="ordenarFases" data-url="{{ route('equipe.frentes.ordem', [$cliente, $frente]) }}" data-erro="{{ __('equipe.ordem_erro') }}">
+                @csrf
                 @foreach ($fases as $fase)
                     <x-fase :etapa="$fase" :numero="$loop->iteration" :primeira="$loop->first" :ultima="$loop->last" />
                 @endforeach

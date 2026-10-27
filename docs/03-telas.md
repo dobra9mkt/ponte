@@ -205,7 +205,9 @@ Site · Bela Bartók                    Previsão de conclusão: 18/12
 - Cada fase é um card: nome, responsável, o que fazer, entrada, término e situação (RN-12, RN-14).
   **Editar fase** abre os campos no próprio card, com Salvar e Cancelar.
 - Um botão de próximo passo por fase (Iniciar fase → Concluir fase) e **Adicionar aprovação**.
-  Subir, descer, ocultar e remover ficam em **Mais opções**.
+  No computador, a ordem das fases muda **arrastando** a alça ⠿ à esquerda do card; a ordem nova é
+  salva sozinha. **Mais opções** (⋯) tem Reabrir fase / Voltar para A fazer (RN-14a), ocultar e
+  remover; no celular, onde arrastar é difícil, também Subir e Descer.
 
 ### E9 · Card de aprovação (dentro da fase)
 - **Rascunho**: o que revisar, anexos (qualquer arquivo, RN-50), links, prazo calculado (5 dias úteis,

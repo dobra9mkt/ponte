@@ -70,6 +70,10 @@
         background: #f6f8fb;
     }
 
+    .ordenando {
+        @apply opacity-40 ring-2 ring-tec/40;
+    }
+
     .portal-cartao {
         @apply rounded-2xl border border-linha/70 bg-white;
         box-shadow: 0 4px 20px rgb(7 30 61 / 0.025);

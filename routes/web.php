@@ -78,6 +78,7 @@ if (filled(config('ponte.caminho_equipe'))) {
                 Route::get('/{frente}', [Equipe\FrenteController::class, 'show'])->can('view', 'frente')->name('frentes.ver');
                 Route::put('/{frente}', [Equipe\FrenteController::class, 'update'])->can('update', 'frente')->name('frentes.update');
                 Route::post('/{frente}/visibilidade', [Equipe\FrenteController::class, 'visibilidade'])->can('update', 'frente')->name('frentes.visibilidade');
+                Route::put('/{frente}/ordem', [Equipe\FrenteController::class, 'ordem'])->can('update', 'frente')->name('frentes.ordem');
                 Route::delete('/{frente}', [Equipe\FrenteController::class, 'destroy'])->can('delete', 'frente')->name('frentes.destroy');
                 Route::post('/{frente}/fases', [Equipe\EtapaController::class, 'store'])->can('update', 'frente')->name('etapas.store');
             });

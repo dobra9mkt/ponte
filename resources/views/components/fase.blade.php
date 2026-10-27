@@ -20,9 +20,12 @@
     };
     $datas = collect([$etapa->entrada_em, $etapa->termino_em])->map(fn ($data) => $data?->format('d/m') ?? '—')->implode(' → ');
 @endphp
-<article id="fase-{{ $etapa->id }}" x-data="alternar" @if ($editando) x-init="abrir" @endif
-    @class(['scroll-mt-24 overflow-hidden rounded-cartao bg-white shadow-cartao', 'ring-1 ring-azul/30' => $emCurso, 'opacity-80' => $etapa->oculta])>
+<article id="fase-{{ $etapa->id }}" data-fase-id="{{ $etapa->id }}" x-data="alternar" @if ($editando) x-init="abrir" @endif
+    @class(['scroll-mt-24 rounded-cartao bg-white shadow-cartao', 'ring-1 ring-azul/30' => $emCurso, 'opacity-80' => $etapa->oculta])>
     <div class="flex flex-wrap items-start gap-x-4 gap-y-3 p-5 sm:flex-nowrap sm:p-6">
+        <button type="button" data-alca class="-ml-2 -mr-2 mt-0.5 hidden h-8 w-6 shrink-0 cursor-grab items-center justify-center rounded text-mudo/60 transition hover:text-tec active:cursor-grabbing sm:flex" aria-label="{{ __('equipe.arrastar') }}" title="{{ __('equipe.arrastar') }}">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg>
+        </button>
         <span @class([
             'mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold',
             'bg-teal text-white' => $feita,
@@ -30,7 +33,7 @@
             'bg-azul text-white' => in_array($etapa->estado, [EstadoEtapa::EmProducao, EstadoEtapa::AjustesEmAndamento], true),
             'bg-off text-mudo' => $etapa->estado === EstadoEtapa::AFazer,
         ])>
-            @if ($feita)<x-icone nome="feito" class="h-4 w-4" />@else{{ $numero }}@endif
+            @if ($feita)<x-icone nome="feito" class="h-4 w-4" />@else<span data-numero>{{ $numero }}</span>@endif
         </span>
 
         <div class="min-w-0 flex-1 basis-[calc(100%-3rem)] sm:basis-0">
@@ -84,7 +87,7 @@
                 <div class="absolute right-0 z-20 mt-2 w-60 rounded-cartao bg-white p-2 text-sm shadow-xl ring-1 ring-linha">
                     @foreach (['subir' => ! $primeira, 'descer' => ! $ultima] as $direcao => $pode)
                         @if ($pode)
-                            <form method="POST" action="{{ route('equipe.etapas.mover', $etapa) }}">
+                            <form method="POST" action="{{ route('equipe.etapas.mover', $etapa) }}" class="sm:hidden">
                                 @csrf
                                 <input type="hidden" name="direcao" value="{{ $direcao }}">
                                 <button class="flex min-h-10 w-full items-center gap-2 rounded-lg px-2.5 hover:bg-off"><x-icone :nome="$direcao" class="h-4 w-4 text-mudo" />{{ __('equipe.'.$direcao) }}</button>
@@ -130,7 +133,7 @@
     </div>
 
     @if ($principal)
-        <div class="space-y-3 border-t border-linha bg-off/50 px-5 py-5 sm:px-6">
+        <div class="space-y-3 rounded-b-cartao border-t border-linha bg-off/50 px-5 py-5 sm:px-6">
             @if ($pedidoDoCliente)
                 <x-card-aprovacao :card="$pedidoDoCliente" :total="$total" />
             @endif

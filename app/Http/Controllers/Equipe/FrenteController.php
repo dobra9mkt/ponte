@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Equipe;
 use App\Acoes\AlterarVisibilidadeFrente;
 use App\Acoes\CriarFrente;
 use App\Acoes\ExcluirFrente;
+use App\Acoes\OrganizarEtapas;
 use App\Acoes\SalvarFrente;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Equipe\CriarFrenteRequest;
+use App\Http\Requests\Equipe\OrdenarFasesRequest;
 use App\Http\Requests\Equipe\SalvarFrenteRequest;
 use App\Models\Cliente;
 use App\Models\Frente;
 use App\Models\Modelo;
 use Carbon\CarbonImmutable;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -51,6 +54,15 @@ class FrenteController extends Controller
         $alterar($frente, $mostrar);
 
         return redirect()->route('equipe.frentes.ver', [$cliente, $frente])->with('sucesso', __($mostrar ? 'equipe.servico_mostrado' : 'equipe.servico_ocultado'));
+    }
+
+    public function ordem(OrdenarFasesRequest $request, Cliente $cliente, Frente $frente, OrganizarEtapas $organizar): JsonResponse
+    {
+        if (! $organizar->ordenar($frente, $request->fases())) {
+            return response()->json(['message' => __('equipe.ordem_invalida')], 422);
+        }
+
+        return response()->json(['ok' => true]);
     }
 
     public function destroy(Cliente $cliente, Frente $frente, ExcluirFrente $excluir): RedirectResponse

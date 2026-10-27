@@ -165,6 +165,42 @@ it('RN-14a: os botões de voltar aparecem só quando valem', function () {
     $tela()->assertSee(rotaEquipe('etapas.reabrir', $fase))->assertDontSee(rotaEquipe('etapas.voltar-a-fazer', $fase));
 });
 
+it('arrastar grava a nova ordem das fases do serviço', function () {
+    actingAsEquipe();
+    $frente = servicoDoCliente($this->cliente);
+    $ids = $frente->etapas()->pluck('id')->all();
+    $novaOrdem = [...array_slice($ids, 1), $ids[0]];
+
+    $this->putJson(rotaEquipe('frentes.ordem', [$this->cliente, $frente]), ['fases' => $novaOrdem])->assertOk();
+
+    expect($frente->etapas()->pluck('id')->all())->toBe($novaOrdem)
+        ->and(Atividade::query()->where('acao', 'fases.reordenadas')->exists())->toBeTrue();
+});
+
+it('arrastar recusa lista incompleta, repetida ou com fase de outro serviço', function () {
+    actingAsEquipe();
+    $frente = servicoDoCliente($this->cliente);
+    $outra = servicoDoCliente(Cliente::factory()->create());
+    $ids = $frente->etapas()->pluck('id')->all();
+    $intrusa = $outra->etapas()->value('id');
+    $rota = rotaEquipe('frentes.ordem', [$this->cliente, $frente]);
+
+    $this->putJson($rota, ['fases' => array_slice($ids, 1)])->assertStatus(422);
+    $this->putJson($rota, ['fases' => [...array_slice($ids, 1), $ids[1]]])->assertStatus(422);
+    $this->putJson($rota, ['fases' => [...array_slice($ids, 1), $intrusa]])->assertStatus(422);
+
+    expect($frente->etapas()->pluck('id')->all())->toBe($ids)
+        ->and($outra->etapas()->pluck('ordem')->all())->toBe(range(1, $outra->etapas()->count()));
+});
+
+it('arrastar não aceita serviço de outro cliente na URL', function () {
+    actingAsEquipe();
+    $frente = servicoDoCliente($this->cliente);
+    $outroCliente = Cliente::factory()->create();
+
+    $this->putJson(rotaEquipe('frentes.ordem', [$outroCliente, $frente]), ['fases' => $frente->etapas()->pluck('id')->all()])->assertNotFound();
+});
+
 it('RN-82: excluir fase manda para a lixeira mantendo a ordem, mesmo com aprovação publicada', function () {
     actingAsEquipe();
     $frente = servicoDoCliente($this->cliente);

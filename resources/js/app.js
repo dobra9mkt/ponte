@@ -1,4 +1,5 @@
 import Alpine from '@alpinejs/csp';
+import { tornarOrdenavel } from './ordenavel';
 
 Alpine.data('menu', () => ({
     aberto: false,
@@ -100,6 +101,42 @@ Alpine.data('rascunho', () => ({
     },
     get classeEstado() {
         return [this.$root.dataset.salvando, this.$root.dataset.salvo].includes(this.estado) ? 'text-mudo' : 'text-alerta font-medium';
+    },
+}));
+
+Alpine.data('ordenarFases', () => ({
+    init() {
+        tornarOrdenavel(this.$root, { itens: '[data-fase-id]', alca: '[data-alca]', aoSoltar: () => this.salvar() });
+    },
+    async salvar() {
+        const lista = this.$root;
+        const dados = new FormData();
+        dados.append('_token', lista.querySelector(':scope > [name=_token]').value);
+        dados.append('_method', 'PUT');
+        lista.querySelectorAll(':scope > [data-fase-id]').forEach((fase, indice) => {
+            dados.append('fases[]', fase.dataset.faseId);
+            const numero = fase.querySelector('[data-numero]');
+            if (numero) {
+                numero.textContent = indice + 1;
+            }
+        });
+
+        try {
+            const resposta = await fetch(lista.dataset.url, {
+                method: 'POST',
+                body: dados,
+                headers: { Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+            });
+
+            if (resposta.ok) {
+                return;
+            }
+        } catch {
+            // segue para o aviso abaixo
+        }
+
+        window.alert(lista.dataset.erro);
+        window.location.reload();
     },
 }));
 

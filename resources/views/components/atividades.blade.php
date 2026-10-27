@@ -23,6 +23,7 @@
         'etapa.alterada' => 'alterou a etapa',
         'etapa.removida' => 'removeu a etapa',
         'etapa.reordenada' => 'mudou a ordem da etapa',
+        'fases.reordenadas' => 'mudou a ordem das etapas',
         'etapa.ocultada' => 'ocultou do cliente a etapa',
         'etapa.mostrada' => 'mostrou ao cliente a etapa',
         'etapa.iniciada' => 'iniciou a etapa',

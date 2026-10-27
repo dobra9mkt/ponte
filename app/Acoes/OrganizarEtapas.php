@@ -4,6 +4,7 @@ namespace App\Acoes;
 
 use App\Models\Atividade;
 use App\Models\Etapa;
+use App\Models\Frente;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,31 @@ class OrganizarEtapas
         self::trocarOrdem($etapa, Etapa::query()->where('frente_id', $etapa->frente_id), $direcao);
 
         Atividade::registrar('etapa.reordenada', $etapa, ['etapa' => $etapa->titulo]);
+    }
+
+    /**
+     * Grava a ordem vinda do arrastar. Só aceita a lista completa das fases do próprio serviço,
+     * para que IDs de outro serviço nunca sejam tocados.
+     *
+     * @param  list<int>  $ids
+     */
+    public function ordenar(Frente $frente, array $ids): bool
+    {
+        return DB::transaction(function () use ($frente, $ids) {
+            $fases = $frente->etapas()->lockForUpdate()->get()->keyBy('id');
+
+            if (count($ids) !== $fases->count() || array_diff($ids, $fases->keys()->all()) !== []) {
+                return false;
+            }
+
+            foreach ($ids as $indice => $id) {
+                $fases[$id]->forceFill(['ordem' => $indice + 1])->save();
+            }
+
+            Atividade::registrar('fases.reordenadas', $frente);
+
+            return true;
+        });
     }
 
     public function alternarVisibilidade(Etapa $etapa): void

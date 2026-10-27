@@ -48,6 +48,8 @@ Middleware: `web`, `auth`, `papel:cliente`, `ativo`. Modelos ligados à rota **s
 | `/clientes/{cliente}/servicos/novo` | `equipe.frentes.criar` | E7 |
 | `/servicos/{frente}` | `equipe.frentes.ver` | E8 |
 | `/etapas/{etapa}` + ações (`iniciar`, `publicar`, `confirmar`, `complemento`, `concluir`) | `equipe.etapas.*` | E9 |
+| `POST /fases/{etapa}/reabrir`, `POST /fases/{etapa}/voltar-a-fazer` | `equipe.etapas.reabrir`, `equipe.etapas.voltar-a-fazer` | E8 · RN-14a |
+| `PUT /clientes/{cliente}/servicos/{frente}/ordem` | `equipe.frentes.ordem` | E8 · ordem das fases ao arrastar (`FrentePolicy@update`; só aceita a lista completa das fases do próprio serviço) |
 | `POST /fases/{etapa}/aprovacoes`, `PUT/DELETE /aprovacoes/{entrega}`, `PUT /aprovacoes/{entrega}/prazo` | `equipe.aprovacoes.*` | E9 · cards (RN-70 a RN-76) |
 | `/servicos`, `/servicos/{modelo}`, `/servicos-fases/{modeloEtapa}` | `equipe.servicos.*` | E10 · fluxos padrão (RN-10a) |
 | `/consulta`, `/consulta/{cliente}` | `equipe.consulta.*` | E13 · aba Clientes, só GET (RN-81) |

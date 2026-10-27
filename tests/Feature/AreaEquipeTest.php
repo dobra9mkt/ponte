@@ -18,6 +18,7 @@ dataset('rotasDaEquipe', fn () => [
     'criar serviço' => fn () => ['post', rotaEquipe('frentes.store', Cliente::factory()->create())],
     'serviço' => fn () => ['get', rotaEquipe('frentes.ver', [($f = Frente::factory()->create())->cliente_id, $f])],
     'nova fase' => fn () => ['post', rotaEquipe('etapas.store', [($f = Frente::factory()->create())->cliente_id, $f])],
+    'ordem das fases' => fn () => ['put', rotaEquipe('frentes.ordem', [($f = Frente::factory()->create())->cliente_id, $f])],
     'editar fase' => fn () => ['put', rotaEquipe('etapas.update', Etapa::factory()->create())],
     'remover fase' => fn () => ['delete', rotaEquipe('etapas.destroy', Etapa::factory()->create())],
     'iniciar fase' => fn () => ['post', rotaEquipe('etapas.iniciar', Etapa::factory()->create())],
