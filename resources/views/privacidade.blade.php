@@ -1,6 +1,6 @@
 <x-layouts.base titulo="Privacidade">
     <main class="mx-auto max-w-[720px] px-4 py-10">
-        <img src="{{ asset('marca/dobra9-logo-completo.svg') }}" alt="Dobra 9" class="mb-8 h-8 w-auto">
+        <x-marca class="mb-8" />
         <h1 class="text-2xl font-bold">Privacidade no acompanhamento de projetos</h1>
 
         <div class="mt-6 space-y-6">

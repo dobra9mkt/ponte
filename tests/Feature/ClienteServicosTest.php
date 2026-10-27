@@ -231,7 +231,7 @@ it('RN-16c: o cliente vê o nome para o cliente; a equipe continua vendo o nome 
     actingAsCliente($usuario->cliente);
     $this->get(route('frentes.ver', $frente))->assertOk()
         ->assertSee('Desenvolvimento do seu site')->assertDontSee('Criação de sites')
-        ->assertSee(__('fluxo.boas_vindas_titulo'))->assertSee('marca/dobra9-logo-completo.svg', false);
+        ->assertSee(__('fluxo.boas_vindas_titulo'))->assertSee('marca/dobra9-logo.svg', false);
 });
 
 it('RN-16c: serviço criado do fluxo padrão herda o nome para o cliente', function () {

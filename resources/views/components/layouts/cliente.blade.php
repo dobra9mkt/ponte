@@ -7,7 +7,7 @@
     <header class="border-b border-linha/70 bg-white">
         <div class="mx-auto flex max-w-5xl items-center justify-between gap-3 px-5 py-4 sm:px-8">
             <a href="{{ route('inicio') }}" class="flex min-h-11 items-center">
-                <img src="{{ asset('marca/dobra9-logo-completo.svg') }}" alt="Dobra 9 · Soluções digitais para empresas" width="274" height="48" class="h-10 w-auto sm:h-12">
+                <x-marca />
             </a>
             <nav aria-label="{{ __('fluxo.minha_conta') }}" class="flex items-center gap-1 sm:gap-4">
                 <a href="{{ route('conta') }}" aria-label="{{ __('fluxo.minha_conta') }}" class="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-campo px-2 text-sm font-medium text-tec hover:bg-off"><x-icone nome="conta" class="h-5 w-5 sm:h-4 sm:w-4" /><span class="hidden sm:inline">{{ __('fluxo.minha_conta') }}</span></a>
