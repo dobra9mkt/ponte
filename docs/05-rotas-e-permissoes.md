@@ -77,5 +77,5 @@ Recurso de outro cliente → **404** (não 403), para não confirmar que o ID ex
 |---|---|
 | `login` | 5/min por e-mail+IP; 20/min por IP |
 | `convite`, `senha` | 5/min por IP |
-| `uploads` | 30/min por usuário |
+| `uploads` | 10/min por usuário, nas rotas que recebem arquivo: `entregas.ajustes`, `equipe.aprovacoes.update`, `equipe.clientes.store`, `equipe.clientes.update` (SEG-23) |
 | geral autenticado | 120/min por usuário |

@@ -4,6 +4,7 @@ Mais recente primeiro. Cada mudança de regra ganha uma linha aqui antes de ir p
 
 | Data | Decisão | Quem |
 |---|---|---|
+| 27/10/2026 | Verificação final de segurança: envios com arquivo limitados a 10 por minuto por pessoa (SEG-23; o limite `uploads` existia, mas não estava ligado em nenhuma rota) e ações do GitHub da publicação travadas pelo hash exato da versão (SEG-45a) | Rose |
 | 27/10/2026 | Excluir cliente definitivamente da Lixeira libera o e-mail para novo cadastro: o login antigo vira `descartado-<id>:<e-mail original>`. Clientes já descartados antes disso têm o e-mail liberado na publicação (RN-82a) | Rose |
 | 27/10/2026 | Boas-vindas (C3) mais curtas e mais visuais: topo azul-marinho, três cartões com o 5 (dias úteis para responder) e o 3 (rodadas de ajustes) em número grande, um botão só e o WhatsApp como link discreto | Rose |
 | 27/10/2026 | E-mail de convite ao cliente sem "enviar o que precisarmos" (o cliente só envia fotos ao pedir ajustes): fica "acompanhar o projeto da :empresa e aprovar cada etapa" | Rose |

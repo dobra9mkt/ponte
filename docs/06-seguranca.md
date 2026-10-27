@@ -37,7 +37,7 @@ Cada item tem um código (SEG-xx) para citar em testes e commits.
 | SEG-20 | Fora da pasta pública | Disco `privado` em `storage/app/private`; nunca `storage:link` para ele |
 | SEG-21 | Nome seguro | Salvo com UUID; o nome original só é exibido (escapado) |
 | SEG-22 | Tipo verificado pelo conteúdo | Cliente: regra `mimetypes:` (finfo) + lista de RN-50; extensão derivada do tipo detectado. Equipe: qualquer tipo (RN-50), guardado sem extensão executável e sempre servido conforme SEG-24 |
-| SEG-23 | Tamanho limitado | 50 MB por arquivo (`max:51200`) e `upload_max_filesize`/`post_max_size` no PHP |
+| SEG-23 | Tamanho limitado | 50 MB por arquivo (`max:51200`) e `upload_max_filesize`/`post_max_size` no PHP. Envios com arquivo (pedir ajuste, salvar card, cadastro do cliente): no máximo 10 por minuto por pessoa (limite `uploads`), para ninguém sobrecarregar o servidor mandando arquivos grandes sem parar |
 | SEG-24 | Download seguro | Controller com policy; cabeçalhos `Content-Disposition: attachment` (exceto prévia de PNG/JPG/WEBP/PDF), `X-Content-Type-Options: nosniff` e `Content-Security-Policy: sandbox` em toda resposta de arquivo. **Risco aceito:** a prévia de PDF vai sem `sandbox` (com ele o leitor de PDF do navegador não abre); fica com `default-src 'none'` e `nosniff`, e só a equipe envia PDF |
 | SEG-25 | SVG e HTML nunca exibidos | Cliente não envia SVG; SVG, HTML e qualquer tipo fora de PDF/PNG/JPG/WEBP enviados pela equipe são sempre baixados, nunca exibidos inline |
 | SEG-26 | Contrato criptografado | Conteúdo do PDF cifrado com `Crypt::encryptString` antes de gravar |
@@ -79,6 +79,7 @@ Também: `robots.txt` com `Disallow: /`, sem sitemap, sem o caminho da equipe em
 | SEG-43 | Banco com usuário próprio | Usuário MySQL só deste banco, senha longa aleatória |
 | SEG-44 | Logs sem dados pessoais | Não logar corpo de requisição, senhas, tokens nem conteúdo de arquivos |
 | SEG-45 | Bibliotecas atualizadas | `composer audit` e `npm audit` na publicação (falha = não publica); alertas do GitHub ligados |
+| SEG-45a | Ferramentas da publicação travadas | Cada ação do GitHub no `publicar.yml` presa ao código exato da versão (hash do commit), não ao nome (`@v4`), que o dono pode mudar. Uma ação adulterada não chega à chave do servidor. Atualizar = trocar o hash de propósito, conferindo a versão |
 | SEG-46 | E-mails sem conteúdo sensível | O e-mail só avisa e leva ao portal; nunca anexa arquivos nem mostra itens de ajuste |
 
 ## Dados e LGPD

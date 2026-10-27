@@ -301,3 +301,25 @@ it('invasão: depois de entrar como cliente, ninguém vira equipe pela conta', f
 
     expect($this->clienteA->usuario->fresh())->papel->value->toBe('cliente')->cliente_id->toBe($this->clienteA->id)->two_factor_secret->toBeNull();
 });
+
+it('SEG-23: cliente não envia mais de 10 pedidos com arquivo por minuto', function () {
+    $card = cardMostrado($this->faseA);
+    actingAsCliente($this->clienteA);
+
+    foreach (range(1, 10) as $tentativa) {
+        $this->post(route('entregas.ajustes', $card), ['texto' => 'Ajuste '.$tentativa])->assertRedirect();
+    }
+
+    $this->post(route('entregas.ajustes', $card), ['texto' => 'Ajuste 11'])->assertTooManyRequests();
+});
+
+it('SEG-23: equipe não salva mais de 10 cards com arquivo por minuto', function () {
+    $card = cardEmRascunho($this->faseA);
+    actingAsEquipe();
+
+    foreach (range(1, 10) as $tentativa) {
+        $this->put(rotaEquipe('aprovacoes.update', $card), ['nota' => 'Versão '.$tentativa])->assertSessionHasNoErrors();
+    }
+
+    $this->put(rotaEquipe('aprovacoes.update', $card), ['nota' => 'Versão 11'])->assertTooManyRequests();
+});

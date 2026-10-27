@@ -30,7 +30,7 @@ Route::middleware(['cliente', 'throttle:geral'])->group(function () {
     Route::get('/servicos/{frente}', Cliente\FrenteController::class)->can('view', 'frente')->name('frentes.ver');
     Route::get('/entregas/{entrega}', [Cliente\EntregaController::class, 'show'])->can('view', 'entrega')->name('entregas.ver');
     Route::post('/entregas/{entrega}/aprovar', [Cliente\EntregaController::class, 'aprovar'])->can('responder', 'entrega')->name('entregas.aprovar');
-    Route::post('/entregas/{entrega}/ajustes', [Cliente\EntregaController::class, 'ajustes'])->can('responder', 'entrega')->name('entregas.ajustes');
+    Route::post('/entregas/{entrega}/ajustes', [Cliente\EntregaController::class, 'ajustes'])->can('responder', 'entrega')->middleware('throttle:uploads')->name('entregas.ajustes');
     Route::put('/entregas/{entrega}/rascunho', [Cliente\EntregaController::class, 'rascunho'])->can('responder', 'entrega')->name('entregas.rascunho');
     Route::get('/arquivos/{arquivo}', ArquivoController::class)->can('view', 'arquivo')->name('arquivos.ver');
 
@@ -63,10 +63,10 @@ if (filled(config('ponte.caminho_equipe'))) {
 
             Route::get('/clientes', [Equipe\ClienteController::class, 'index'])->can('viewAny', App\Models\Cliente::class)->name('clientes.index');
             Route::get('/clientes/novo', [Equipe\ClienteController::class, 'create'])->can('create', App\Models\Cliente::class)->name('clientes.create');
-            Route::post('/clientes', [Equipe\ClienteController::class, 'store'])->can('create', App\Models\Cliente::class)->name('clientes.store');
+            Route::post('/clientes', [Equipe\ClienteController::class, 'store'])->can('create', App\Models\Cliente::class)->middleware('throttle:uploads')->name('clientes.store');
             Route::get('/clientes/{cliente}', [Equipe\ClienteController::class, 'show'])->can('view', 'cliente')->name('clientes.show');
             Route::get('/clientes/{cliente}/editar', [Equipe\ClienteController::class, 'edit'])->can('update', 'cliente')->name('clientes.edit');
-            Route::put('/clientes/{cliente}', [Equipe\ClienteController::class, 'update'])->can('update', 'cliente')->name('clientes.update');
+            Route::put('/clientes/{cliente}', [Equipe\ClienteController::class, 'update'])->can('update', 'cliente')->middleware('throttle:uploads')->name('clientes.update');
             Route::delete('/clientes/{cliente}', [Equipe\ClienteController::class, 'destroy'])->can('delete', 'cliente')->name('clientes.destroy');
             Route::post('/clientes/{cliente}/enviar-acesso', [Equipe\ClienteAcessoController::class, 'enviar'])->can('enviarAcesso', 'cliente')->name('clientes.enviar-acesso');
             Route::post('/clientes/{cliente}/desativar', [Equipe\ClienteAcessoController::class, 'desativar'])->can('alterarSituacao', 'cliente')->name('clientes.desativar');
@@ -93,7 +93,7 @@ if (filled(config('ponte.caminho_equipe'))) {
             Route::post('/fases/{etapa}/voltar-a-fazer', [Equipe\EtapaController::class, 'voltarParaAFazer'])->can('voltarParaAFazer', 'etapa')->name('etapas.voltar-a-fazer');
             Route::post('/fases/{etapa}/aprovacoes', [Equipe\AprovacaoController::class, 'store'])->can('adicionarAprovacao', 'etapa')->name('aprovacoes.store');
 
-            Route::put('/aprovacoes/{entrega}', [Equipe\AprovacaoController::class, 'update'])->can('editar', 'entrega')->name('aprovacoes.update');
+            Route::put('/aprovacoes/{entrega}', [Equipe\AprovacaoController::class, 'update'])->can('editar', 'entrega')->middleware('throttle:uploads')->name('aprovacoes.update');
             Route::delete('/aprovacoes/{entrega}', [Equipe\AprovacaoController::class, 'destroy'])->can('editar', 'entrega')->name('aprovacoes.destroy');
             Route::put('/aprovacoes/{entrega}/prazo', [Equipe\AprovacaoController::class, 'prazo'])->can('alterarPrazo', 'entrega')->name('aprovacoes.prazo');
             Route::get('/arquivos/{arquivo}', ArquivoController::class)->can('view', 'arquivo')->name('arquivos.ver');
