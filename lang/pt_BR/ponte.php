@@ -122,7 +122,7 @@ return [
         'convite' => [
             'assunto' => 'Seu acesso ao acompanhamento do projeto · Dobra 9',
             'titulo' => 'Olá, :contato!',
-            'texto' => 'Preparamos um espaço para você acompanhar o projeto da :empresa, aprovar as entregas e enviar o que precisarmos. Crie sua senha pelo botão abaixo; o link vale por 72 horas.',
+            'texto' => 'Preparamos um espaço para você acompanhar o projeto da :empresa e aprovar cada etapa. Crie sua senha pelo botão abaixo; o link vale por 72 horas.',
             'botao' => 'Criar minha senha',
         ],
         'senha' => [

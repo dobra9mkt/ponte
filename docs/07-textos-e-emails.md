@@ -83,7 +83,7 @@ itens de ajuste (SEG-46).
 
 | Para | Quando | Assunto | Corpo (resumo) | Botão |
 |---|---|---|---|---|
-| Cliente | "Enviar acesso" (RN-02) | Seu acesso ao acompanhamento do projeto · Dobra 9 | Olá, :contato! Preparamos um espaço para você acompanhar o projeto da :empresa, aprovar as entregas e enviar o que precisarmos. Crie sua senha pelo botão abaixo; o link vale por 72 horas. | Criar minha senha |
+| Cliente | "Enviar acesso" (RN-02) | Seu acesso ao acompanhamento do projeto · Dobra 9 | Olá, :contato! Preparamos um espaço para você acompanhar o projeto da :empresa e aprovar cada etapa. Crie sua senha pelo botão abaixo; o link vale por 72 horas. | Criar minha senha |
 | Cliente (e-mail de avisos) | Mostrar para cliente (RN-72), 1ª a 3ª versão | A :nª versão de :etapa está pronta · :frente | Olá, :nome. A :nª versão da fase :etapa está pronta e aguardando a sua aprovação na Ponte. Você pode aprovar ou pedir ajustes até :prazo. | Responder na Ponte |
 | Cliente (e-mail de avisos) | Mostrar para cliente (RN-72), versão final | Falta só a sua autorização para :etapa · :frente | Olá, :nome. A versão final da fase :etapa está pronta e aguardando a sua autorização na Ponte. Você pode autorizar até :prazo. | Autorizar na Ponte |
 | Cliente (e-mail de avisos) | 1 dia útil antes do prazo (RN-74) | Lembrete: sua resposta sobre :etapa vence em :dia/:mês · :frente | Olá, :nome. A :nª versão da fase :etapa ainda aguarda a sua resposta na Ponte. O prazo termina em :prazo. (Versão final: "ainda aguarda a sua autorização".) | Responder na Ponte (versão final: Autorizar na Ponte) |
