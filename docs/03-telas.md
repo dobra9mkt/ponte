@@ -94,9 +94,9 @@ Menu: Início · Arquivos · Minha conta · Sair
 ```
 
 **Texto da fase recolhido (27/10/2026):** na linha do tempo do cliente (C5) e na tela do serviço da
-equipe (E8), o "O que fazer" de cada fase mostra só as 2 primeiras linhas. Texto longo (mais de 180
-caracteres ou mais de 2 linhas) ganha **Ver mais**, que abre o texto inteiro no próprio card, e **Ver
-menos**, que fecha. Texto curto aparece normal, sem botão.
+equipe (E8), o "O que fazer" de cada fase mostra só a **1ª linha**. Quando o texto não cabe nessa linha
+(medido na própria tela, porque no celular cabe menos), aparece **Ver mais**, que abre o texto inteiro
+no próprio card, e **Ver menos**, que fecha. Texto que cabe aparece normal, sem botão.
 
 **Atualização de 14/10/2026 (RN-17):** a tela do serviço do cliente é uma linha do tempo vertical:
 

@@ -165,14 +165,14 @@ it('RN-14a: os botões de voltar aparecem só quando valem', function () {
     $tela()->assertSee(rotaEquipe('etapas.reabrir', $fase))->assertDontSee(rotaEquipe('etapas.voltar-a-fazer', $fase));
 });
 
-it('na tela da equipe, texto longo da fase vem recolhido com "Ver mais"', function () {
+it('na tela da equipe, o texto de cada fase vem recolhido em 1 linha', function () {
     actingAsEquipe();
     $frente = servicoDoCliente($this->cliente);
-    $frente->etapas()->update(['o_que_fazer' => 'Curto.']);
+    $frente->etapas()->update(['o_que_fazer' => null]);
     $frente->etapas()->where('ordem', 1)->update(['o_que_fazer' => "Primeira linha.\nSegunda linha.\nTerceira linha."]);
 
     $resposta = $this->get(rotaEquipe('frentes.ver', [$this->cliente, $frente]))->assertOk()->assertSee('Terceira linha.');
-    expect(substr_count($resposta->getContent(), __('ponte.texto.ver_mais')))->toBe(1);
+    expect(substr_count($resposta->getContent(), 'x-data="textoRecolhivel"'))->toBe(1);
 });
 
 it('arrastar grava a nova ordem das fases do serviço', function () {

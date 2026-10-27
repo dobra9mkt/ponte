@@ -28,10 +28,30 @@ const alternavel = () => ({
     get classeSeta() {
         return this.aberto ? 'rotate-90' : '';
     },
+});
+
+Alpine.data('textoRecolhivel', () => ({
+    aberto: false,
+    cortado: false,
+    init() {
+        this.$nextTick(() => this.medir());
+    },
+    medir() {
+        if (!this.aberto) {
+            const texto = this.$refs.texto;
+            this.cortado = texto.scrollHeight > texto.clientHeight + 1;
+        }
+    },
+    alternar() {
+        this.aberto = !this.aberto;
+    },
+    get podeAlternar() {
+        return this.cortado || this.aberto;
+    },
     get classeTexto() {
         return this.aberto ? 'line-clamp-none' : '';
     },
-});
+}));
 
 Alpine.data('confirmar', alternavel);
 Alpine.data('alternar', alternavel);
