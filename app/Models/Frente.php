@@ -80,6 +80,12 @@ class Frente extends Model
         return $this->etapas()->where('oculta', false)->where('interna', false)->where('estado', '!=', EstadoEtapa::AFazer);
     }
 
+    /** Fases que o cliente ainda vai ver surgir na linha do tempo (RN-17). */
+    public function temFasesPorComecar(): bool
+    {
+        return $this->etapas()->where('oculta', false)->where('interna', false)->where('estado', EstadoEtapa::AFazer)->exists();
+    }
+
     public function estaAtiva(): bool
     {
         return $this->situacao === SituacaoFrente::Ativa;

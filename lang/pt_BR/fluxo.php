@@ -84,7 +84,7 @@ return [
     'comecamos_em' => 'Começamos em :data',
     'comeco' => 'Início do projeto',
     'periodo' => ':inicio → :fim',
-    'termino_previsto' => 'Término previsto: :data',
+    'proximas_fases' => 'Próximas fases em breve.',
     'revisao_enviada' => 'Enviada em :data',
     'responder_ate' => 'Responder até :data',
     'revisao_aprovada' => 'Aprovada em :data',

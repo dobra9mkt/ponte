@@ -133,10 +133,12 @@
             </li>
         @endforeach
 
-        @if ($frente->prazo_final)
+        @if ($frente->temFasesPorComecar())
             <li class="relative flex items-center gap-5">
-                <span class="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-dashed border-tec/50 bg-white text-tec"><x-icone nome="calendario" class="h-4 w-4" /></span>
-                <p class="text-sm text-mudo">{{ __('fluxo.termino_previsto', ['data' => $frente->prazo_final->format('d/m/Y')]) }}</p>
+                <span class="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-dashed border-tec/50 bg-white text-tec" aria-hidden="true">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
+                </span>
+                <p class="text-sm text-mudo">{{ __('fluxo.proximas_fases') }}</p>
             </li>
         @endif
     </ol>

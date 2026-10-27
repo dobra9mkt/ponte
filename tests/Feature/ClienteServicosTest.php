@@ -61,6 +61,19 @@ it('o texto da fase vem recolhido em 1 linha, inteiro na página para o "Ver mai
         ->and(substr_count($resposta->getContent(), 'line-clamp-1'))->toBe(2);
 });
 
+it('RN-17: o fim da linha do tempo avisa das próximas fases só enquanto houver fase por começar', function () {
+    $usuario = actingAsCliente();
+    $frente = servicoVisivel($usuario->cliente);
+    $frente->forceFill(['prazo_final' => '2027-02-28'])->save();
+
+    $this->get(route('frentes.ver', $frente))->assertOk()
+        ->assertSee(__('fluxo.proximas_fases'))
+        ->assertDontSee('Término previsto: 28/02/2027');
+
+    $frente->etapas()->where('estado', EstadoEtapa::AFazer)->update(['oculta' => true]);
+    $this->get(route('frentes.ver', $frente))->assertOk()->assertDontSee(__('fluxo.proximas_fases'));
+});
+
 it('fase oculta não aparece para o cliente e devolve 404', function () {
     $usuario = actingAsCliente();
     $frente = servicoVisivel($usuario->cliente);

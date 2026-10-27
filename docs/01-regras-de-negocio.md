@@ -84,6 +84,8 @@ Nas telas: **serviço** e **fase**. No código: `Frente` e `Etapa`. Fluxo comple
   "Revisão 4". Cada rodada mostra a resposta (aprovado, ajustes solicitados ou aguardando). Em fase
   concluída, as rodadas ficam fechadas atrás de "Ver histórico (N)"; fases em andamento ficam sempre abertas. Fases
   ocultas e rascunhos não aparecem. A linha vai sendo formada à medida que a equipe inicia e conclui fases (RN-16a).
+  No fim da linha, enquanto houver fase "A fazer" visível, aparece "Próximas fases em breve."; sem fase
+  por começar, a linha termina na última fase. A previsão de término fica só no cabeçalho do serviço.
 - **RN-15** · Um serviço pode depender de outro (ex.: o Layout do Site só começa após a entrega final do
   Rebranding). Na v1 isso é só informativo: um aviso na tela da equipe, sem bloqueio.
 

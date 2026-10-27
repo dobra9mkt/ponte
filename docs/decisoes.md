@@ -4,6 +4,7 @@ Mais recente primeiro. Cada mudança de regra ganha uma linha aqui antes de ir p
 
 | Data | Decisão | Quem |
 |---|---|---|
+| 27/10/2026 | Fim da linha do tempo do cliente: sai o "Término previsto" (repetia o cabeçalho) e entra "Próximas fases em breve.", só enquanto houver fase por começar (RN-17) | Rose |
 | 27/10/2026 | "O que fazer" da fase recolhido em 1 linha (antes 2; a Rose achou grande), com Ver mais (só quando o texto não cabe na tela) e Ver menos abrindo no próprio card (não em janela por cima), na linha do tempo do cliente e na tela do serviço da equipe | Rose |
 | 27/10/2026 | Ordem das fases muda arrastando (alça ⠿, no computador), salva sozinha; Subir/Descer ficam só no celular, dentro dos ⋯. Biblioteca SortableJS, envolvida num módulo do projeto | Rose |
 | 27/10/2026 | Fase pode voltar: "Reabrir fase" (Concluída → Em andamento) e "Voltar para A fazer" (Em andamento → A fazer, só sem aprovação mostrada ao cliente), com confirmação e registro no histórico, sem e-mail (RN-14a) | Rose |
