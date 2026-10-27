@@ -71,6 +71,11 @@ Botão: **Entendi, vamos começar**
 > 14/10/2026: os e-mails de aprovação seguem RN-72 a RN-75 e vão para o **e-mail de avisos** do
 > cliente. Tom sóbrio, sem exclamação (ver `14-fluxo-equipe.md`). Os demais textos do cliente serão
 > revistos na fase do login do cliente.
+>
+> 27/10/2026: e-mails de aprovação ao cliente reescritos. Começam com "Olá, :nome." (primeiro nome
+> do contato; sem nome, só "Olá."), puxam sozinhos o nome da fase e do serviço (o serviço vai no
+> assunto, para quem tem mais de um) e falam "versão", não "revisão". O título dentro do e-mail é o
+> assunto sem o nome do serviço.
 
 Todos: remetente **Dobra 9 <contato@dobra9.com.br>**, layout simples com o logo, um botão, rodapé
 "Você recebeu este e-mail porque tem um projeto com a Dobra 9." Nunca anexar arquivos nem copiar
@@ -79,8 +84,9 @@ itens de ajuste (SEG-46).
 | Para | Quando | Assunto | Corpo (resumo) | Botão |
 |---|---|---|---|---|
 | Cliente | "Enviar acesso" (RN-02) | Seu acesso ao acompanhamento do projeto · Dobra 9 | Olá, :contato! Preparamos um espaço para você acompanhar o projeto da :empresa, aprovar as entregas e enviar o que precisarmos. Crie sua senha pelo botão abaixo; o link vale por 72 horas. | Criar minha senha |
-| Cliente (e-mail de avisos) | Mostrar para cliente (RN-72) | Aprovação pendente: :etapa · :frente | A :rodada de :etapa do :frente está disponível para sua revisão. Prazo para resposta: :prazo. | Revisar |
-| Cliente (e-mail de avisos) | 1 dia útil antes do prazo (RN-74) | Lembrete: aprovação de :etapa vence em :prazo | A :rodada de :etapa do :frente aguarda sua resposta até :prazo. | Revisar |
+| Cliente (e-mail de avisos) | Mostrar para cliente (RN-72), 1ª a 3ª versão | A :nª versão de :etapa está pronta · :frente | Olá, :nome. A :nª versão da fase :etapa está pronta e aguardando a sua aprovação na Ponte. Você pode aprovar ou pedir ajustes até :prazo. | Responder na Ponte |
+| Cliente (e-mail de avisos) | Mostrar para cliente (RN-72), versão final | Falta só a sua autorização para :etapa · :frente | Olá, :nome. A versão final da fase :etapa está pronta e aguardando a sua autorização na Ponte. Você pode autorizar até :prazo. | Autorizar na Ponte |
+| Cliente (e-mail de avisos) | 1 dia útil antes do prazo (RN-74) | Lembrete: sua resposta sobre :etapa vence em :dia/:mês · :frente | Olá, :nome. A :nª versão da fase :etapa ainda aguarda a sua resposta na Ponte. O prazo termina em :prazo. (Versão final: "ainda aguarda a sua autorização".) | Responder na Ponte (versão final: Autorizar na Ponte) |
 | Cliente | Escolha publicada | Suas propostas de :frente chegaram | Preparamos :n propostas para você escolher, com a nossa recomendação. | Ver propostas |
 | Cliente | Pendência liberada | Precisamos de :etapa | Para seguir com o :frente, precisamos que você envie: :etapa, até :prazo. | Enviar agora |
 | Cliente | Revisão devolvida | Seu ajuste não contou como revisão | Corrigimos um erro nosso em :etapa e devolvemos a revisão. | Ver |

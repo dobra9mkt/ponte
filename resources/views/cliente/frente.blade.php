@@ -119,7 +119,7 @@
                                         'ml-auto inline-flex min-h-10 items-center gap-1.5 rounded-campo px-3 font-semibold',
                                         'bg-azul text-white hover:bg-azul-hover' => $pendente,
                                         'text-tec hover:bg-white' => ! $pendente,
-                                    ])>{{ __($pendente && ! $final ? 'fluxo.revisar' : 'fluxo.ver') }}<x-icone nome="seta" class="h-4 w-4" /></a>
+                                    ])>{{ __($pendente && ! $final ? 'fluxo.responder' : 'fluxo.ver') }}<x-icone nome="seta" class="h-4 w-4" /></a>
                                     @if ($pendente && $card->ehUltimaRevisao($frente->revisoes_incluidas))
                                         <p class="w-full text-sm font-medium text-ouro">{{ __('fluxo.ultima_revisao') }}</p>
                                     @endif

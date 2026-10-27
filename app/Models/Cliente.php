@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 /**
  * @property SituacaoCliente $situacao
@@ -78,6 +79,11 @@ class Cliente extends Model
             ->withExists(['etapasVisiveis as aguardando' => fn ($consulta) => $consulta->where('estado', EstadoEtapa::AguardandoCliente)])
             ->oldest('id')
             ->get();
+    }
+
+    public function primeiroNome(): string
+    {
+        return Str::before(trim((string) $this->contato_nome), ' ');
     }
 
     public function emailDeAvisos(): string

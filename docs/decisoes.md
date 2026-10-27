@@ -4,7 +4,10 @@ Mais recente primeiro. Cada mudança de regra ganha uma linha aqui antes de ir p
 
 | Data | Decisão | Quem |
 |---|---|---|
-| 27/10/2026 | Cabeçalho da área do cliente com a mesma marca do site: "DOBRA 9" em azul-marinho com 24 px de altura e a assinatura embaixo | Rose |
+| 27/10/2026 | E-mails sem a linha "Se o botão não funcionar, copie este endereço" (vale para todos); a versão só texto do e-mail continua com o endereço, porque lá não há botão | Rose |
+| 27/10/2026 | E-mails de aprovação ao cliente reescritos (doc 07): "Olá, Nome.", nome da fase e do serviço puxados sozinhos (serviço no assunto), "1ª versão" em vez de "revisão", texto próprio para a versão final ("Falta só a sua autorização") e botões "Responder na Ponte" / "Autorizar na Ponte" | Rose |
+| 27/10/2026 | Botão da revisão pendente na linha do tempo do cliente passa de "Revisar" para "Responder" ("Revisar" se confundia com "Revisão 2 de 3" e parecia gastar uma revisão) | Rose |
+| 27/10/2026 | Cabeçalho da área do cliente igual ao do site: faixa azul-marinho, marca "DOBRA 9" branca com 24 px de altura e a assinatura embaixo, "Minha conta" e "Sair" em branco-suave | Rose |
 | 27/10/2026 | Cabeçalho do serviço do cliente sem barra de progresso: ela contava só as fases já começadas e mostrava metade com o projeto no início. Fica "N fase(s) concluída(s)", sem total, e a previsão. Logo das telas de entrar igual ao cabeçalho do site oficial: marca "DOBRA 9" com 24 px de altura e, embaixo, "Soluções digitais para empresas" em texto pequeno espaçado | Rose |
 | 27/10/2026 | Fim da linha do tempo do cliente: sai o "Término previsto" (repetia o cabeçalho) e entra "Próximas fases em breve.", só enquanto houver fase por começar (RN-17) | Rose |
 | 27/10/2026 | "O que fazer" da fase recolhido em 1 linha (antes 2; a Rose achou grande), com Ver mais (só quando o texto não cabe na tela) e Ver menos abrindo no próprio card (não em janela por cima), na linha do tempo do cliente e na tela do serviço da equipe | Rose |

@@ -1,4 +1,8 @@
 {{ $titulo }}
+@isset($saudacao)
+
+{{ $saudacao }}
+@endisset
 
 {{ $texto }}
 

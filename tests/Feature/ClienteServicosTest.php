@@ -164,6 +164,7 @@ it('RN-17: a linha do tempo mostra o começo, as fases e as rodadas, sem o respo
         ->assertSee('03/11 → 06/11')
         ->assertSee('Revisão 1 de 3')
         ->assertSee('Aguardando sua aprovação')
+        ->assertSee('>'.__('fluxo.responder').'<', false)
         ->assertSee(route('entregas.ver', $card))
         ->assertDontSee('Ana (freelancer)')
         ->assertDontSee('Rascunho interno');
@@ -231,7 +232,7 @@ it('RN-16c: o cliente vê o nome para o cliente; a equipe continua vendo o nome 
     actingAsCliente($usuario->cliente);
     $this->get(route('frentes.ver', $frente))->assertOk()
         ->assertSee('Desenvolvimento do seu site')->assertDontSee('Criação de sites')
-        ->assertSee(__('fluxo.boas_vindas_titulo'))->assertSee('marca/dobra9-logo.svg', false);
+        ->assertSee(__('fluxo.boas_vindas_titulo'))->assertSee('marca/dobra9-logo-branco.svg', false);
 });
 
 it('RN-16c: serviço criado do fluxo padrão herda o nome para o cliente', function () {

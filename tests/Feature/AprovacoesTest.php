@@ -57,7 +57,7 @@ it('RN-72 / RN-73: mostrar para cliente publica, bloqueia, conta 5 dias úteis s
         ->and($card->responder_ate->toDateString())->toBe('2026-11-23')
         ->and($this->fase->fresh()->estado)->toBe(EstadoEtapa::AguardandoCliente);
     Mail::assertQueued(AvisoEntrega::class, fn (AvisoEntrega $mail) => $mail->hasTo('aprovacoes@cliente.com.br')
-        && $mail->evento === 'publicada' && $mail->dados['prazo'] === '23/11/2026' && $mail->url === route('entregas.ver', $card));
+        && $mail->evento === 'publicada' && $mail->dados['prazo'] === '23/11/2026' && $mail->dados['versao'] === '1' && $mail->url === route('entregas.ver', $card));
     expect(Atividade::query()->where('acao', 'card.mostrado')->exists())->toBeTrue();
 
     $this->put(rotaEquipe('aprovacoes.update', $card), ['nota' => 'Mudei'])->assertForbidden();
@@ -224,11 +224,12 @@ it('RN-71: ajustes na 3ª revisão viram a versão final, que o cliente só apro
         ->assertSee(__('equipe.mensagem_cliente'))
         ->assertSee(__('equipe.botao_aprovacao'))->assertSee(__('fluxo.versao_final_botao'));
     $this->put(rotaEquipe('aprovacoes.update', $final), ['nota' => 'Ajustes feitos', 'texto_aprovar' => 'Autorizar publicação no servidor', 'mostrar' => '1'])->assertSessionHasNoErrors();
+    Mail::assertQueued(AvisoEntrega::class, fn (AvisoEntrega $mail) => $mail->evento === 'publicada_final');
     $this->get(rotaEquipe('frentes.ver', [$this->cliente, $this->frente]))->assertSee('Versão final')->assertDontSee('4ª revisão');
 
     actingAsCliente($this->cliente);
     $this->get(route('frentes.ver', $this->frente))->assertSee('Versão final')->assertSee(__('fluxo.versao_final_celebracao'))->assertDontSee('Ajustes feitos')
-        ->assertSee(__('fluxo.ver'))->assertDontSee(__('fluxo.revisar'));
+        ->assertSee('>'.__('fluxo.ver').'<', false)->assertDontSee('>'.__('fluxo.responder').'<', false);
     $this->get(route('entregas.ver', $final))->assertSee('Autorizar publicação no servidor')->assertSee(__('fluxo.versao_final_pendente'))
         ->assertSee(__('fluxo.versao_final_o_que_fazer'))->assertSee('Ajustes feitos')->assertDontSee(__('entregas.observacoes_dobra'))
         ->assertDontSee(__('entregas.pendente'))->assertDontSee(__('entregas.solicitar_ajustes'));

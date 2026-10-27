@@ -111,7 +111,7 @@ Criação de sites                     Previsão de conclusão: 11/11/2026
 ✓ Pesquisa              Concluída        05/10 → 09/10
 ✓ Copy                  Concluída        09/10 → 16/10
 ● Preparo das imagens   Aguardando sua aprovação   13/10 → 16/10
-   ├ 1ª revisão · enviada em 14/10 · responder até 21/10   [Revisar]
+   ├ 1ª revisão · enviada em 14/10 · responder até 21/10   [Responder]
 ○ Desenvolvimento       Próxima          16/10 → 30/10
 ```
 

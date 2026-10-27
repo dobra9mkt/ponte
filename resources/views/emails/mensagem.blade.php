@@ -14,11 +14,15 @@
 </td></tr>
 <tr><td style="background:#ffffff;border-radius:0 0 16px 16px;padding:32px;">
 <h1 style="margin:0 0 16px;font-size:20px;line-height:1.4;color:#071e3d;">{{ $titulo }}</h1>
-<p style="margin:0 0 28px;font-size:16px;line-height:1.65;">{{ $texto }}</p>
+@isset($saudacao)
+<p style="margin:0 0 16px;font-size:16px;line-height:1.65;">{{ $saudacao }}</p>
+@endisset
+@foreach (explode("\n", $texto) as $paragrafo)
+<p style="margin:0 0 {{ $loop->last ? 28 : 16 }}px;font-size:16px;line-height:1.65;">{{ $paragrafo }}</p>
+@endforeach
 <table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="border-radius:10px;background:#2563eb;">
 <a href="{{ $url }}" style="display:inline-block;padding:14px 28px;font-size:16px;font-weight:700;color:#ffffff;text-decoration:none;">{{ $botao }}</a>
 </td></tr></table>
-<p style="margin:28px 0 0;font-size:13px;line-height:1.6;color:#4f5f74;">Se o botão não funcionar, copie este endereço no navegador:<br><span style="word-break:break-all;">{{ $url }}</span></p>
 </td></tr>
 <tr><td style="padding:20px 8px;font-size:12px;line-height:1.6;color:#4f5f74;text-align:center;">{{ __('ponte.emails.rodape') }}</td></tr>
 </table>

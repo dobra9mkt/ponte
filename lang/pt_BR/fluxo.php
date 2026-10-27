@@ -90,7 +90,7 @@ return [
     'responder_ate' => 'Responder até :data',
     'revisao_aprovada' => 'Aprovada em :data',
     'revisao_ajustes' => 'Ajustes solicitados em :data',
-    'revisar' => 'Revisar',
+    'responder' => 'Responder',
     'revisao_de' => 'Revisão :numero de :total',
     'versao_final' => 'Versão final',
     'boas_vindas_titulo' => 'Bem-vindo à Ponte, o sistema que nos conecta a você em cada etapa.',
