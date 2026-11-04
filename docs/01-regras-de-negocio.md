@@ -12,8 +12,11 @@ primeiro e registra em [`decisoes.md`](decisoes.md).
   Expirado → a equipe reenvia.
 - **RN-04** · O cliente entra com e-mail e senha e pode marcar **"lembrar de mim"** (sessão de 30 dias
   naquele aparelho).
-- **RN-05** · A equipe (Rose e Elias) entra pelo caminho secreto e **sempre** com 2FA por aplicativo
+- **RN-05** · A equipe (Rose e Elias) entra pelo caminho secreto, com 2FA por aplicativo
   autenticador. Sem 2FA configurado, a conta da equipe não acessa nada além da tela de configurar o 2FA.
+- **RN-05b** · A senha é pedida em toda entrada. O código do 2FA é pedido **uma vez a cada 30 dias em cada
+  aparelho e navegador**. Aparelho ou navegador novo e cookies apagados pedem o código de novo, e trocar a
+  senha ou o aplicativo autenticador faz todos os aparelhos pedirem o código outra vez.
 - **RN-05a** · A equipe tem **"Esqueci minha senha"** na tela de entrar do caminho secreto. O link só sai
   para conta da equipe ativa **com 2FA já configurado**; trocar a senha não desliga o 2FA (o código
   continua sendo pedido ao entrar), encerra todas as sessões abertas e manda um e-mail avisando que a

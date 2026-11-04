@@ -11,6 +11,7 @@ Cada item tem um código (SEG-xx) para citar em testes e commits.
 |---|---|---|
 | SEG-01 | Área da equipe em caminho secreto, 404 para não-equipe | Prefixo `config('ponte.caminho_equipe')` lido do `.env`; middleware `papel:equipe` faz `abort(404)` |
 | SEG-02 | 2FA obrigatório para a equipe | Fortify `twoFactorAuthentication` com confirmação; middleware `2fa.obrigatorio` só libera E12 até configurar |
+| SEG-02a | Aparelho reconhecido por 30 dias | Depois do código certo, cookie cifrado, `httpOnly`, `secure` e só no caminho secreto, com validade conferida no servidor e assinatura HMAC ligada à senha e ao segredo do 2FA. Só dispensa o código: a senha continua obrigatória (RN-05b) |
 | SEG-03 | Senhas fortes | `Password::min(10)->uncompromised()` (consulta anônima a vazamentos); mesma regra no convite, troca e redefinição |
 | SEG-04 | Senhas guardadas só como hash | `Hash` padrão (bcrypt custo 12 ou argon2id) |
 | SEG-05 | Limite de tentativas | `RateLimiter` `login` 5/min por e-mail+IP; 20/min por IP; e-mail à equipe ao passar de 20 falhas/hora. Código do 2FA: além de 5/min por pessoa+IP, **10 erros por hora por pessoa, de qualquer IP** (trocar de IP não renova as tentativas) |
@@ -106,6 +107,7 @@ continuam valendo para a produção.
 - [ ] Cliente tenta abrir o caminho da equipe e rotas `/equipe`, `/admin`, `/painel` → 404
 - [ ] Login: 6 tentativas erradas → bloqueio; mensagens iguais para e-mail existente e inexistente
 - [ ] "Esqueci a senha" e convite: mesma resposta para e-mail existente e inexistente; token reutilizado → recusado; token vencido → recusado
+- [ ] Aparelho reconhecido: entrada em até 30 dias sem código, mas com senha; depois de 30 dias, com a senha ou o aplicativo trocados, ou com cookie adulterado ou de outra pessoa → pede o código
 - [ ] "Esqueci a senha" da equipe: e-mail de cliente ou de equipe sem 2FA → nenhum link; link de cliente na tela da equipe (e vice-versa) → recusado; depois da troca, entrar ainda pede o código do 2FA
 - [ ] Sessão: cookie com `Secure`, `HttpOnly`, `SameSite`; ID muda após login; sair invalida a sessão
 - [ ] CSRF: POST sem token → 419

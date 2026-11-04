@@ -12,6 +12,7 @@
         'contrato.baixado' => 'baixou o contrato',
         'senha.trocada' => 'trocou a senha',
         'senha.redefinida' => 'redefiniu a senha',
+        'equipe.email_trocado' => 'trocou o e-mail de entrada',
         'sessoes.encerradas' => 'saiu dos outros aparelhos',
         '2fa.configurado' => 'ativou a verificação em duas etapas',
         '2fa.novos_codigos' => 'gerou novos códigos de recuperação',

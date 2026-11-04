@@ -7,6 +7,7 @@ use App\Http\Requests\CodigoDoisFatoresRequest;
 use App\Models\Atividade;
 use App\Models\User;
 use App\Support\Autenticador;
+use App\Support\DispositivoConfiavel;
 use App\Support\LimiteDoisFatores;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class DoisFatoresController extends Controller
         return view('equipe.dois-fatores');
     }
 
-    public function store(CodigoDoisFatoresRequest $request, LimiteDoisFatores $limite, Autenticador $autenticador, TwoFactorAuthenticationProvider $provedor): RedirectResponse
+    public function store(CodigoDoisFatoresRequest $request, LimiteDoisFatores $limite, Autenticador $autenticador, TwoFactorAuthenticationProvider $provedor, DispositivoConfiavel $dispositivo): RedirectResponse
     {
         $usuario = $this->usuarioPendente($request);
 
@@ -48,6 +49,7 @@ class DoisFatoresController extends Controller
         $limite->limpar($usuario);
         $request->session()->forget('equipe_2fa');
         $autenticador->entrar($usuario);
+        $dispositivo->lembrar($usuario);
 
         return redirect()->intended(route('equipe.painel'));
     }

@@ -160,6 +160,7 @@ houver, e trocar senha. Correções nos dados são feitas pela equipe. Sair fica
 ### E1 · Entrar + E2 · Código 2FA
 Tela própria, sem logo grande nem nada que identifique "admin". Depois da senha, pede o código de 6
 dígitos do aplicativo (ou um código de recuperação). Primeira vez: QR code para configurar.
+Em aparelho já reconhecido, a tela do código não aparece por 30 dias (RN-05b).
 Abaixo do botão Entrar, link discreto "Esqueci minha senha" (RN-05a), com as mesmas telas de pedir
 link e criar senha nova do cliente, no layout discreto da equipe.
 
